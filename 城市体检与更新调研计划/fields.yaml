@@ -1,0 +1,77 @@
+# 字段定义 Fields
+# 主题：国内城市体检与城市更新调研
+# 生成日期：2026-09-09
+# 说明：核心字段 = 大王确认的 14 项；扩展字段 = 后台检索推荐的 6 项（一并填充）
+# detail_level 分层：极简(一句话/编号) → 简要(要点) → 详细(完整定义+来源标注)
+
+fields:
+  # ---------- 核心字段（已确认 14 项）----------
+  - name: 名称
+    description: 文件/概念/标准的正式中文名称
+    detail_level: 极简
+  - name: 英文名称
+    description: 对应英文术语（首次出现附英文，符合 AGENTS.md 输出规范）
+    detail_level: 极简
+  - name: 文号或标准号
+    description: 政策文号(如建科〔2021〕63号)或标准号(GB 55038-2025 / TD/T 1063-2021 / T/CACP 0001-2025)
+    detail_level: 极简
+  - name: 发布机构
+    description: 发文机关(住建部/自然资源部/发改委/国务院/财政部/地方人大等)
+    detail_level: 简要
+  - name: 发布日期
+    description: 文件发布日期(YYYY-MM-DD)
+    detail_level: 极简
+  - name: 实施日期
+    description: 文件生效日期(YYYY-MM-DD)；未明确写【待核】
+    detail_level: 极简
+  - name: 现行状态
+    description: 现行有效 / 已废止 / 被替代（与"现行状态细化"联动）
+    detail_level: 简要
+  - name: 概念定义
+    description: 涉及的关键概念及其定义；每条须标 来源文件名+条款号·表号
+    detail_level: 详细
+  - name: 核心内容
+    description: 文件核心要点/主要要求/指标框架
+    detail_level: 详细
+  - name: 适用层级与范围
+    description: 适用行政层级(国家/省/市/团体)与业务领域(体检/更新/改造/社区)
+    detail_level: 简要
+  - name: 指标与阈值
+    description: 涉及的具体指标、维度、管控阈值(如拆建比/拆建占比)；不确定写【待核】
+    detail_level: 详细
+  - name: 引用来源
+    description: 强制——标注 文件名+条款号·表号；网页来源附官方URL。严禁凭记忆编造条款号
+    detail_level: 详细
+  - name: 关联文件
+    description: 上下游关联文件(如试点通知↔指导意见↔技术导则)
+    detail_level: 简要
+  - name: 备注
+    description: 其它需说明事项(如被替代关系、口径变化)
+    detail_level: 极简
+
+  # ---------- 扩展字段（检索推荐 6 项）----------
+  - name: 归口单位
+    description: 业务归口(住建部/自然资源部/发改委/中国城市规划协会等)；解决"同一主题两套体系"区分问题。注意：自然资源口"城市体检评估"(TD/T 1063-2021)与住建口城市体检并列，本期聚焦住建口
+    detail_level: 简要
+  - name: 现行状态细化
+    description: 细分(强制性·现行/已废止/试行/修订中/拟发布)；与实施日期联动
+    detail_level: 简要
+  - name: 引用标准或被引用关系
+    description: 标准间引用链(如 GB 55038-2025 引用并废止 GB 50368-2005)，支撑标准树梳理
+    detail_level: 简要
+  - name: 关联规划上位下位
+    description: 在"国家专项规划—省级方案—市县规划—项目实施方案"中的层级定位
+    detail_level: 简要
+  - name: 实施效果或成效数据
+    description: 试点范围/覆盖城市数/资金规模等量化成效(如106个完整社区试点、22城房屋三项制度、15+20城中央示范)
+    detail_level: 简要
+  - name: 资金保障方式
+    description: 中央财政补助/专项债/PPP社会资本/房屋养老金等；城市更新落地关键变量
+    detail_level: 简要
+
+# 不确定字段列表（按 item 类型选填，deep 阶段自动填充，不适用留空）
+uncertain:
+  - 指标与阈值        # 仅指标/管控类文件适用
+  - 实施效果或成效数据 # 仅已落地/试点类文件适用
+  - 资金保障方式      # 仅政策/资金类文件适用
+  - 引用标准或被引用关系 # 仅标准类文件适用

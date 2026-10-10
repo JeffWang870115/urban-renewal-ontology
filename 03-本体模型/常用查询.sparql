@@ -1,0 +1,65 @@
+# 常用查询（示例）—— 城市体检与更新本体
+# 生成：03-本体模型/_gen_ttl.py（2026-10-10）
+# 说明：查询基于 城市体检-更新本体.ttl 的 ABox（55 个 Indicator 实例）。
+
+
+PREFIX ur: <https://ontology.cset-digital.cn/urban-renewal#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+# Q1. 列出全部指标及其维度 / 分类 / 空间层级
+SELECT ?seq ?name ?dim ?cat ?level WHERE {
+  ?ind a ur:Indicator ; ur:code ?seq ; rdfs:label ?name ;
+       ur:inDimension ?dim ; ur:measures ?level .
+  OPTIONAL { ?ind ur:inCategory ?cat }
+} ORDER BY xsd:integer(?seq)
+
+PREFIX ur: <https://ontology.cset-digital.cn/urban-renewal#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+# Q2. 反查：某数据对象（如 Building）被哪些指标引用（feedsInto）
+SELECT ?ind ?name ?cat WHERE {
+  ur:Building ur:feedsInto ?ind .
+  ?ind rdfs:label ?name . OPTIONAL { ?ind ur:inCategory ?cat }
+} ORDER BY ?name
+
+PREFIX ur: <https://ontology.cset-digital.cn/urban-renewal#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+# Q3. 按「维度 × 分类」统计指标数
+SELECT ?dim (COUNT(?ind) AS ?n) WHERE {
+  ?ind a ur:Indicator ; ur:inDimension ?dim .
+} GROUP BY ?dim ORDER BY DESC(?n)
+
+PREFIX ur: <https://ontology.cset-digital.cn/urban-renewal#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+# Q4. 多对象指标（computedFrom ≥2）及其公式
+SELECT ?ind ?name ?formula (COUNT(DISTINCT ?o) AS ?n) WHERE {
+  ?ind a ur:Indicator ; ur:computedFrom ?o ; rdfs:label ?name .
+  OPTIONAL { ?ind ur:formula ?formula }
+} GROUP BY ?ind ?name ?formula HAVING (COUNT(DISTINCT ?o) >= 2)
+
+PREFIX ur: <https://ontology.cset-digital.cn/urban-renewal#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+# Q5. 主干闭环回溯：问题 → 整治建议 → 更新项目（含直通兼容路径）
+SELECT ?problem ?sug ?proj WHERE {
+  { ?problem a ur:Problem ; ur:proposes ?sug . OPTIONAL { ?sug ur:leadsTo ?proj } }
+  UNION
+  { ?problem a ur:Problem ; ur:triggers ?proj }  # 直通兼容路径
+}
+
+PREFIX ur: <https://ontology.cset-digital.cn/urban-renewal#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+# Q6. 带阈值的指标及其依据版本（校验 threshold 绑定）
+SELECT ?ind ?name ?threshold ?pv WHERE {
+  ?ind a ur:Indicator ; ur:threshold ?threshold ; ur:basedOn ?pol ; rdfs:label ?name .
+  ?pol ur:policyVersion ?pv
+}

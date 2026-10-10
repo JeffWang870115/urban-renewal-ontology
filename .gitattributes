@@ -1,0 +1,11 @@
+# 文本文件统一以 LF 存储，避免 Windows 下换行符被改写（本项目 diff 以 LF 为基准）
+* text=auto eol=lf
+
+# 二进制文件不做行尾转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary
+*.doc binary
+*.docx binary
+*.owl binary
