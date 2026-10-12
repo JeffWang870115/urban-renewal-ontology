@@ -5,9 +5,10 @@
   3) §四 约束：新增 belongsToDimension 基数约束
 只重排被改的两张表；其余不动。
 """
+from pathlib import Path
 import unicodedata
 
-P = r"E:\中设数字\00-01-个人\02-学习\01-wordbuddy\2026_working_space\城市体检与更新本体研究\03-本体模型\属性与关系.md"
+P = str(Path(__file__).resolve().parent) + "\\属性与关系.md"
 
 
 def w(s):

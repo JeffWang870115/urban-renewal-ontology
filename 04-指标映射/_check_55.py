@@ -2,9 +2,10 @@
 """55 项录入模板 vs 本体（类与层级 §2.8 / 属性与关系）机械校验。
 校验：序号连续性、维度∈五级、measures(=采集层级) 匹配、数据对象名∈本体类集合、多对象必带 formula。
 只读，不写任何文件。"""
+from pathlib import Path
 import re, json, os
 
-BASE = r"E:\中设数字\00-01-个人\02-学习\01-wordbuddy\2026_working_space\城市体检与更新本体研究"
+BASE = str(Path(__file__).resolve().parent.parent)
 TMPL = os.path.join(BASE, "04-指标映射", "55项基础指标_录入模板.md")
 CLS = os.path.join(BASE, "03-本体模型", "类与层级.md")
 PROPS = os.path.join(BASE, "03-本体模型", "属性与关系.md")

@@ -4,9 +4,10 @@
 输出：04-指标映射/指标映射表.md（人读）、04-指标映射/55项指标.yaml（机读）。二者同源、永远一致。
 2026-10-09 同步：补 §二-1 指标分类表、头部顶层类 14->16、§五 待核 +2 项、§六 inCategory 覆盖校验。
 2026-10-09 第 3 步：同源输出 55项指标.yaml；登记 D2（RemediationSuggestion 不入 computedFrom 值域）；补 orientation 字段。"""
+from pathlib import Path
 import re, os
 
-BASE = r"E:\中设数字\00-01-个人\02-学习\01-wordbuddy\2026_working_space\城市体检与更新本体研究"
+BASE = str(Path(__file__).resolve().parent.parent)
 D = os.path.join(BASE, "04-指标映射")
 TMPL = os.path.join(D, "55项基础指标_录入模板.md")
 OUT = os.path.join(D, "指标映射表.md")

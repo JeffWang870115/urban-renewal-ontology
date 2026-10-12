@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """补丁：仅修复 属性与关系.md（_apply_0930.py 遗漏 write(p2)）。
 只做两处：① 切换时机条标决议；② 末尾追加「记录对象收纳范围扩展」风险条。"""
+from pathlib import Path
 import os
-BASE = r"E:\中设数字\00-01-个人\02-学习\01-wordbuddy\2026_working_space\城市体检与更新本体研究"
+BASE = str(Path(__file__).resolve().parent.parent)
 p2 = os.path.join(BASE, "03-本体模型", "属性与关系.md")
 L2 = open(p2, encoding="utf-8").read().split("\n")
 

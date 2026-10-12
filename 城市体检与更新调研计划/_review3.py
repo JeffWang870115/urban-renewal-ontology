@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+from pathlib import Path
 import json, os
 
-results = "E:/中设数字/00-01-个人/02-学习/01-wordbuddy/2026_working_space/城市体检与更新本体研究/城市体检与更新调研计划/results"
+results = str(Path(__file__).resolve().parent) + "\\results"
 files = [
     "行业标准与团体标准.json",
     "技术导则.json",

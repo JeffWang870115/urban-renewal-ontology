@@ -4,12 +4,37 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
-    sh:property [ sh:class ur:Community ;
-            sh:maxCount 1 ;
-            sh:message "小区默认 locatedIn 社区（1..1）"@zh ;
+    sh:message "measures 须指向其 inDimension 对应的空间层级"@zh ;
+    sh:or ( [ sh:property [ sh:hasValue ur:HousingDimension ;
+                        sh:path ur:inDimension ],
+                    [ sh:hasValue ur:Building ;
+                        sh:path ur:measures ] ] [ sh:property [ sh:hasValue ur:ResidentialQuarterDimension ;
+                        sh:path ur:inDimension ],
+                    [ sh:hasValue ur:ResidentialQuarter ;
+                        sh:path ur:measures ] ] [ sh:property [ sh:hasValue ur:CommunityDimension ;
+                        sh:path ur:inDimension ],
+                    [ sh:hasValue ur:Community ;
+                        sh:path ur:measures ] ] [ sh:property [ sh:hasValue ur:NeighborhoodDimension ;
+                        sh:path ur:inDimension ],
+                    [ sh:hasValue ur:Neighborhood ;
+                        sh:path ur:measures ] ] [ sh:property [ sh:hasValue ur:UrbanDistrictDimension ;
+                        sh:path ur:inDimension ],
+                    [ sh:hasValue ur:UrbanDistrict ;
+                        sh:path ur:measures ] ] ) ;
+    sh:property [ sh:in ( ur:AverageDailyWaterSupply ur:Bridge ur:Building ur:BuiltUpArea ur:CityRoadLength ur:ConstructionLand ur:CulturalActivityCenter ur:DrainageFacility ur:DualUseInfrastructure ur:EVChargingPile ur:EbikeChargingFacility ur:ElderlyCareFacility ur:EmergencyShelter ur:EmergencyWaterSource ur:FireStation ur:GasPipeline ur:Greenway ur:HistoricBlockBuilding ur:HistoricalBuilding ur:InfantCareFacility ur:LifelineRiskPoint ur:MiddleSchool ur:MultiFunctionSportsGround ur:NegativeEvent ur:OldCommercialBlock ur:OldIndustrialArea ur:OldResidentialBlock ur:ParkGreenSpace ur:ParkingSpace ur:PermanentPopulation ur:Problem ur:ProjectsUnderConstruction ur:ProtectedObject ur:PublicActivityVenue ur:PublicCulturalFacility ur:PublicRentalHousing ur:RailCommutingVolume ur:RailTransitStation ur:RenewalProject ur:ResidentialLand ur:ResidentialQuarter ur:RiskyConstructionWorks ur:Road ur:SafetyAccident ur:SportsVenue ur:TotalCommutingVolume ur:UrbanOperationPlatform ur:UrbanVillage ur:VehicleTravelSpeed ur:Walkway ) ;
+            sh:message "指标须有 ≥1 个数据对象，且取值须在角色类值域内"@zh ;
             sh:minCount 1 ;
-            sh:path ur:locatedIn ] ;
-    sh:targetClass ur:ResidentialQuarter .
+            sh:path ur:computedFrom ],
+        [ sh:maxCount 1 ;
+            sh:message "指标一级分类 0..1（54、55 无分类）"@zh ;
+            sh:path ur:inCategory ],
+        [ sh:message "指标须有依据（basedOn）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:basedOn ] ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "computedFrom 指向 ≥2 个数据对象的指标必须带 formula"@zh ;
+            sh:select "SELECT $this WHERE { $this <https://ontology.cset-digital.cn/urban-renewal#computedFrom> ?o1, ?o2 . FILTER(?o1 != ?o2) FILTER NOT EXISTS { $this <https://ontology.cset-digital.cn/urban-renewal#formula> ?f } }" ] ;
+    sh:targetClass ur:Indicator .
 
 [] a sh:NodeShape ;
     sh:property [ sh:message "政策标准须带 policyVersion（阈值溯源）"@zh ;
@@ -18,55 +43,30 @@
     sh:targetClass ur:PolicyStandard .
 
 [] a sh:NodeShape ;
-    sh:message "measures 须指向其 inDimension 对应的空间层级"@zh ;
-    sh:or ( [ sh:property [ sh:hasValue ur:HousingDimension ;
-                        sh:path ur:inDimension ],
-                    [ sh:hasValue ur:Building ;
-                        sh:path ur:measures ] ] [ sh:property [ sh:hasValue ur:ResidentialQuarter ;
-                        sh:path ur:measures ],
-                    [ sh:hasValue ur:ResidentialQuarterDimension ;
-                        sh:path ur:inDimension ] ] [ sh:property [ sh:hasValue ur:CommunityDimension ;
-                        sh:path ur:inDimension ],
-                    [ sh:hasValue ur:Community ;
-                        sh:path ur:measures ] ] [ sh:property [ sh:hasValue ur:Neighborhood ;
-                        sh:path ur:measures ],
-                    [ sh:hasValue ur:NeighborhoodDimension ;
-                        sh:path ur:inDimension ] ] [ sh:property [ sh:hasValue ur:UrbanDistrict ;
-                        sh:path ur:measures ],
-                    [ sh:hasValue ur:UrbanDistrictDimension ;
-                        sh:path ur:inDimension ] ] ) ;
-    sh:property [ sh:message "指标须有依据（basedOn）"@zh ;
+    sh:property [ sh:class ur:Community ;
+            sh:maxCount 1 ;
+            sh:message "小区默认 locatedIn 社区（1..1）"@zh ;
             sh:minCount 1 ;
-            sh:path ur:basedOn ],
-        [ sh:maxCount 1 ;
-            sh:message "指标一级分类 0..1（54、55 无分类）"@zh ;
-            sh:path ur:inCategory ],
-        [ sh:in ( ur:AverageDailyWaterSupply ur:Bridge ur:Building ur:BuiltUpArea ur:CityRoadLength ur:ConstructionLand ur:CulturalActivityCenter ur:DrainageFacility ur:DualUseInfrastructure ur:EVChargingPile ur:EbikeChargingFacility ur:ElderlyCareFacility ur:EmergencyShelter ur:EmergencyWaterSource ur:FireStation ur:GasPipeline ur:Greenway ur:HistoricBlockBuilding ur:HistoricalBuilding ur:InfantCareFacility ur:LifelineRiskPoint ur:MiddleSchool ur:MultiFunctionSportsGround ur:NegativeEvent ur:OldCommercialBlock ur:OldIndustrialArea ur:OldResidentialBlock ur:ParkGreenSpace ur:ParkingSpace ur:PermanentPopulation ur:Problem ur:ProjectsUnderConstruction ur:ProtectedObject ur:PublicActivityVenue ur:PublicCulturalFacility ur:PublicRentalHousing ur:RailCommutingVolume ur:RailTransitStation ur:RenewalProject ur:ResidentialLand ur:ResidentialQuarter ur:RiskyConstructionWorks ur:Road ur:SafetyAccident ur:SportsVenue ur:TotalCommutingVolume ur:UrbanOperationPlatform ur:UrbanVillage ur:VehicleTravelSpeed ur:Walkway ) ;
-            sh:message "指标须有 ≥1 个数据对象，且取值须在角色类值域内"@zh ;
-            sh:minCount 1 ;
-            sh:path ur:computedFrom ] ;
-    sh:sparql [ a sh:SPARQLConstraint ;
-            sh:message "computedFrom 指向 ≥2 个数据对象的指标必须带 formula"@zh ;
-            sh:select "SELECT $this WHERE { $this <https://ontology.cset-digital.cn/urban-renewal#computedFrom> ?o1, ?o2 . FILTER(?o1 != ?o2) FILTER NOT EXISTS { $this <https://ontology.cset-digital.cn/urban-renewal#formula> ?f } }" ] ;
-    sh:targetClass ur:Indicator .
-
-[] a sh:NodeShape ;
-    sh:property [ sh:maxInclusive 1 ;
-            sh:message "severity ∈ [0,1]（数值化，档位边界【待核】）"@zh ;
-            sh:minInclusive 0 ;
-            sh:path ur:severity ],
-        [ sh:message "问题须绑空间单元（locatedIn，不参与传递）"@zh ;
-            sh:minCount 1 ;
-            sh:path ur:locatedIn ],
-        [ sh:maxCount 1 ;
-            sh:message "问题由且仅由一条评估结果导出（derivedFrom 1..1）"@zh ;
-            sh:minCount 1 ;
-            sh:path ur:derivedFrom ] ;
-    sh:targetClass ur:Problem .
+            sh:path ur:locatedIn ] ;
+    sh:targetClass ur:ResidentialQuarter .
 
 [] a sh:NodeShape ;
     sh:property [ sh:message "指标分类须归属 ≥1 个维度（belongsToDimension，允许一对多）"@zh ;
             sh:minCount 1 ;
             sh:path ur:belongsToDimension ] ;
     sh:targetClass ur:IndicatorCategory .
+
+[] a sh:NodeShape ;
+    sh:property [ sh:message "问题须绑空间单元（locatedIn，不参与传递）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:locatedIn ],
+        [ sh:maxCount 1 ;
+            sh:message "问题由且仅由一条评估结果导出（derivedFrom 1..1）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:derivedFrom ],
+        [ sh:maxInclusive 1 ;
+            sh:message "severity ∈ [0,1]（数值化，档位边界【待核】）"@zh ;
+            sh:minInclusive 0 ;
+            sh:path ur:severity ] ;
+    sh:targetClass ur:Problem .
 

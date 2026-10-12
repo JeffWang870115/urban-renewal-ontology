@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
+from pathlib import Path
 import unicodedata, os
 
 def w(s):
     return sum(2 if unicodedata.east_asian_width(c) in ('W', 'F') else 1 for c in s)
 
-base = r"E:\中设数字\00-01-个人\02-学习\01-wordbuddy\2026_working_space\城市体检与更新本体研究\03-本体模型"
+base = str(Path(__file__).resolve().parent)
 for name in ['属性与关系.md', '类与层级.md']:
     p = os.path.join(base, name)
     b = open(p, 'rb').read()

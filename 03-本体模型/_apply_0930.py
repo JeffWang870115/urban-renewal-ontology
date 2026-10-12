@@ -5,9 +5,10 @@
 3) PolicyIntervention -> RenewalProject 术语对齐（概念清单新增术语）
 写文件统一 newline='\n'，避免 Windows CRLF 陷阱。
 """
+from pathlib import Path
 import os
 
-BASE = r"E:\中设数字\00-01-个人\02-学习\01-wordbuddy\2026_working_space\城市体检与更新本体研究"
+BASE = str(Path(__file__).resolve().parent.parent)
 
 def read(p):
     with open(p, "r", encoding="utf-8") as f:

@@ -13,13 +13,15 @@
   2) ABox 由 04-指标映射/55项指标.yaml 读取（55 个 Indicator 实例）。
   3) 值域/取值含【待核】处一律以注释标出，不臆造。
 """
+from pathlib import Path
 import os
+import itertools
 from rdflib import Graph, Namespace, BNode, Literal, RDF, RDFS, OWL, XSD
 from rdflib.namespace import SH
 from rdflib.collection import Collection
 import yaml
 
-BASE = r"E:\中设数字\00-01-个人\02-学习\01-wordbuddy\2026_working_space\城市体检与更新本体研究"
+BASE = str(Path(__file__).resolve().parent.parent)
 M = os.path.join(BASE, "03-本体模型")
 YAMLP = os.path.join(BASE, "04-指标映射", "55项指标.yaml")
 MD_CLS = os.path.join(M, "类与层级.md")
@@ -377,9 +379,29 @@ sg.bind("owl", OWL)
 
 ALLOWED_CF = sorted({o for it in data["indicators"] for o in it["computedFrom"]})
 
+# 确定性 blank node（2026-10-12 修）：
+# rdflib 的 BNode() 默认取随机 uuid 作节点 id，导致同一张图每次序列化出的
+# 三元组顺序都不同 —— shacl 产物会反复变动、diff 全是噪音，无法判断真实改动。
+# 这里改用固定 id 计数器，并自建 rdf:List（rdflib.Collection 内部同样用随机 BNode）。
+_bn = itertools.count()
+
+
+def BN():
+    return BNode("b%d" % next(_bn))
+
+
+def mlist(items):
+    prev = RDF.nil
+    for it in reversed(list(items)):
+        node = BN()
+        sg.add((node, RDF.first, it))
+        sg.add((node, RDF.rest, prev))
+        prev = node
+    return prev
+
 
 def mk_shape(*, target=None):
-    b = BNode()
+    b = BN()
     if target:
         sg.add((b, RDF.type, SH.NodeShape))
         sg.add((b, SH.targetClass, iri(target)))
@@ -387,7 +409,7 @@ def mk_shape(*, target=None):
 
 
 def prop(shape, path, **kw):
-    p = BNode()
+    p = BN()
     sg.add((shape, SH.property, p))
     sg.add((p, SH.path, iri(path)))
     for k, v in kw.items():
@@ -397,7 +419,7 @@ def prop(shape, path, **kw):
 
 # S1 Indicator 基本约束
 ind = mk_shape(target="Indicator")
-lst = BNode(); Collection(sg, lst, [UR[o] for o in ALLOWED_CF])
+lst = mlist([UR[o] for o in ALLOWED_CF])
 prop(ind, "computedFrom", minCount=Literal(1), **{"in": lst, "message": Literal("指标须有 ≥1 个数据对象，且取值须在角色类值域内", lang="zh")})
 prop(ind, "inCategory", maxCount=Literal(1), message=Literal("指标一级分类 0..1（54、55 无分类）", lang="zh"))
 prop(ind, "basedOn", minCount=Literal(1), message=Literal("指标须有依据（basedOn）", lang="zh"))
@@ -405,17 +427,17 @@ prop(ind, "basedOn", minCount=Literal(1), message=Literal("指标须有依据（
 # S2 measures 与 inDimension 层级匹配（sh:or 五分支撑）
 branches = []
 for dim, lvl in DIM_URI.items():
-    br = BNode()
-    p1 = BNode(); sg.add((p1, SH.path, UR.inDimension)); sg.add((p1, SH.hasValue, UR[lvl]))
-    p2 = BNode(); sg.add((p2, SH.path, UR.measures)); sg.add((p2, SH.hasValue, UR[LV_URI[dim]]))
+    br = BN()
+    p1 = BN(); sg.add((p1, SH.path, UR.inDimension)); sg.add((p1, SH.hasValue, UR[lvl]))
+    p2 = BN(); sg.add((p2, SH.path, UR.measures)); sg.add((p2, SH.hasValue, UR[LV_URI[dim]]))
     sg.add((br, SH.property, p1)); sg.add((br, SH.property, p2))
     branches.append(br)
-orl = BNode(); Collection(sg, orl, branches)
+orl = mlist(branches)
 sg.add((ind, SH["or"], orl))
 sg.add((ind, SH.message, Literal("measures 须指向其 inDimension 对应的空间层级", lang="zh")))
 
 # S3 多对象指标必带 formula（SPARQL 约束）
-sp = BNode()
+sp = BN()
 sg.add((ind, SH.sparql, sp))
 sg.add((sp, RDF.type, SH.SPARQLConstraint))
 sg.add((sp, SH.message, Literal("computedFrom 指向 ≥2 个数据对象的指标必须带 formula", lang="zh")))

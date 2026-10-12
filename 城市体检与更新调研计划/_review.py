@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+from pathlib import Path
 import json, glob, os
 
-results = "E:/中设数字/00-01-个人/02-学习/01-wordbuddy/2026_working_space/城市体检与更新本体研究/城市体检与更新调研计划/results"
+results = str(Path(__file__).resolve().parent) + "\\results"
 files = sorted(glob.glob(results + "/*.json"))
 out = []
 out.append("# 深度调研复核摘要（第1–2批，items 1–12）\n")

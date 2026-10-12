@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 """2026-10-10 校验：belongsToDimension / orientation / 三产物一致性。"""
+from pathlib import Path
 import os
 from rdflib import Graph, Namespace
 from pyshacl import validate
 import yaml
 
-BASE = r"E:\中设数字\00-01-个人\02-学习\01-wordbuddy\2026_working_space\城市体检与更新本体研究"
+BASE = str(Path(__file__).resolve().parent.parent)
 M = os.path.join(BASE, "03-本体模型")
 UR = Namespace("https://ontology.cset-digital.cn/urban-renewal#")
 

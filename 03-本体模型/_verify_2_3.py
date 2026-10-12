@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """校验 2026-09-29 借鉴定（二、三建议）落盘：CRLF、表格列数一致、新增段落存在。"""
+from pathlib import Path
 import os, re
 
-BASE = r"E:\中设数字\00-01-个人\02-学习\01-wordbuddy\2026_working_space\城市体检与更新本体研究"
+BASE = str(Path(__file__).resolve().parent.parent)
 FILES = [
     r"03-本体模型\类与层级.md",
     r"03-本体模型\属性与关系.md",

@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 """修改 属性与关系.md 的 computedFrom / feedsInto 两行，并只重排"一、对象属性"这张表。"""
+from pathlib import Path
 import unicodedata, os, shutil
 
-P = r"E:\中设数字\00-01-个人\02-学习\01-wordbuddy\2026_working_space\城市体检与更新本体研究\03-本体模型\属性与关系.md"
+P = str(Path(__file__).resolve().parent) + "\\属性与关系.md"
 
-BAK = r"E:\中设数字\00-01-个人\02-学习\01-wordbuddy\2026_working_space\城市体检与更新本体研究\03-本体模型\_bak_20260929"
+BAK = str(Path(__file__).resolve().parent) + "\\_bak_20260929"
 os.makedirs(BAK, exist_ok=True)
 shutil.copy2(P, os.path.join(BAK, '属性与关系.md.bak1'))
 print('backup ->', os.path.join(BAK, '属性与关系.md.bak1'))

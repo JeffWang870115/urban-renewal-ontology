@@ -8,9 +8,10 @@
   312 （明确不纳入）  -> 决议：TD/T 1063-2021 新版标准号不纳入（打勾）
 约定：正文批注文字移除，改为「（日期+批注）」决议记录；CRLF=0。
 """
+from pathlib import Path
 import os
 
-BASE = r"E:\中设数字\00-01-个人\02-学习\01-wordbuddy\2026_working_space\城市体检与更新本体研究"
+BASE = str(Path(__file__).resolve().parent.parent)
 
 def read(p):
     with open(p, "r", encoding="utf-8") as f:
