@@ -1411,6 +1411,10 @@ ur:EmergencyShelter a owl:Class ;
     rdfs:subClassOf ur:FacilityObject ;
     ur:feedsInto ur:Indicator_49 .
 
+ur:EventObject a owl:Class ;
+    rdfs:label "事件对象"@zh ;
+    rdfs:subClassOf ur:DataObject .
+
 ur:GasPipeline a owl:Class ;
     rdfs:label "老旧市政燃气管网"@zh ;
     rdfs:subClassOf ur:LineObject ;
@@ -1656,6 +1660,10 @@ ur:管理健全 a ur:IndicatorCategory ;
     ur:belongsToDimension ur:CommunityDimension,
         ur:ResidentialQuarterDimension .
 
+ur:HeritageObject a owl:Class ;
+    rdfs:label "历史文化保护实体"@zh ;
+    rdfs:subClassOf ur:DataObject .
+
 ur:Indicator_38 a ur:Indicator ;
     rdfs:label "轨道站点周边覆盖通勤比例"@zh ;
     rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表11"@zh ;
@@ -1672,6 +1680,10 @@ ur:Indicator_38 a ur:Indicator ;
     ur:orientation "正向"@zh ;
     ur:threshold "超大≥30%、特大≥20%、大≥10%"@zh ;
     ur:unit "%"@zh .
+
+ur:ManagementObject a owl:Class ;
+    rdfs:label "管理对象"@zh ;
+    rdfs:subClassOf ur:DataObject .
 
 ur:OldBlock a owl:Class ;
     rdfs:label "老旧街区"@zh ;
@@ -1706,6 +1718,14 @@ ur:Community a owl:Class ;
 ur:EvaluationRule a owl:Class ;
     rdfs:label "评价规则"@zh .
 
+ur:LineObject a owl:Class ;
+    rdfs:label "线路对象"@zh ;
+    rdfs:subClassOf ur:DataObject .
+
+ur:SpaceObject a owl:Class ;
+    rdfs:label "空间对象"@zh ;
+    rdfs:subClassOf ur:DataObject .
+
 ur:产城融合职住平衡 a ur:IndicatorCategory ;
     rdfs:label "产城融合职住平衡"@zh ;
     ur:belongsToDimension ur:UrbanDistrictDimension .
@@ -1731,6 +1751,10 @@ ur:ExaminationActivity a owl:Class ;
 
 ur:Fund a owl:Class ;
     rdfs:label "资金"@zh .
+
+ur:Land a owl:Class ;
+    rdfs:label "用地"@zh ;
+    rdfs:subClassOf ur:DataObject .
 
 ur:RenewalApproach a owl:Class ;
     rdfs:label "更新方式"@zh .
@@ -1815,6 +1839,10 @@ ur:Problem a owl:Class ;
 
 ur:IndicatorCategory a owl:Class ;
     rdfs:label "指标分类"@zh .
+
+ur:FacilityObject a owl:Class ;
+    rdfs:label "设施对象"@zh ;
+    rdfs:subClassOf ur:DataObject .
 
 ur:SpatialUnit a owl:Class ;
     rdfs:label "空间单元"@zh .

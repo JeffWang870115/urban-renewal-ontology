@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>G6 A/B 验证</title>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:#0e1620;
+  font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+#c{position:absolute;inset:0}
+#ui{position:absolute;right:14px;top:14px;display:flex;gap:8px;flex-wrap:wrap;z-index:5}
+#ui button{background:rgba(255,255,255,.07);color:#dfe8f2;border:1px solid rgba(255,255,255,.16);
+  border-radius:8px;padding:6px 11px;font-size:12px;cursor:pointer;font-family:inherit}
+#ui button.on{background:#5AA3E8;border-color:#5AA3E8;color:#08131f}
+#legend{position:absolute;left:14px;bottom:36px;display:flex;gap:14px;flex-wrap:wrap;
+  z-index:5;font-size:12px;color:#c7d3e0;max-width:70%}
+#legend span i{display:inline-block;width:9px;height:9px;border-radius:50%;
+  margin-right:5px;vertical-align:middle}
+#hud{position:absolute;left:14px;bottom:12px;color:#8fa3b8;font-size:12px;
+  font-family:ui-monospace,Consolas,monospace;z-index:5}
+</style>
+</head>
+<body>
+<div id="c"></div>
+<div id="ui">
+  <button id="bOverall">overall 总览</button>
+  <button id="bAll">显示全部标签</button>
+</div>
+<div id="legend"></div>
+<div id="hud">loading…</div>
+<script src="./g6.min.js"></script>
+<script src="./data.js"></script>
+<script>
+window.onerror = function (m, s, l) { document.title = 'ERR:' + m + '@' + l; return false; };
+
+var P = { core:'#5AA3E8', metric:'#9C93EE', axis:'#4CC79E',
+          space:'#F0865C', renew:'#9FCB5C', policy:'#EFB44A', neutral:'#A8A69D' };
+var D = window.G6DATA;
+var Q = new URLSearchParams(location.search);
+var CFG = Q.get('cfg') || 'A';
+var SHOW_ALL = Q.get('all') === '1';
+var NF = 11;
+var ZK = 1, TX = 0, TY = 0;
+
+var NODE = {}; D.nodes.forEach(function (n) { NODE[n.id] = n; });
+var NB = {};
+D.edges.forEach(function (e) {
+  (NB[e.source] = NB[e.source] || []).push(e.target);
+  (NB[e.target] = NB[e.target] || []).push(e.source);
+});
+
+function nodeSize(d) { return d.data.top ? 20 : (d.data.nc >= 1 ? 15 : 10); }
+
+(function seed() {
+  var DL = Object.keys(D.domNames), CX = 620, CY = 470, R = 320;
+  DL.forEach(function (dk, i) {
+    var a = i / DL.length * Math.PI * 2 - Math.PI / 2;
+    var ax = CX + Math.cos(a) * R, ay = CY + Math.sin(a) * R, k = 0;
+    D.nodes.forEach(function (n) {
+      if (n.combo !== dk) return;
+      var ang = k * 2.399963, rad = 10 + 14 * Math.sqrt(k);
+      n.style = n.style || {};
+      n.style.x = Math.round(ax + Math.cos(ang) * rad);
+      n.style.y = Math.round(ay + Math.sin(ang) * rad);
+      n.style.labelText = n.data.cn;
+      n.style.labelFontSize = NF;
+      n.style.labelOffsetY = 3;
+      n.style.lineWidth = 1.2;
+      k++;
+    });
+  });
+})();
+
+var LAYOUTS = {
+  A: { type: 'combo-combined',
+       combo: { type: 'force', preventOverlap: true, nodeSize: 340, nodeSpacing: 30 },
+       force: { type: 'force', preventOverlap: true, nodeSize: 44, nodeSpacing: 8, linkDistance: 38 } },
+  B: { type: 'combo-combined',
+       combo: { type: 'force' },
+       force: { type: 'force', preventOverlap: true, nodeSize: 52, nodeSpacing: 10 } },
+  C: { type: 'preset' }
+};
+
+var g = null, SEL = null, tmr = null, LASTN = 0;
+
+function view() {
+  try { var z = g.getZoom(); if (z) ZK = z; } catch (e) {}
+  try {
+    var t = g.getTransforms();
+    if (t && t.length >= 3) { TX = t[0]; TY = t[1]; if (t[2]) { ZK = t[2]; } }
+  } catch (e) {}
+}
+function scr(x, y) {
+  try {
+    var p = g.getViewportByCanvas([x, y]);
+    if (p && p.length >= 2) return p;
+  } catch (e) {}
+  return [x * ZK + TX, y * ZK + TY];
+}
+function wpx(s, fs) {
+  var w = 0;
+  for (var i = 0; i < s.length; i++) w += (s.charCodeAt(i) > 255 ? 1.0 : 0.56) * fs;
+  return w;
+}
+function short(s) { return s.length > 9 ? s.slice(0, 9) + '…' : s; }
+
+function visibleLabels() {
+  var out = {}, cand = [];
+  D.nodes.forEach(function (n) {
+    var s = n.style;
+    if (!s || s.x == null) return;
+    if (SEL) {
+      if (n.id !== SEL && (NB[SEL] || []).indexOf(n.id) < 0) return;
+    } else if (!(SHOW_ALL || n.data.top || n.data.nc >= 1 || ZK >= 1.6)) return;
+    var sc = scr(s.x, s.y);
+    cand.push({
+      n: n, x: sc[0], y: sc[1] + (nodeSize(n) / 2 + 4) * ZK,
+      prio: (n.data.top ? 4 : 0) + (n.data.nc >= 1 ? 2 : 0)
+            + (SEL === n.id ? 16 : 0) + (SEL ? 8 : 0)
+    });
+  });
+  cand.sort(function (a, b) { return b.prio - a.prio; });
+  var placed = [];
+  cand.forEach(function (c) {
+    var txt = short(c.n.data.cn);
+    var w = wpx(txt, NF), h = NF * 1.5;
+    var b = { x0: c.x - w / 2 - 2, x1: c.x + w / 2 + 2, y0: c.y - h / 2 - 2, y1: c.y + h / 2 + 2 };
+    var hit = placed.some(function (q) {
+      return !(b.x1 < q.x0 || b.x0 > q.x1 || b.y1 < q.y0 || b.y0 > q.y1);
+    });
+    if (!hit) { placed.push(b); out[c.n.id] = txt; }
+  });
+  return out;
+}
+
+function refresh() {
+  if (!g) return;
+  view();
+  var vis = visibleLabels();
+  LASTN = Object.keys(vis).length;
+  try {
+    g.updateNodeData(D.nodes.map(function (n) {
+      return { id: n.id, style: { labelText: vis[n.id] || ' ' } };
+    }));
+    g.draw();
+  } catch (e) { document.title = 'ERR:refresh:' + e.message; }
+  hud();
+}
+function schedule() { if (g) view(); clearTimeout(tmr); tmr = setTimeout(refresh, 70); }
+
+function hud() {
+  var id = SEL ? (NODE[SEL] ? NODE[SEL].data.cn : SEL) : '—';
+  document.getElementById('hud').textContent =
+    'cfg=' + CFG + ' | 节点 ' + D.nodes.length + ' 边 ' + D.edges.length
+    + ' | zoom ' + ZK.toFixed(2) + ' 平移 ' + Math.round(TX) + ',' + Math.round(TY)
+    + ' | 标签 ' + LASTN + ' | 焦点 ' + id;
+}
+
+function buildCfg(layout, withBehaviors) {
+  var cfg = {
+    container: 'c',
+    autoFit: 'view',
+    padding: 26,
+    background: '#0e1620',
+    data: { nodes: D.nodes, edges: D.edges, combos: D.combos },
+    node: {
+      style: {
+        size: nodeSize,
+        fill: function (d) { return P[d.data.dom]; },
+        fillOpacity: 0.92,
+        stroke: function (d) { return P[d.data.dom]; },
+        lineWidth: function () { return 1.2 / ZK; },
+        halo: true,
+        haloStroke: function (d) { return P[d.data.dom]; },
+        labelFill: '#EAF1F8',
+        labelFontSize: function () { return NF / ZK; },
+        labelPlacement: 'bottom',
+        labelOffsetY: function () { return 3 / ZK; },
+        labelBackground: true,
+        labelBackgroundFill: '#0e1620',
+        labelBackgroundOpacity: 0.62,
+        labelBackgroundRadius: 3,
+        cursor: 'pointer'
+      }
+    },
+    edge: {
+      type: 'quadratic',
+      style: {
+        stroke: '#4d6c8e',
+        lineWidth: function () { return 1 / ZK; },
+        opacity: 0.5,
+        endArrow: false
+      }
+    },
+    combo: {
+      style: {
+        fill: 'rgba(255,255,255,.03)',
+        stroke: '#33465c',
+        lineWidth: 1,
+        radius: 16,
+        padding: 14,
+        labelText: function (d) { return d.data.cn; },
+        labelFill: '#9fb4c9',
+        labelFontSize: 12,
+        labelPlacement: 'top'
+      }
+    },
+    layout: layout
+  };
+  if (withBehaviors) cfg.behaviors = ['zoom-canvas', 'drag-canvas', 'drag-element'];
+  return cfg;
+}
+
+function init() {
+  try {
+    g = new G6.Graph(buildCfg(LAYOUTS[CFG] || LAYOUTS.A, true));
+    g.render();
+  } catch (e) { document.title = 'ERR:build:' + e.message; return; }
+  document.title = 'OK:' + CFG;
+  if (Q.get('diag') === '1') {
+    var ms = Object.getOwnPropertyNames(Object.getPrototypeOf(g))
+      .filter(function (n) { return /zoom|trans|matrix|viewport|fit|camera|center|focus/i.test(n); });
+    document.getElementById('hud').textContent = 'METHODS: ' + ms.join(' ');
+    return;
+  }
+  g.on('viewportchange', schedule);
+  g.on('node:click', function (evt) {
+    var id = evt && evt.target && evt.target.id ? evt.target.id : (evt && evt.itemId);
+    if (id && NODE[id]) spotlight(id);
+  });
+  setTimeout(function () {
+    try { g.fitView(); } catch (e) {}
+    refresh();
+  }, 300);
+}
+
+function spotlight(id) {
+  SEL = id;
+  var d = NODE[id];
+  if (!d || !d.style) { refresh(); return; }
+  var W = 1400, H = 900;
+  try { var sz = g.getSize(); W = sz[0]; H = sz[1]; } catch (e) {}
+  var z = Math.max(2.0, ZK < 1.5 ? 2.0 : ZK);
+  try {
+    g.zoomTo(z);
+    g.translateTo([W / 2 - d.style.x * z, H / 2 - d.style.y * z]);
+  } catch (e) { document.title = 'ERR:zoom:' + e.message; }
+  schedule();
+}
+function overall() {
+  SEL = null;
+  try { g.fitView(); } catch (e) {}
+  schedule();
+}
+
+document.getElementById('bOverall').onclick = overall;
+var bAll = document.getElementById('bAll');
+bAll.onclick = function () {
+  SHOW_ALL = !SHOW_ALL;
+  bAll.className = SHOW_ALL ? 'on' : '';
+  bAll.textContent = SHOW_ALL ? '收起标签' : '显示全部标签';
+  refresh();
+};
+if (SHOW_ALL) { bAll.className = 'on'; bAll.textContent = '收起标签'; }
+(function legend() {
+  var h = '';
+  Object.keys(D.domNames).forEach(function (k) {
+    h += '<span><i style="background:' + (P[k] || '#888') + '"></i>' + D.domNames[k] + '</span>';
+  });
+  document.getElementById('legend').innerHTML = h;
+})();
+init();
+</script>
+</body>
+</html>

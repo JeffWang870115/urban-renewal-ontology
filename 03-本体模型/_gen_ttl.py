@@ -6,7 +6,10 @@
   - 03-本体模型/常用查询.sparql          （示例 SPARQL）
 
 设计要点：
-  1) TBox 结构在脚本内显式声明（每条注明来源小节），生成前**断言每个 URI 均出现在源 md**（防漂移）。
+  1) TBox 结构在脚本内显式声明（每条注明来源小节）。生成前跑**两条断言**：
+     ① 正向防漂移——每个已声明 URI 均出现在源 md；
+     ② 反向引用闭合（2026-10-11 新增）——凡被当作父类、或被属性定义域/值域引用的类，
+        都必须已在脚本中声明，否则直接失败（防「被 subClassOf 引用却未声明」）。
   2) ABox 由 04-指标映射/55项指标.yaml 读取（55 个 Indicator 实例）。
   3) 值域/取值含【待核】处一律以注释标出，不臆造。
 """
@@ -81,8 +84,11 @@ SUB = {
     "EventObject": [("NegativeEvent", "负面事件"), ("SafetyAccident", "生产安全事故")],                # §2.8.2 / §2.9.1
     "ManagementObject": [("PublicRentalHousing", "公租房轮候记录"), ("RiskyConstructionWorks", "危险性较大分部分项工程"),
                          ("UrbanOperationPlatform", "城市运行管理平台")],                             # §2.8.2 / §2.9.1
-    "DataObject": None,
 }
+# ⚠ 2026-10-11 修：此处原有重复键 `"DataObject": None,`，因 Python 字典重复键取末值，
+#    把上面 DataObject 一行的 7 个父类（FacilityObject/SpaceObject/LineObject/HeritageObject/
+#    EventObject/ManagementObject/Land）整个覆盖掉，导致「被 subClassOf 引用但未声明」的类。
+#    已删除该行，并新增反向防漂移断言（见下），此类问题不再静默通过。
 # DataObject 下的基础量（§2.8.3）与散件——直接挂 DataObject
 BASIC_Q = [("BuiltUpArea", "建成区面积"), ("PermanentPopulation", "常住人口数"), ("CityRoadLength", "城市道路长度"),
            ("RailCommutingVolume", "轨道交通通勤量"), ("TotalCommutingVolume", "城市总通勤量"),
@@ -207,6 +213,37 @@ if miss:
         print("   ", k, u)
     raise SystemExit(1)
 print("防漂移断言：全部 URI 均见于源 md  ✓")
+
+# ---------- 反向防漂移断言：被引用的类必须已被声明（2026-10-11 新增） ----------
+# 教训：上面的断言只查「已声明的 URI 是否见于源 md」，是**单向**的；
+# 当 SUB 中出现重复键 `"DataObject": None,` 把 7 个父类挤掉后，无人报错，
+# 于是生成了「被 rdfs:subClassOf 引用、却从未声明为 owl:Class」的类。
+# 下面把方向反过来查一遍：凡被当作父类、被当作属性定义域/值域引用的类，
+# 都必须在脚本里被显式声明，否则直接失败。
+declared_cls = {u for u, _ in TOP + AUX_TOP + BASIC_Q} | {"DataObjectRoleUnion"}
+for _lst in SUB.values():
+    if _lst:
+        declared_cls |= {u for u, _ in _lst}
+
+dangling = []
+for parent, lst in SUB.items():
+    if lst and parent not in declared_cls:
+        dangling.append(("SUB 父类未声明", parent))
+for p, (_cn, dom, rng, _ch) in OBJ.items():
+    for d in list(dom) + list(rng):
+        if d != "__UNION__" and d not in declared_cls:
+            dangling.append((f"对象属性 {p} 引用未声明类", d))
+for p, (_cn, dom, _typ) in DATA.items():
+    if dom != "__ALL__":
+        for d in dom:
+            if d not in declared_cls:
+                dangling.append((f"数据属性 {p} 引用未声明类", d))
+if dangling:
+    print("!! 反向防漂移断言失败（被引用但未声明的类）:")
+    for k, u in dangling:
+        print("   ", k, u)
+    raise SystemExit(1)
+print(f"反向防漂移断言：{len(declared_cls)} 个类的引用闭合（无悬挂引用）  ✓")
 
 # ---------- 1. 构建 TTL ----------
 g = Graph()

@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="modern">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>城市体检与更新本体 · 高保真原型 · 阶段一</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font);background:var(--bg);color:var(--text);overflow:hidden;
+  -webkit-font-smoothing:antialiased}
+
+/* ===== 语义域色体系（视觉规范 v1-20261011） ===== */
+:root{
+  --d-core:#185FA5;   --d-core-s:#E6F1FB;
+  --d-metric:#534AB7; --d-metric-s:#EEEDFE;
+  --d-axis:#0F6E56;   --d-axis-s:#E1F5EE;
+  --d-space:#993C1D;  --d-space-s:#FAECE7;
+  --d-renew:#3B6D11;  --d-renew-s:#EAF3DE;
+  --d-policy:#854F0B; --d-policy-s:#FAEEDA;
+  --d-neutral:#5F5E5A;--d-neutral-s:#F1EFE8;
+}
+html[data-theme="modern"]{
+  --font:"Inter","Segoe UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --bg:#f6f6f3; --bg2:#f0f0ec;
+  --panel:#ffffff; --panel2:#fafaf8; --panel3:#f2f2ee;
+  --border:#e5e5df; --border2:#d6d6cf;
+  --text:#1c1c1a; --text2:#6f6d66; --text3:#9b998f;
+  --accent:#0f766e; --accent-soft:rgba(15,118,110,.10);
+  --ok:#15803d; --warn:#a16207;
+  --radius:14px; --radius-lg:20px; --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.06);
+  --head-h:62px; --foot-h:28px;
+}
+
+/* ===== 框架 ===== */
+header{height:var(--head-h);display:flex;align-items:center;gap:16px;padding:0 18px;
+  background:var(--panel);border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;gap:9px;white-space:nowrap}
+.brand i{width:7px;height:7px;border-radius:2px;background:var(--d-core);display:inline-block}
+.brand b{font-size:15px;font-weight:600;letter-spacing:.3px}
+.brand span{font-size:10.5px;color:var(--text3);letter-spacing:.5px;
+  font-family:"SFMono-Regular",Consolas,monospace}
+.search{flex:1;max-width:360px;position:relative}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text3)}
+.search input{width:100%;height:34px;padding:0 12px 0 33px;border-radius:8px;
+  border:1px solid var(--border);background:var(--panel2);color:var(--text);
+  font-family:var(--font);font-size:13px;outline:none;transition:.2s}
+.search input:focus{border-color:var(--accent);background:var(--panel);box-shadow:0 0 0 3px var(--accent-soft)}
+.views{margin-left:auto;display:flex;gap:4px;background:var(--panel3);padding:3px;border-radius:10px}
+.vbtn{height:28px;padding:0 14px;border-radius:8px;border:none;background:transparent;cursor:pointer;
+  font-family:var(--font);font-size:12.5px;color:var(--text2);transition:.18s}
+.vbtn:hover{color:var(--text)}
+.vbtn.on{background:var(--panel);color:var(--text);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+main{height:calc(100vh - var(--head-h) - var(--foot-h));display:grid;
+  grid-template-columns:264px 1fr 344px;gap:12px;padding:12px}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.ph{padding:10px 14px;font-size:11px;letter-spacing:.8px;color:var(--text3);
+  border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;
+  text-transform:uppercase;font-weight:600;flex:none}
+.ph em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:400;font-size:11px;margin-left:auto}
+footer{height:var(--foot-h);display:flex;align-items:center;gap:12px;padding:0 20px;font-size:11px;
+  color:var(--text3);border-top:1px solid var(--border);background:var(--panel)}
+footer b{font-weight:600;color:var(--text2)}
+footer .warn{color:var(--warn);cursor:pointer;text-decoration:underline dotted}
+footer .right{margin-left:auto;font-family:"SFMono-Regular",Consolas,monospace}
+
+/* ===== 类层级树 ===== */
+.tree{flex:1;min-height:0;overflow:auto;padding:6px 6px 16px}
+.tree::-webkit-scrollbar,.detail::-webkit-scrollbar{width:8px}
+.tree::-webkit-scrollbar-thumb,.detail::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px}
+.grp{font-size:10px;letter-spacing:.7px;font-weight:700;text-transform:uppercase;
+  padding:12px 10px 5px;display:flex;align-items:center;gap:6px}
+.grp i{width:3px;height:11px;border-radius:2px;background:var(--gc)}
+.grp span{color:var(--text3)}
+.item{display:flex;align-items:center;gap:7px;padding:5px 8px;border-radius:8px;cursor:pointer;
+  font-size:12.5px;color:var(--text2);transition:.15s;position:relative}
+.item::before{content:'';position:absolute;left:0;top:5px;bottom:5px;width:3px;border-radius:2px;
+  background:var(--nv,transparent);opacity:0;transition:.18s}
+.item:hover{background:var(--panel3);color:var(--text)}
+.item:hover::before{opacity:.45}
+.item.sel{background:var(--nv-s);color:var(--nv);font-weight:600}
+.item.sel::before{opacity:1}
+.item .caret{width:11px;font-size:9px;color:var(--text3);transition:transform .2s;display:inline-block;flex:none}
+.item.open .caret{transform:rotate(90deg)}
+.item .cn{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item .n{font-size:10px;padding:0 6px;border-radius:20px;background:var(--panel3);
+  color:var(--text3);border:1px solid var(--border);font-family:"SFMono-Regular",Consolas,monospace}
+.item.sel .n{background:#fff;border-color:var(--nv);color:var(--nv)}
+.kids{display:none;padding-left:13px;margin-left:13px;border-left:1px dashed var(--border)}
+.kids.show{display:block}
+
+/* ===== 视图容器 ===== */
+.stage{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
+.view{flex:1;min-height:0;display:none}
+.view.on{display:flex;flex-direction:column}
+
+/* 图谱（深色画布 · 混合版） */
+html[data-theme="modern"] .canvas{
+  --edge:#4d6c8e; --text3:rgba(255,255,255,.55);
+  --d-core:#5AA3E8;   --d-core-s:rgba(70,150,230,.30);
+  --d-metric:#A79DF5; --d-metric-s:rgba(127,119,221,.30);
+  --d-axis:#55D3A8;   --d-axis-s:rgba(29,158,117,.30);
+  --d-space:#F58F66;  --d-space-s:rgba(216,90,48,.32);
+  --d-renew:#A9D963;  --d-renew-s:rgba(99,153,34,.30);
+  --d-policy:#F5BC55; --d-policy-s:rgba(239,159,39,.30);
+  --d-neutral:#B3B1A7;--d-neutral-s:rgba(95,94,90,.32);
+}
+.canvas{flex:1;min-height:0;position:relative;
+  background:radial-gradient(circle at 1px 1px,rgba(255,255,255,.075) 1px,transparent 0) 0 0/24px 24px,#101820}
+#graph{width:100%;height:100%;display:block;cursor:grab;--zk:1;--ss:1}
+#graph:active{cursor:grabbing}
+#world{transform-origin:0 0;will-change:transform;
+  transition:transform .26s cubic-bezier(.22,.61,.36,1)}
+#world.nofx{transition:none}
+.edge{stroke:var(--edge);stroke-width:1.3;fill:none;vector-effect:non-scaling-stroke;
+  transition:stroke .25s,opacity .25s,stroke-width .25s}
+.edge.sub{opacity:.62}
+.edge.core{stroke:var(--d-core);stroke-width:2.2;opacity:.95}
+.edge.dash{stroke-dasharray:5 5;opacity:.5}
+.edge.inst{stroke-width:.85;opacity:.4}
+.edge.faded{opacity:.05}
+.edge.hot{stroke:#fff;stroke-width:2.5;opacity:.98}
+.elabel{font-size:8.5px;fill:var(--text3);pointer-events:none;opacity:.85;
+  font-family:"SFMono-Regular",Consolas,monospace;text-anchor:middle}
+.gnode{cursor:pointer}
+.gnode circle{stroke-width:1.8;vector-effect:non-scaling-stroke;
+  transition:fill .28s,stroke .22s,stroke-width .22s,opacity .3s}
+.gnode text{font-family:var(--font);text-anchor:middle;dominant-baseline:middle;
+  pointer-events:none;font-weight:600}
+/* 标签独立成层，永远画在所有节点之上（否则会被别的节点圆盖住） */
+.nlabel{font-family:var(--font);text-anchor:middle;dominant-baseline:middle;
+  pointer-events:none;font-weight:600;transition:opacity .22s;
+  font-size:calc(13.5px / var(--zk) / var(--ss));
+  paint-order:stroke;stroke:rgba(8,12,18,.84);
+  stroke-width:calc(2.8px / var(--zk) / var(--ss));stroke-linejoin:round}
+.nlabel.top{font-size:calc(15.5px / var(--zk) / var(--ss));font-weight:700}
+.nlabel.inst{font-size:calc(12px / var(--zk) / var(--ss));font-weight:400}
+.gnode .en{font-size:8px;font-weight:400;font-family:"SFMono-Regular",Consolas,monospace;opacity:.8}
+.gnode.g-core circle{fill:var(--d-core);stroke:var(--d-core)}
+.gnode.g-core text{fill:#fff}
+.gnode.g-core .en{fill:rgba(255,255,255,.86);opacity:1}
+.gnode.g-metric circle{fill:var(--d-metric-s);stroke:var(--d-metric)}
+.gnode.g-metric text{fill:var(--d-metric)}
+.gnode.g-axis circle{fill:var(--d-axis-s);stroke:var(--d-axis)}
+.gnode.g-axis text{fill:var(--d-axis)}
+.gnode.g-space circle{fill:var(--d-space-s);stroke:var(--d-space)}
+.gnode.g-space text{fill:var(--d-space)}
+.gnode.g-renew circle{fill:var(--d-renew-s);stroke:var(--d-renew)}
+.gnode.g-renew text{fill:var(--d-renew)}
+.gnode.g-policy circle{fill:var(--d-policy-s);stroke:var(--d-policy)}
+.gnode.g-policy text{fill:var(--d-policy)}
+.gnode.g-neutral circle{fill:var(--d-neutral-s);stroke:var(--d-neutral)}
+.gnode.g-neutral text{fill:var(--d-neutral)}
+.gnode.undecl circle{fill:none;stroke:rgba(255,255,255,.45);stroke-dasharray:3 3}
+.gnode.undecl text{fill:rgba(255,255,255,.6);font-weight:400}
+.gnode.inst circle{stroke-width:.9;opacity:.85}
+.gnode:hover circle{stroke-width:2.6}
+.gnode.dimmed,.gnode.miss{opacity:.10}
+.gnode.faded{opacity:.10}
+.gnode.hit circle{stroke-width:3.4;stroke:#E24B4A}
+.gnode.spot circle{stroke-width:3.2;filter:drop-shadow(0 0 14px rgba(255,255,255,.45))}
+/* 点击聚焦：原点与其邻居按距离依次「颤动一下」，形成涟漪感 */
+.gnode.pop circle{transform-box:fill-box;transform-origin:center;
+  animation:nodePop .62s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes nodePop{0%{transform:scale(1)}28%{transform:scale(1.42)}
+  58%{transform:scale(.9)}100%{transform:scale(1)}}
+.gnode.tech circle{stroke-dasharray:5 4}
+.edge.inst{stroke-width:.7;opacity:.4}
+.edge.faded{opacity:.05}
+/* 画布上的控件 */
+.hud{position:absolute;left:14px;bottom:14px;display:flex;gap:8px;align-items:flex-end}
+.legend{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+  border-radius:10px;padding:9px 11px;display:grid;grid-template-columns:auto auto;gap:4px 13px;
+  font-size:10.5px;color:rgba(255,255,255,.78);box-shadow:0 4px 16px rgba(0,0,0,.35)}
+.legend .lg-t{grid-column:1/-1;font-size:9.5px;letter-spacing:.7px;color:rgba(255,255,255,.45);
+  font-weight:600;text-transform:uppercase;margin-bottom:1px}
+.legend .lg{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.sw{width:10px;height:10px;border-radius:3px;flex:none}
+.crumb{position:absolute;left:14px;top:12px;font-size:11.5px;color:rgba(255,255,255,.62);
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:8px;
+  padding:5px 11px;font-family:"SFMono-Regular",Consolas,monospace}
+.crumb b{color:#fff;font-weight:600}
+.tool{position:absolute;right:14px;top:12px;display:flex;gap:6px}
+.tb{height:26px;padding:0 10px;border-radius:7px;cursor:pointer;font-size:11.5px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);color:rgba(255,255,255,.72);
+  font-family:var(--font);transition:.18s}
+.tb:hover{background:rgba(255,255,255,.14);color:#fff}
+
+/* 浅色视图容器（矩阵 / 闭环） */
+.light{flex:1;min-height:0;overflow:auto;background:var(--panel)}
+
+/* 双轴矩阵 */
+.mx{padding:16px 18px 24px}
+.mx table{border-collapse:separate;border-spacing:4px;width:100%}
+.mx th{font-size:11px;color:var(--text3);font-weight:600;padding:4px 6px;text-align:center;white-space:nowrap}
+.mx th.row{text-align:right;padding-right:10px}
+.mx th.row i{display:inline-block;width:3px;height:11px;border-radius:2px;margin-right:7px;
+  vertical-align:-1px;background:var(--gc)}
+.mx td{text-align:center;height:34px;border-radius:8px;font-size:12.5px;font-weight:600;
+  font-family:"SFMono-Regular",Consolas,monospace;cursor:pointer;transition:.15s;
+  border:1px solid transparent}
+.mx td.has{background:var(--cc-s);color:var(--cc);border-color:var(--cc)}
+.mx td.has:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.08)}
+.mx td.zero{color:var(--text3);background:var(--panel3)}
+.mx td.on{outline:2px solid var(--text);outline-offset:1px}
+
+/* 主干闭环 */
+.bb{padding:22px 20px 28px}
+.bb-row{display:flex;align-items:stretch;gap:0;flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px}
+.bb-card{flex:1 1 auto;min-width:120px;border:1px solid var(--nc);border-radius:14px;padding:12px 13px;
+  background:var(--nc-s);cursor:pointer;transition:.18s}
+.bb-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.09)}
+.bb-card h4{font-size:13px;font-weight:600;color:var(--nc);margin-bottom:3px;white-space:nowrap}
+.bb-card .en{font-size:9.5px;font-family:"SFMono-Regular",Consolas,monospace;color:var(--text3);
+  margin-bottom:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bb-card .kv{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:10.5px;color:var(--text2)}
+.bb-card .kv b{color:var(--nc);font-family:"SFMono-Regular",Consolas,monospace}
+.bb-arrow{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  flex:0 0 66px;min-width:66px;padding:0 4px;color:var(--text3)}
+.bb-arrow .pr{font-size:9.5px;font-family:"SFMono-Regular",Consolas,monospace;
+  color:var(--d-core);font-weight:600;text-align:center;line-height:1.25;word-break:keep-all}
+.bb-arrow .cn{font-size:9.5px;margin-top:2px;white-space:nowrap}
+.bb-arrow .line{width:100%;height:2px;background:var(--d-core);opacity:.55;margin-top:5px;position:relative}
+.bb-arrow .line::after{content:'';position:absolute;right:0;top:-3px;border-left:7px solid var(--d-core);
+  border-top:4px solid transparent;border-bottom:4px solid transparent}
+.bb-dash{margin-top:14px;display:flex;align-items:center;gap:10px;font-size:11.5px;color:var(--text3)}
+.bb-dash .seg{flex:1;border-top:2px dashed var(--border2)}
+.bb-note{margin-top:20px;font-size:12px;line-height:1.8;color:var(--text2);
+  border-left:3px solid var(--d-core);background:var(--d-core-s);padding:10px 14px;border-radius:0 8px 8px 0}
+
+/* ===== 详情 ===== */
+.detail{flex:1;min-height:0;overflow:auto;padding:0 16px 18px}
+.d-bar{height:5px;margin:0 -16px 14px;background:var(--nv,var(--accent))}
+.d-top{display:flex;align-items:flex-start;gap:10px}
+.d-title{font-size:16.5px;font-weight:700;flex:1;letter-spacing:.2px}
+.d-tag{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:600;white-space:nowrap;
+  background:var(--nv-s);color:var(--nv);border:1px solid var(--nv)}
+.d-en{font-size:11px;color:var(--text3);font-family:"SFMono-Regular",Consolas,monospace;margin:4px 0 11px}
+.d-uri{font-size:10px;font-family:"SFMono-Regular",Consolas,monospace;color:var(--nv);
+  background:var(--nv-s);padding:6px 9px;border-radius:8px;word-break:break-all;line-height:1.5;
+  margin-bottom:13px;border-left:3px solid var(--nv)}
+.d-sec{font-size:10px;letter-spacing:.8px;color:var(--text3);font-weight:700;margin:15px 0 6px;
+  text-transform:uppercase}
+.d-text{font-size:12.5px;line-height:1.75;color:var(--text2)}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-size:11px;padding:3px 9px;border-radius:20px;border:1px solid var(--border);
+  background:var(--panel2);color:var(--text2);cursor:pointer;transition:.15s}
+.chip:hover{border-color:var(--text3);color:var(--text)}
+.chip.static{cursor:default}
+.chip.static:hover{border-color:var(--border);color:var(--text2)}
+.kv{display:grid;grid-template-columns:72px 1fr;gap:5px 10px;font-size:12px;line-height:1.6}
+.kv dt{color:var(--text3)}
+.kv dd{color:var(--text2);font-family:"SFMono-Regular",Consolas,monospace;word-break:break-all}
+.plist{display:flex;flex-direction:column;gap:4px}
+.prow{display:flex;align-items:center;gap:8px;font-size:12px;padding:5px 8px;border-radius:7px;
+  background:var(--panel2);border:1px solid var(--border);cursor:pointer;transition:.15s}
+.prow:hover{border-color:var(--text3)}
+.prow .pn{flex:1;color:var(--text2)}
+.prow .pid{font-size:10px;color:var(--text3);font-family:"SFMono-Regular",Consolas,monospace}
+.prow .ty{font-size:9.5px;padding:1px 6px;border-radius:20px;background:var(--panel3);
+  color:var(--text3);font-family:"SFMono-Regular",Consolas,monospace}
+.empty{text-align:center;color:var(--text3);font-size:12px;margin-top:50px;line-height:2}
+/* 指标行 */
+.irow{display:flex;gap:9px;align-items:flex-start;padding:7px 9px;border-radius:8px;
+  background:var(--panel2);border:1px solid var(--border);font-size:12px;cursor:pointer}
+.irow:hover{border-color:var(--d-metric)}
+.irow .sq{font-family:"SFMono-Regular",Consolas,monospace;color:var(--d-metric);font-weight:700;
+  font-size:11px;min-width:22px}
+.irow .nm{flex:1;color:var(--text2);line-height:1.45}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><i></i><b>城市体检与更新本体</b><span>prototype · stage 1</span></div>
+  <div class="search">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input id="q" placeholder="检索类 / 属性 / 指标，如 空间单元、computedFrom、燃气">
+  </div>
+  <div class="views">
+    <button class="vbtn on" data-v="graph">知识图谱</button>
+    <button class="vbtn" data-v="matrix">指标双轴</button>
+    <button class="vbtn" data-v="backbone">主干闭环</button>
+  </div>
+</header>
+
+<main>
+  <aside class="panel">
+    <div class="ph">类层级 <em id="treeCount"></em></div>
+    <div class="tree" id="tree"></div>
+  </aside>
+
+  <section class="panel">
+    <div class="stage">
+      <div class="view on" id="v-graph">
+        <div class="canvas">
+          <svg id="graph" viewBox="0 0 1400 1000" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="crumb" id="crumb"></div>
+          <div class="tool">
+            <button class="tb" id="btnOverall">overall 总览</button>
+            <button class="tb" id="btnABox">显示 ABox 个体</button>
+            <button class="tb" id="btnZoomIn">＋</button>
+            <button class="tb" id="btnZoomOut">－</button>
+          </div>
+          <div class="hud"><div class="legend" id="legend"></div></div>
+        </div>
+      </div>
+      <div class="view" id="v-matrix"><div class="light"><div class="mx" id="mx"></div></div></div>
+      <div class="view" id="v-backbone"><div class="light"><div class="bb" id="bb"></div></div></div>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <div class="ph">详情</div>
+    <div class="detail" id="detail"></div>
+  </aside>
+</main>
+
+<footer>
+  <span id="fStat"></span>
+  <span id="fWarn"></span>
+  <span class="right">城市体检与更新本体 · 阶段一原型</span>
+</footer>
+
+<script src="data/ontology.js"></script>
+<script>
+const D = window.__ONTOLOGY__;
+window.onerror=function(m,s,l,c){ const el=document.getElementById('crumb');
+  if(el) el.textContent='脚本错误：'+m+'  @'+l+':'+c; return false; };
+if(!D){ document.body.innerHTML='<div style="padding:40px;font:14px sans-serif">数据未加载：请确认 data/ontology.js 存在（先运行 03-本体模型/_to_graph_json.py）</div>'; }
+
+/* ===== 索引 ===== */
+const CL = {};  D.classes.forEach(c=>CL[c.id]=c);
+const PR = {};  D.properties.forEach(p=>PR[p.id]=p);
+const TOP = D.classes.filter(c=>c.role==='top');
+const SUPPORT = D.classes.filter(c=>c.role==='support'||c.role==='technical');
+const UNDECL = D.classes.filter(c=>c.role==='undeclared');
+const PROPS_BY_RANGE = {};
+D.properties.forEach(p=>p.range.forEach(r=>{ (PROPS_BY_RANGE[r]=PROPS_BY_RANGE[r]||[]).push(p); }));
+const DMAP = D.domainOf, DCN = D.domains;
+const DOM_ORDER = ['core','metric','axis','space','renew','policy','neutral'];
+/* 五级维度各占一域色（与视觉规范一致） */
+const DIMCOL = {'HousingDimension':'core','ResidentialQuarterDimension':'metric',
+  'CommunityDimension':'axis','NeighborhoodDimension':'renew','UrbanDistrictDimension':'space'};
+function domOf(id){
+  let c=CL[id];
+  while(c){ if(c.domain) return c.domain; c = c.parent?CL[c.parent]:null; }
+  return 'neutral';
+}
+/* 指标 ↔ 类 */
+const IND_BY_CLASS = {};
+D.indicators.forEach(i=>{
+  const s=new Set();
+  if(i.measures) s.add(i.measures);
+  (i.computedFrom||[]).forEach(x=>s.add(x));
+  s.forEach(k=>{ (IND_BY_CLASS[k]=IND_BY_CLASS[k]||[]).push(i); });
+});
+const instancesOf = id => D.individuals.filter(x=>x.cls===id);
+const classByCn = {};
+D.classes.forEach(c=>classByCn[c.cn]=c.id);
+
+/* ===== 状态 ===== */
+let state = { view:'graph', focus:'ExaminationActivity', sel:null };
+
+/* ===== 视图切换 ===== */
+document.querySelectorAll('.vbtn').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('.vbtn').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); state.view=b.dataset.v;
+    ['graph','matrix','backbone'].forEach(v=>
+      document.getElementById('v-'+v).classList.toggle('on',v===state.view));
+    if(state.view==='matrix') renderMatrix();
+    if(state.view==='backbone') renderBackbone();
+  };
+});
+
+/* ===== 左：类层级树 ===== */
+const treeEl=document.getElementById('tree'); const itemEl={};
+function treeItem(id, meta){
+  const c=CL[id], dom=domOf(id), n=c.children.length||instancesOf(id).length||c.props.length||0;
+  const el=document.createElement('div');
+  el.className='item'+(c.children.length?'':' leaf');
+  el.style.setProperty('--nv',`var(--d-${dom})`);
+  el.style.setProperty('--nv-s',`var(--d-${dom}-s)`);
+  el.dataset.id=id;
+  el.innerHTML=`<span class="caret">▶</span><span class="cn">${c.cn}</span>`+
+    (n?`<span class="n">${n}</span>`:'')+(c.declared===false?`<span class="n" title="ttl 未声明">!</span>`:'');
+  return el;
+}
+function renderTree(){
+  treeEl.innerHTML='';
+  DOM_ORDER.concat(['__support__']).forEach(dom=>{
+    const list = dom==='__support__'
+      ? SUPPORT.concat(UNDECL)
+      : TOP.filter(c=>c.domain===dom);
+    if(!list.length) return;
+    const g=document.createElement('div');
+    g.className='grp';
+    g.style.setProperty('--gc', dom==='__support__'?'var(--d-neutral)':`var(--d-${dom})`);
+    g.innerHTML=`<i></i><span>${dom==='__support__'?'支撑类 / 待补声明':DCN[dom]}</span>`;
+    treeEl.appendChild(g);
+    list.forEach(c=>{
+      const el=treeItem(c.id);
+      itemEl[c.id]=el;
+      const kids=document.createElement('div'); kids.className='kids';
+      const pre = instancesOf(c.id);
+      c.children.forEach(k=>{ const ke=treeItem(k); itemEl[k]=ke;
+        ke.onclick=ev=>{ev.stopPropagation(); focusOn(k);};
+        kids.appendChild(ke); });
+      pre.slice(0,6).forEach(i=>{
+        const k=document.createElement('div'); k.className='item leaf';
+        k.style.setProperty('--nv',`var(--d-${dom})`); k.style.setProperty('--nv-s',`var(--d-${dom}-s)`);
+        k.innerHTML=`<span class="caret">▶</span><span class="cn" style="color:var(--text3)">${i.cn}</span>`+
+                    `<span class="n">个体</span>`;
+        kids.appendChild(k);
+      });
+      if(pre.length>6){const m=document.createElement('div');m.className='item leaf';
+        m.innerHTML=`<span class="caret">▶</span><span class="cn" style="color:var(--text3)">… 另有 ${pre.length-6} 个</span>`;
+        kids.appendChild(m);}
+      el.onclick=e=>{
+        e.stopPropagation();
+        kids.classList.toggle('show'); el.classList.toggle('open');
+        focusOn(c.id);
+      };
+      treeEl.appendChild(el); treeEl.appendChild(kids);
+    });
+  });
+  document.getElementById('treeCount').textContent =
+    `${TOP.length} 顶层 · ${SUPPORT.length} 支撑 · ${UNDECL.length} 待补`;
+}
+
+/* ===== 选中 / 详情 ===== */
+function focusOn(id, keepView){
+  state.sel=id;
+  Object.values(itemEl).forEach(e=>e.classList.remove('sel'));
+  if(itemEl[id]) itemEl[id].classList.add('sel');
+  if(state.view==='graph'){ state.focus=id; spotlight(id); }
+  renderDetail(id);
+}
+function renderDetail(id){
+  const c=CL[id]; if(!c) return;
+  const dom=domOf(id), el=document.getElementById('detail');
+  const inds = (IND_BY_CLASS[id]||[]).slice(0,14);
+  const insts = instancesOf(id);
+  const pIn  = c.props.map(p=>PR[p]).filter(Boolean);
+  const pOut = (PROPS_BY_RANGE[id]||[]);
+  const kids = c.children.map(k=>`<span class="chip" data-goto="${k}">${CL[k].cn}</span>`).join('');
+  const props = arr => arr.length
+    ? `<div class="plist">${arr.map(p=>`<div class="prow" data-prop="${p.id}">
+         <span class="pn">${p.cn}</span>
+         <span class="ty">${p.type==='object'?'对象':'数据'}</span>
+         <span class="pid">${p.id}</span></div>`).join('')}</div>`
+    : `<div class="d-text" style="color:var(--text3)">—</div>`;
+  el.innerHTML=`
+    <div class="d-bar" style="--nv:var(--d-${dom})"></div>
+    <div class="d-top"><div class="d-title">${c.cn}</div>
+      <span class="d-tag">${c.role==='top'?DCN[dom]:c.role==='undeclared'?'待补声明':c.role==='technical'?'技术构件':'支撑类'}</span></div>
+    <div class="d-en">${c.en||c.id}</div>
+    <div class="d-uri">${D.meta.namespace}${c.id}</div>
+    ${c.desc?`<div class="d-sec">定义</div><div class="d-text">${c.desc}</div>`:''}
+    ${c.source?`<div class="d-sec">来源</div><div class="d-text">${c.source}</div>`:''}
+    ${c.role==='undeclared'?`<div class="d-sec">提示</div>
+      <div class="d-text" style="color:var(--warn)">该类被 <code>rdfs:subClassOf</code> 引用，但 ttl 中未声明为 <code>owl:Class</code>。中文名取自 类与层级.md。</div>`:''}
+    ${kids?`<div class="d-sec">下位类</div><div class="chips">${kids}</div>`:''}
+    ${insts.length?`<div class="d-sec">实例（ABox）</div><div class="chips">${
+      insts.slice(0,20).map(i=>`<span class="chip static">${i.cn}</span>`).join('')}${
+      insts.length>20?`<span class="chip static">… 共 ${insts.length} 个</span>`:''}</div>`:''}
+    ${inds.length?`<div class="d-sec">关联指标（${(IND_BY_CLASS[id]||[]).length}）</div>
+      <div style="display:flex;flex-direction:column;gap:4px">${inds.map(i=>
+        `<div class="irow" data-ind="${i.seq}"><span class="sq">#${i.seq}</span><span class="nm">${i.name}</span></div>`).join('')}
+      </div>`:''}
+    ${pIn.length?`<div class="d-sec">属性（以本类为定义域）</div>${props(pIn)}`:''}
+    ${pOut.length?`<div class="d-sec">被引用（以本类为值域）</div>${props(pOut)}`:''}
+    <div class="d-sec">标识</div>
+    <dl class="kv"><dt>URI 名</dt><dd>${c.id}</dd><dt>所属域</dt><dd>${DCN[dom]}</dd>
+      <dt>上位类</dt><dd>${c.parent?CL[c.parent].cn:'—（顶层）'}</dd>
+      <dt>子类数</dt><dd>${c.children.length}</dd><dt>属性数</dt><dd>${c.props.length}</dd></dl>`;
+  el.querySelectorAll('[data-goto]').forEach(x=>x.onclick=()=>focusOn(x.dataset.goto));
+  el.querySelectorAll('[data-prop]').forEach(x=>x.onclick=()=>showProp(x.dataset.prop));
+  el.querySelectorAll('[data-ind]').forEach(x=>x.onclick=()=>showIndicator(+x.dataset.ind));
+}
+function showProp(pid){
+  const p=PR[pid], dom=domOf((p.domain[0])||p.range[0])||'neutral';
+  const el=document.getElementById('detail');
+  const ref=(arr,fmt)=>arr.map(a=>`<span class="chip" data-goto="${a}">${fmt(a)}</span>`).join('');
+  el.innerHTML=`
+    <div class="d-bar" style="--nv:var(--d-${dom})"></div>
+    <div class="d-top"><div class="d-title">${p.cn}</div>
+      <span class="d-tag">${p.type==='object'?'对象属性':'数据属性'}</span></div>
+    <div class="d-en">${p.id}</div>
+    <div class="d-uri">${D.meta.namespace}${p.id}</div>
+    <div class="d-sec">定义域 domain</div><div class="chips">${p.domain.length?ref(p.domain,a=>CL[a]?CL[a].cn:a):'—'}</div>
+    <div class="d-sec">值域 range</div><div class="chips">${p.range.length?ref(p.range,a=>CL[a]?CL[a].cn:(a.split('#').pop())):'—'}</div>`;
+  el.querySelectorAll('[data-goto]').forEach(x=>x.onclick=()=>focusOn(x.dataset.goto));
+}
+function showIndicator(seq){
+  const i=D.indicators.find(x=>x.seq===seq); if(!i) return;
+  const dimCn=(D.dimensions.find(d=>d.id===i.dimension)||{}).cn||i.dimension;
+  const el=document.getElementById('detail');
+  el.innerHTML=`
+    <div class="d-bar" style="--nv:var(--d-metric)"></div>
+    <div class="d-top"><div class="d-title">#${i.seq} ${i.name}</div>
+      <span class="d-tag" style="--nv:var(--d-metric);--nv-s:var(--d-metric-s)">体检指标</span></div>
+    <div class="d-en">Indicator_${i.code}</div>
+    <div class="d-uri" style="--nv:var(--d-metric);--nv-s:var(--d-metric-s)">${i.uri}</div>
+    <dl class="kv">
+      <dt>维度</dt><dd>${dimCn}</dd>
+      <dt>分类</dt><dd>${i.category||'—（54/55 无分类）'}</dd>
+      <dt>空间层级</dt><dd>${CL[i.measures]?CL[i.measures].cn:i.measures}</dd>
+      <dt>计量单位</dt><dd>${i.unit||'—'}</dd>
+      <dt>导向</dt><dd>${i.orientation}（${i.orientation==='正向'?'越高越好':'越低越好'}）</dd>
+      <dt>状态</dt><dd>${i.status}</dd>
+    </dl>
+    <div class="d-sec">数据对象 computedFrom</div>
+    <div class="chips">${i.computedFrom.map(o=>`<span class="chip" data-goto="${o}">${CL[o]?CL[o].cn:o}</span>`).join('')}</div>
+    ${i.formula?`<div class="d-sec">计算方法</div><div class="d-text">${i.formula}</div>`:''}
+    <div class="d-sec">目标值 / 阈值</div><div class="d-text">${i.threshold||'—'}</div>
+    <div class="d-sec">依据</div><div class="d-text">${i.basedOn||'—'}</div>`;
+  el.querySelectorAll('[data-goto]').forEach(x=>x.onclick=()=>focusOn(x.dataset.goto));
+}
+
+function renderOverviewDetail(){
+  const el=document.getElementById('detail'), c=D.meta.counts;
+  el.innerHTML=`
+    <div class="d-bar" style="--nv:var(--d-core)"></div>
+    <div class="d-top"><div class="d-title">本体总览</div>
+      <span class="d-tag" style="--nv:var(--d-core);--nv-s:var(--d-core-s)">全图</span></div>
+    <div class="d-en">urban-renewal-ontology</div>
+    <dl class="kv">
+      <dt>类</dt><dd>${c.classesTotal}（顶层 ${c.topClasses}）</dd>
+      <dt>属性</dt><dd>${c.objectProps} 对象 / ${c.datatypeProps} 数据</dd>
+      <dt>个体</dt><dd>${c.individuals}</dd>
+      <dt>指标</dt><dd>${c.indicators}</dd>
+    </dl>
+    <div class="d-sec">16 个顶层类（点击聚焦）</div>
+    <div class="chips">${TOP.map(x=>
+      `<span class="chip" data-goto="${x.id}" style="border-color:var(--d-${x.domain});color:var(--d-${x.domain})">${x.cn}</span>`).join('')}</div>
+    <div class="d-sec">怎么用</div>
+    <div class="d-text">· 点任一节点 → 聚焦并缩放，右侧出详情<br>
+      · 滚轮缩放 ／ 拖空白平移 ／ 拖节点微调布局<br>
+      · 点 <b>overall 总览</b> 回到全局<br>
+      · 顶部「显示 ABox 个体」可叠加 92 个个体</div>`;
+  el.querySelectorAll('[data-goto]').forEach(x=>x.onclick=()=>focusOn(x.dataset.goto));
+}
+
+/* ===== 全量图谱：总览 / 点击聚焦缩放 / overall 回位 ===== */
+const svg=document.getElementById('graph'), NS='http://www.w3.org/2000/svg';
+const VW=1400, VH=1000, CX=VW/2, CY=VH/2, ANCH_R=210, K_MIN=.30, K_MAX=5;
+const ANCH={};
+DOM_ORDER.forEach((d,i)=>{
+  const a=-Math.PI/2+i*2*Math.PI/DOM_ORDER.length;
+  ANCH[d]={x:CX+Math.cos(a)*ANCH_R, y:CY+Math.sin(a)*ANCH_R};
+});
+let NODES=[], EDGES=[], IX={}, world=null, SEL=null, SHOW_ABOX=false, BUILT=false;
+const view={k:1,tx:0,ty:0};
+
+function depthOf(id){ let d=0,c=CL[id]; while(c&&c.parent){d++;c=CL[c.parent];} return d; }
+function nbOf(id){
+  const s=new Set([id]);
+  EDGES.forEach(e=>{ if(e.a===id) s.add(e.b); if(e.b===id) s.add(e.a); });
+  return s;
+}
+
+/* ---------- 建图 ---------- */
+function buildAll(){
+  svg.innerHTML='';
+  NODES=[]; EDGES=[]; IX={};
+  const add=o=>{ if(IX[o.id]) return; o.vx=0; o.vy=0; NODES.push(o); IX[o.id]=o; };
+  D.classes.forEach(c=>{
+    const r = c.role==='top' ? 26 : (c.children.length ? 16 : 12);
+    add({id:c.id, kind:'class', cn:c.cn, dom:c.domain||domOf(c.id), r,
+         top:c.role==='top', depth:depthOf(c.id),
+         decl:c.declared!==false, role:c.role});
+  });
+  D.classes.forEach(c=>{ if(c.parent&&IX[c.parent]) EDGES.push({a:c.parent, b:c.id, k:'sub'}); });
+  D.backbone.forEach(b=>{ if(IX[b.from]&&IX[b.to])
+    EDGES.push({a:b.from, b:b.to, k:(b.pred==='triggers'?'dash':'core')}); });
+  if(SHOW_ABOX){
+    D.individuals.forEach(i=>{
+      add({id:i.id, kind:'inst', cn:i.cn, dom:DMAP[i.cls]||'neutral', r:9, inst:true, depth:3});
+      EDGES.push({a:i.cls, b:i.id, k:'inst'});
+    });
+  }
+  // 初始撒点：黄金角螺旋，围绕所属语义域锚点
+  const cnt={};
+  NODES.forEach(n=>{
+    const a=ANCH[n.dom]||{x:CX,y:CY};
+    const j=cnt[n.dom]=(cnt[n.dom]||0)+1;
+    const ang=j*2.399963, rad=18+13*Math.sqrt(j);
+    n.x=a.x+Math.cos(ang)*rad; n.y=a.y+Math.sin(ang)*rad;
+  });
+}
+
+/* ---------- 力导向松弛（域锚点引力 → 同域成簇） ---------- */
+function relax(iters){
+  const CUT=240*240;
+  for(let it=0; it<iters; it++){
+    for(let i=0;i<NODES.length;i++){
+      const a=NODES[i]; if(a.fix) continue;
+      for(let j=i+1;j<NODES.length;j++){
+        const b=NODES[j]; if(b.fix) continue;
+        let dx=b.x-a.x, dy=b.y-a.y, d2=dx*dx+dy*dy;
+        if(d2>CUT) continue;
+        if(d2<1){ dx=(Math.random()-.5); dy=(Math.random()-.5); d2=1; }
+        const d=Math.sqrt(d2), f=Math.min(1500/d2,2.2)/d;
+        a.vx-=dx*f; a.vy-=dy*f; b.vx+=dx*f; b.vy+=dy*f;
+      }
+    }
+    for(let k=0;k<EDGES.length;k++){
+      const e=EDGES[k], A=IX[e.a], B=IX[e.b]; if(!A||!B) continue;
+      const L = e.k==='inst'?26 : e.k==='core'?120 : e.k==='dash'?140 : ((A.top||B.top)?62:42);
+      let dx=B.x-A.x, dy=B.y-A.y, d=Math.hypot(dx,dy)||1;
+      const f=(d-L)*0.07, ux=dx/d, uy=dy/d;
+      A.vx+=ux*f; A.vy+=uy*f; B.vx-=ux*f; B.vy-=uy*f;
+    }
+    for(let k=0;k<NODES.length;k++){
+      const n=NODES[k], a=ANCH[n.dom]||{x:CX,y:CY};
+      n.vx+=(a.x-n.x)*0.011; n.vy+=(a.y-n.y)*0.011;
+      n.vx+=(CX-n.x)*0.0010;  n.vy+=(CY-n.y)*0.0010;
+      if(n.fix){ n.vx=0; n.vy=0; continue; }
+      n.vx*=0.74; n.vy*=0.74;
+      n.x+=n.vx; n.y+=n.vy;
+    }
+  }
+}
+function layoutAsync(done){
+  // 同步收敛（不依赖 rAF，保证首帧即为最终布局、可复现）
+  relax(NODES.length>150 ? 340 : 420);
+  renderAll();
+  done&&done();
+}
+
+/* ---------- 渲染 ---------- */
+function renderAll(){
+  svg.innerHTML='';
+  world=document.createElementNS(NS,'g'); svg.appendChild(world);
+  const layerE=document.createElementNS(NS,'g');   // 边
+  const layerN=document.createElementNS(NS,'g');   // 节点
+  const layerL=document.createElementNS(NS,'g');   // 标签（永远在最上）
+  world.appendChild(layerE); world.appendChild(layerN); world.appendChild(layerL);
+  EDGES.forEach(e=>{
+    const p=document.createElementNS(NS,'path');
+    p.setAttribute('class','edge '+e.k); e.el=p; layerE.appendChild(p);
+  });
+  NODES.forEach(n=>{
+    const g=document.createElementNS(NS,'g');
+    g.setAttribute('class','gnode g-'+n.dom+(n.top?' top':'')+(n.inst?' inst':'')
+      +(!n.decl?' undecl':'')+(n.role==='technical'?' tech':''));
+    const c=document.createElementNS(NS,'circle'); c.setAttribute('r',n.r); g.appendChild(c);
+    const ti=document.createElementNS(NS,'title');
+    ti.textContent = n.cn+'  '+n.id; g.appendChild(ti);
+    layerN.appendChild(g); n.el=g;
+    const t=document.createElementNS(NS,'text');
+    t.setAttribute('class','nlabel'+(n.top?' top':'')+(n.inst?' inst':''));
+    t.style.fill = (n.dom==='core') ? '#fff' : `var(--d-${n.dom})`;
+    t.textContent = n.cn.length>9 ? n.cn.slice(0,9)+'…' : n.cn;
+    layerL.appendChild(t); n.t1=t;
+    g.addEventListener('click', ev=>{ ev.stopPropagation(); pickNode(n); });
+    dragNode(n);
+  });
+  drawEdges(); updateScaleVar(); applyView();
+}
+function drawEdges(){
+  NODES.forEach(n=>{
+    if(n.el) n.el.setAttribute('transform',`translate(${n.x.toFixed(1)} ${n.y.toFixed(1)})`);
+    if(n.t1) n.t1.setAttribute('transform',`translate(${n.x.toFixed(1)} ${n.y.toFixed(1)})`);
+  });
+  EDGES.forEach(e=>{
+    const A=IX[e.a], B=IX[e.b]; if(!A||!B) return;
+    const mx=(A.x+B.x)/2, my=(A.y+B.y)/2;
+    e.el.setAttribute('d',`M${A.x} ${A.y} Q ${mx} ${my} ${B.x} ${B.y}`);
+  });
+}
+function applyView(){
+  if(!world) return;
+  // 用 CSS transform（而非 SVG transform 属性），这样能吃到 #world 的过渡，动画更丝滑
+  world.style.transform=`translate(${view.tx}px,${view.ty}px) scale(${view.k})`;
+  svg.style.setProperty('--zk', view.k);
+  updateLabels();
+}
+/* 屏幕比例：SVG 用户单位 → 屏幕 px 的系数（供字号/描边反算，保证屏幕字号恒定） */
+let SS=1, SEARCH='';
+function updateScaleVar(){
+  const r=svg.getBoundingClientRect();
+  if(!r.width) return;
+  SS=Math.min(r.width/VW, r.height/VH);
+  svg.style.setProperty('--ss', SS);
+}
+window.addEventListener('resize', ()=>{ updateScaleVar(); if(world) applyView(); });
+function baseFs(n){ return n.top ? 15.5 : (n.inst ? 12 : 13.5); }   // 屏幕 px
+/* 中文为全角、西文约 0.56 em，据此估宽（用于防重叠） */
+function textW(s, fsV){
+  let u=0;
+  for(const ch of s) u += /[\u2e80-\u9fff\uff00-\uffef]/.test(ch) ? 1.0 : 0.56;
+  return u*fsV;
+}
+function updateLabels(){
+  const k=view.k, set=SEL ? nbOf(SEL) : null, pad=4/SS;
+  const cand=[];
+  NODES.forEach(n=>{
+    if(!n.el) return;
+    let show;
+    if(n.inst)      show = k>=1.7;
+    else if(n.top)  show = true;
+    else            show = k>=1.35;
+    if(set)         show = set.has(n.id);
+    if(SEARCH)      show = (n.cn+n.id).toLowerCase().includes(SEARCH);
+    if(!show){ n.t1.style.display='none'; return; }
+    // 标签与圆点的间距也按屏幕恒定（否则放大后标签会飘走）
+    n.t1.setAttribute('y', -(n.r + 6/(k*SS)));
+    const fsV=baseFs(n)/SS;                      // 屏幕字号 → viewBox 单位
+    const sx=view.tx+n.x*k, sy=view.ty+n.y*k;    // 节点在 viewBox 中的位置
+    const w=textW(n.t1.textContent, fsV);
+    const by=sy-(n.r*k + 6/SS);                  // 文字 y（dominant-baseline:middle ⇒ 以中心定位）
+    const prio=(n.top?2:0)+(SEARCH?1:0)+((SEL&&n.id===SEL)?8:0)+((set&&set.has(n.id))?4:0);
+    cand.push({n,prio, x0:sx-w/2-pad, x1:sx+w/2+pad, y0:by-fsV*0.62, y1:by+fsV*0.62});
+  });
+  cand.sort((a,b)=>b.prio-a.prio);
+  const placed=[];
+  cand.forEach(c=>{
+    const hit=placed.some(p=>!(c.x1<p.x0||c.x0>p.x1||c.y1<p.y0||c.y0>p.y1));
+    if(hit) c.n.t1.style.display='none';
+    else { placed.push(c); c.n.t1.style.display=''; }
+  });
+}
+function applyFocus(){
+  const set = SEL ? nbOf(SEL) : null;
+  NODES.forEach(n=>{
+    if(!n.el) return;
+    n.el.classList.toggle('spot', n.id===SEL);
+    n.el.classList.toggle('faded', !!set && !set.has(n.id));
+  });
+  EDGES.forEach(e=>{
+    const on = !set || e.a===SEL || e.b===SEL;
+    e.el.classList.toggle('faded', !on);
+    e.el.classList.toggle('hot', !!SEL && (e.a===SEL || e.b===SEL));
+  });
+  const crumb=document.getElementById('crumb');
+  if(SEL && IX[SEL]) crumb.innerHTML =
+    `聚焦 <b>${IX[SEL].cn}</b> <span style="opacity:.5">·</span> 邻居 ${nbOf(SEL).size-1} 个`+
+    ` <span style="opacity:.55">（点 overall 返回总览）</span>`;
+  else crumb.innerHTML =
+    `总览 <b>${NODES.length}</b> 个节点 <span style="opacity:.55">· 点任一实体聚焦缩放，滚轮缩放 / 拖拽平移</span>`;
+  updateLabels();
+}
+function zoomBy(f){
+  const u={x:CX, y:CY};
+  if(!world) return;
+  const w={x:(u.x-view.tx)/view.k, y:(u.y-view.ty)/view.k};
+  const nk=Math.max(K_MIN, Math.min(K_MAX, view.k*f));
+  view.k=nk; view.tx=u.x-w.x*nk; view.ty=u.y-w.y*nk;
+  applyView();
+}
+
+/* ---------- 视图动画 ---------- */
+function animateView(t){
+  // 交给 CSS 过渡平滑（#world 的 transform transition），比 rAF 插值更顺、且不受无头环境限制
+  view.k=t.k; view.tx=t.tx; view.ty=t.ty; applyView();
+}
+
+/* ---------- 交互：聚焦 / 回总览 / 缩放 / 平移 / 拖拽 ---------- */
+function spotlight(id){
+  SEL=id;
+  const n=IX[id]; if(!n){ applyFocus(); return; }
+  const k=Math.max(2.0, Math.min(K_MAX, view.k<1.6?2.2:view.k));
+  animateView({k, tx:CX-n.x*k, ty:CY-n.y*k});
+  applyFocus();
+  ripple(n);
+}
+/* 点击聚焦时：原点与其 1 跳邻居按「到原点的距离」依次颤动，形成涟漪扩散感 */
+function ripple(origin){
+  if(!origin || !world) return;
+  const set=nbOf(origin.id);
+  NODES.forEach(n=>{ if(n.el){ n.el.classList.remove('pop'); n.el.style.animationDelay=''; } });
+  void world.getBoundingClientRect();          // 强制重排，保证动画可重启动
+  NODES.forEach(n=>{
+    if(!n.el || !set.has(n.id)) return;
+    const d=Math.hypot(n.x-origin.x, n.y-origin.y);
+    n.el.style.animationDelay=Math.min(d*1.1, 320).toFixed(0)+'ms';
+    n.el.classList.add('pop');
+  });
+  clearTimeout(ripple._t);
+  ripple._t=setTimeout(()=>NODES.forEach(n=>{
+    if(n.el){ n.el.classList.remove('pop'); n.el.style.animationDelay=''; }
+  }), 1500);
+}
+function fitView(){
+  if(!NODES.length) return null;
+  let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+  NODES.forEach(n=>{ if(!n.el) return;
+    x0=Math.min(x0,n.x-n.r-14); x1=Math.max(x1,n.x+n.r+14);
+    y0=Math.min(y0,n.y-n.r-30); y1=Math.max(y1,n.y+n.r+6); });
+  const w=Math.max(1,x1-x0), h=Math.max(1,y1-y0), pad=46;
+  const k=Math.min((VW-2*pad)/w, (VH-2*pad)/h, 2.2);
+  const cx=(x0+x1)/2, cy=(y0+y1)/2;
+  return {k, tx:CX-cx*k, ty:CY-cy*k};
+}
+function applyFit(instant){
+  const t=fitView(); if(!t) return;
+  if(instant && world){
+    world.classList.add('nofx');
+    view.k=t.k; view.tx=t.tx; view.ty=t.ty; applyView();
+    setTimeout(()=>{ if(world) world.classList.remove('nofx'); }, 60);
+  } else animateView(t);
+}
+function overall(instant){ SEL=null; applyFit(instant); applyFocus(); }
+function pickNode(n){
+  if(n.inst){
+    SEL=n.id; applyFocus();
+    const m=/^Indicator_(\d+)$/.exec(n.id);
+    if(m) showIndicator(+m[1]); else if(CL[n.cls]) renderDetail(n.cls);
+    return;
+  }
+  focusOn(n.id);
+}
+function toUser(cx,cy){
+  const pt=svg.createSVGPoint(); pt.x=cx; pt.y=cy;
+  return pt.matrixTransform(svg.getScreenCTM().inverse());
+}
+function toWorld(cx,cy){
+  const u=toUser(cx,cy);
+  return {x:(u.x-view.tx)/view.k, y:(u.y-view.ty)/view.k};
+}
+svg.addEventListener('wheel', ev=>{
+  ev.preventDefault();
+  const u=toUser(ev.clientX, ev.clientY);
+  const w={x:(u.x-view.tx)/view.k, y:(u.y-view.ty)/view.k};
+  const nk=Math.max(K_MIN, Math.min(K_MAX, view.k*(ev.deltaY<0 ? 1.13 : 0.885)));
+  view.k=nk;
+  view.tx=u.x-w.x*nk;
+  view.ty=u.y-w.y*nk;
+  applyView();
+},{passive:false});
+let panning=false, panS=null;
+svg.addEventListener('pointerdown', ev=>{
+  if(ev.target.closest('.gnode')) return;
+  const u=toUser(ev.clientX, ev.clientY);
+  panning=true; panS={ux:u.x, uy:u.y, tx:view.tx, ty:view.ty};
+  if(world) world.classList.add('nofx');        // 平移要跟手，禁用过渡
+  svg.setPointerCapture(ev.pointerId);
+});
+svg.addEventListener('pointermove', ev=>{
+  if(!panning||!panS) return;
+  const u=toUser(ev.clientX, ev.clientY);
+  view.tx=panS.tx+(u.x-panS.ux);
+  view.ty=panS.ty+(u.y-panS.uy);
+  applyView();
+});
+const endPan=()=>{ panning=false; panS=null; if(world) world.classList.remove('nofx'); };
+svg.addEventListener('pointerup', endPan);
+svg.addEventListener('pointercancel', endPan);
+
+function dragNode(n){
+  let on=false, ox=0, oy=0;
+  n.el.addEventListener('pointerdown', ev=>{
+    if(ev.button!==0) return;
+    on=true; n.fix=true;
+    const p=toWorld(ev.clientX, ev.clientY); ox=p.x-n.x; oy=p.y-n.y;
+    n.el.setPointerCapture(ev.pointerId);
+    ev.stopPropagation();
+  });
+  n.el.addEventListener('pointermove', ev=>{
+    if(!on) return;
+    const p=toWorld(ev.clientX, ev.clientY);
+    n.x=p.x-ox; n.y=p.y-oy; n.vx=n.vy=0;
+    drawEdges(); applyView();
+  });
+  const end=()=>{ if(!on) return; on=false; n.fix=false;
+    relax(40); drawEdges(); applyView(); };
+  n.el.addEventListener('pointerup', end);
+  n.el.addEventListener('pointercancel', end);
+}
+
+/* ---------- 检索联动 ---------- */
+function applySearch(v){
+  if(!world) return;
+  SEARCH=(v||'').toLowerCase();
+  if(!SEARCH){
+    NODES.forEach(n=>{ if(n.el) n.el.classList.remove('hit','miss'); });
+    EDGES.forEach(e=>e.el.classList.remove('faded'));
+    applyFocus(); return;
+  }
+  NODES.forEach(n=>{
+    if(!n.el) return;
+    const m=(n.cn+n.id).toLowerCase().includes(SEARCH);
+    n.el.classList.toggle('hit', m);
+    n.el.classList.toggle('miss', !m);
+    n.el.classList.remove('faded');
+  });
+  EDGES.forEach(e=>e.el.classList.remove('faded'));
+  updateLabels();
+}
+
+/* ---------- 初始化 ---------- */
+function initGraph(done){
+  BUILT=true;
+  buildAll();
+  layoutAsync(()=>{ overall(true); done&&done(); });
+}
+function rebuildGraph(){
+  const keep=SEL;
+  buildAll();
+  layoutAsync(()=>{ if(keep&&IX[keep]) spotlight(keep); else overall(true); });
+}
+/* 图例 */
+document.getElementById('legend').innerHTML =
+  `<div class="lg-t">节点域</div>` + DOM_ORDER.filter(d=>d!=='neutral').map(d=>
+  `<span class="lg"><i class="sw" style="background:var(--d-${d})"></i>${DCN[d]}</span>`).join('');
+
+/* ===== 指标双轴矩阵 ===== */
+function renderMatrix(){
+  const dims=D.dimensions;
+  const cats=D.categories.map(c=>c.cn);
+  const catDims={}; D.categories.forEach(c=>catDims[c.cn]=c.dims);
+  const cell={};
+  D.indicators.forEach(i=>{ const k=i.dimension+'|'+(i.category||'（未分类）');
+    cell[k]=(cell[k]||0)+1; });
+  const hasNoCat = D.indicators.some(i=>!i.category);
+  let h='<table><thead><tr><th></th>'+
+    dims.map(d=>`<th>${d.cn}<br><span style="font-weight:400;font-family:monospace">${d.measures}</span></th>`).join('')+
+    '</tr></thead><tbody>';
+  cats.concat(hasNoCat?['（未分类）']:[]).forEach(cn=>{
+    const allowed=catDims[cn]||null;       // 分类的归属维度（belongsToDimension）
+    h+=`<tr><th class="row" style="--gc:var(--d-axis)"><i></i>${cn}</th>`;
+    dims.forEach(d=>{
+      const n=cell[d.id+'|'+cn]||0;
+      const dc=DIMCOL[d.id]||'axis';
+      const inDim = !allowed || allowed.includes(d.id);
+      h+= n
+        ? `<td class="has" style="--cc:var(--d-${dc});--cc-s:var(--d-${dc}-s)"
+              data-dim="${d.id}" data-cat="${cn}" title="${d.cn} × ${cn}：${n} 项">${n}</td>`
+        : `<td class="zero" ${inDim?'':`style="opacity:.35"`} title="${d.cn} × ${cn}：0 项">·</td>`;
+    });
+    h+='</tr>';
+  });
+  h+='</tbody></table>';
+  h+=`<div class="bb-note" style="--nv:var(--d-axis);border-left-color:var(--d-axis);background:var(--d-axis-s)">
+    共 <b>${D.indicators.length}</b> 项指标 × <b>${dims.length}</b> 个维度 × <b>${cats.length}</b> 个分类。
+    点任一格可查看该格指标清单。行列交叉关系来自 <code>55项指标.yaml</code> 的 <code>inDimension</code> / <code>inCategory</code>；
+    分类与维度的归属（<code>belongsToDimension</code>）另见「指标分类」详情。</div>`;
+  document.getElementById('mx').innerHTML=h;
+  document.querySelectorAll('#mx td.has').forEach(td=>{
+    td.onclick=()=>{
+      document.querySelectorAll('#mx td').forEach(x=>x.classList.remove('on'));
+      td.classList.add('on');
+      const {dim,cat}=td.dataset;
+      const list=D.indicators.filter(i=>i.dimension===dim && (i.category||'（未分类）')===cat);
+      const el=document.getElementById('detail');
+      el.innerHTML=`<div class="d-bar" style="--nv:var(--d-axis)"></div>
+        <div class="d-top"><div class="d-title" style="font-size:15px">${cat}</div>
+        <span class="d-tag" style="--nv:var(--d-axis);--nv-s:var(--d-axis-s)">${dims.find(d=>d.id===dim).cn}维度</span></div>
+        <div class="d-en">${list.length} 项指标</div>
+        <div class="d-sec">指标清单</div>
+        <div style="display:flex;flex-direction:column;gap:4px">${list.map(i=>
+          `<div class="irow" data-ind="${i.seq}"><span class="sq">#${i.seq}</span><span class="nm">${i.name}</span></div>`).join('')}</div>`;
+      el.querySelectorAll('[data-ind]').forEach(x=>x.onclick=()=>showIndicator(+x.dataset.ind));
+    };
+  });
+}
+function renderBackbone(){
+  const chain=D.backbone.filter(b=>b.pred!=='triggers');
+  const cards=chain.map(b=>b.from).concat(chain[chain.length-1].to);
+  let h='<div class="bb-row">';
+  cards.forEach((cid,idx)=>{
+    const c=CL[cid], dom=domOf(cid);
+    h+=`<div class="bb-card" style="--nc:var(--d-${dom});--nc-s:var(--d-${dom}-s)" data-goto="${cid}">
+        <h4>${c.cn}</h4><div class="en">${cid}</div>
+        <div class="kv"><span>属性 <b>${c.props.length}</b></span><span>子类 <b>${c.children.length}</b></span>
+        <span>关联指标 <b>${(IND_BY_CLASS[cid]||[]).length}</b></span></div></div>`;
+    if(idx<chain.length){
+      const e=chain[idx];
+      const pred=e.pred.replace(/([a-z0-9])([A-Z])/g,'$1<wbr>$2');
+      h+=`<div class="bb-arrow"><span class="pr">${pred}</span><span class="cn">${e.cn}</span>
+          <span class="line"></span></div>`;
+    }
+  });
+  h+='</div>';
+  const t=D.backbone.find(b=>b.pred==='triggers');
+  if(t) h+=`<div class="bb-dash"><span>直通兼容路径</span><span class="seg"></span>
+    <span class="pr" style="font-family:monospace;color:var(--d-core)">${t.pred}</span>
+    <span>${CL[t.from].cn} → ${CL[t.to].cn}</span></div>`;
+  h+=`<div class="bb-note">这条链回答的是：「<b>哪一年的体检、在哪一级空间单元上、发现了什么问题、提出什么整治建议、对应上了哪个更新项目、谁出钱谁实施、依据哪份标准</b>」。
+    点任一卡片可在图谱中查看其邻域。设计意图与 Mermaid 原图见 <code>03-本体模型/类与层级.md</code> §三。</div>`;
+  document.getElementById('bb').innerHTML=h;
+  document.querySelectorAll('#bb .bb-card').forEach(x=>x.onclick=()=>{
+    document.querySelector('.vbtn[data-v="graph"]').click(); focusOn(x.dataset.goto);
+  });
+}
+
+/* ===== 检索 ===== */
+const q=document.getElementById('q');
+q.oninput=()=>{
+  const v=q.value.trim().toLowerCase();
+  let hit=0;
+  Object.entries(itemEl).forEach(([id,el])=>{
+    const c=CL[id], m=!v || (c.cn+c.id+(c.en||'')).toLowerCase().includes(v);
+    el.style.display = m?'':'none';
+    const k=el.nextElementSibling; if(k&&k.classList) k.style.display = m?'':'none';
+    if(m&&v) hit++;
+  });
+  document.getElementById('treeCount').textContent = v
+    ? `命中 ${hit} 项` : `${TOP.length} 顶层 · ${SUPPORT.length} 支撑 · ${UNDECL.length} 待补`;
+  // 指标命中提示
+  if(v){
+    const indHit=D.indicators.filter(i=>(i.name+i.code).toLowerCase().includes(v));
+    if(indHit.length) document.getElementById('fStat').innerHTML=
+      `检索「${q.value}」：类 ${hit} 个 · 指标 ${indHit.length} 项（点右侧详情可直达）`;
+  } else updateFooter();
+  applySearch(v);
+};
+
+/* ===== 页脚 ===== */
+function updateFooter(){
+  const c=D.meta.counts;
+  document.getElementById('fStat').innerHTML =
+    `类 <b>${c.classesTotal}</b>（顶层 ${c.topClasses} · 支撑 ${c.supportClasses} · 待补声明 ${c.classesUndeclaredParents}） · `+
+    `属性 <b>${c.objectProps+c.datatypeProps}</b>（对象 ${c.objectProps} / 数据 ${c.datatypeProps}） · `+
+    `个体 <b>${c.individuals}</b> · 指标 <b>${c.indicators}</b>`;
+  const w=D.meta.warnings;
+  document.getElementById('fWarn').innerHTML = w.undeclaredParents.length
+    ? `<span class="warn" id="wTip">⚠ ${w.undeclaredParents.length} 个类被 subClassOf 引用但 ttl 未声明</span>` : '';
+  const tip=document.getElementById('wTip');
+  if(tip) tip.onclick=()=>alert('以下类被 rdfs:subClassOf 引用，但 ttl 中未声明为 owl:Class：\n\n  '+
+    w.undeclaredParents.join('\n  ')+'\n\n中文名已按 类/层级.md 补齐（图中虚线框、树中标 !）。\n根因在 03-本体模型/_gen_ttl.py —— 待修订。');
+}
+
+/* ===== 按钮 ===== */
+document.getElementById('btnOverall').onclick=()=>overall();
+document.getElementById('btnABox').onclick=ev=>{
+  SHOW_ABOX=!SHOW_ABOX;
+  ev.currentTarget.textContent = SHOW_ABOX ? '隐藏 ABox 个体' : '显示 ABox 个体';
+  rebuildGraph();
+};
+document.getElementById('btnZoomIn').onclick=()=>zoomBy(1.25);
+document.getElementById('btnZoomOut').onclick=()=>zoomBy(0.8);
+
+/* ===== 启动 ===== */
+renderTree(); updateFooter();
+const qs=new URLSearchParams(location.search);
+const initView=qs.get('view');
+if(initView){ const b=document.querySelector(`.vbtn[data-v="${initView}"]`); if(b) b.click(); }
+if(qs.get('abox')==='1'){
+  SHOW_ABOX=true;
+  document.getElementById('btnABox').textContent='隐藏 ABox 个体';
+}
+initGraph(()=>{
+  const f=qs.get('focus');
+  if(f && CL[f]) focusOn(f);
+  else renderOverviewDetail();
+});
+</script>
+</body>
+</html>

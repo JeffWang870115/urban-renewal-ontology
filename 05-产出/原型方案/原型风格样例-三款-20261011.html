@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="modern">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>城市体检与更新本体 · 视觉风格样例（现代中性 · 语义色体系）</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:var(--font);background:var(--bg);color:var(--text);
+  transition:background .35s ease,color .35s ease;overflow:hidden;
+}
+
+/* ===== 语义域色体系（与主题解耦，浅色档） ===== */
+:root{
+  --d-core:#185FA5;   --d-core-s:#E6F1FB;   /* 主干闭环 */
+  --d-metric:#534AB7; --d-metric-s:#EEEDFE; /* 指标内核 */
+  --d-axis:#0F6E56;   --d-axis-s:#E1F5EE;   /* 指标双轴 */
+  --d-space:#993C1D;  --d-space-s:#FAECE7;  /* 空间主轴 */
+  --d-renew:#3B6D11;  --d-renew-s:#EAF3DE;  /* 更新要素 */
+  --d-policy:#854F0B; --d-policy-s:#FAEEDA; /* 政策依据 */
+  --d-neutral:#5F5E5A;--d-neutral-s:#F1EFE8;/* 通用 */
+}
+
+/* ===== 主题：现代中性（默认 · 已做深） ===== */
+html[data-theme="modern"]{
+  --font:"Inter","Segoe UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --bg:#f6f6f3; --bg2:#f0f0ec;
+  --panel:#ffffff; --panel2:#fafaf8; --panel3:#f2f2ee;
+  --border:#e5e5df; --border2:#d6d6cf;
+  --text:#1c1c1a; --text2:#6f6d66; --text3:#9b998f;
+  --accent:#0f766e; --accent2:#c2410c; --accent-soft:rgba(15,118,110,.10);
+  --ok:#15803d; --warn:#a16207; --link:#0f766e;
+  --radius:14px; --radius-lg:20px;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.06);
+  --grid:rgba(229,229,223,.9);
+  --edge:#c9c9c1;
+  --head-h:64px;
+}
+/* ===== 主题：科技深色 ===== */
+html[data-theme="dark"]{
+  --font:"Inter","Segoe UI","Microsoft YaHei",system-ui,sans-serif;
+  --bg:#0b0f14; --bg2:#0e141b;
+  --panel:#131a22; --panel2:#0f151d; --panel3:#1a232e;
+  --border:#233040; --border2:#2c3d50;
+  --text:#e6edf3; --text2:#8b9bad; --text3:#5d6c7e;
+  --accent:#22d3ee; --accent2:#a78bfa; --accent-soft:rgba(34,211,238,.14);
+  --ok:#34d399; --warn:#fbbf24; --link:#38bdf8;
+  --radius:10px; --radius-lg:14px;
+  --shadow:0 10px 30px rgba(0,0,0,.5);
+  --grid:rgba(35,48,64,.5);
+  --edge:#2c3d50;
+  --head-h:58px;
+  /* 域色 · 深色档（提亮 + 半透明底） */
+  --d-core:#5AA3E8;   --d-core-s:rgba(55,138,221,.18);
+  --d-metric:#9C93EE; --d-metric-s:rgba(127,119,221,.18);
+  --d-axis:#4CC79E;   --d-axis-s:rgba(29,158,117,.18);
+  --d-space:#F0865C;  --d-space-s:rgba(216,90,48,.20);
+  --d-renew:#9FCB5C;  --d-renew-s:rgba(99,153,34,.18);
+  --d-policy:#EFB44A; --d-policy-s:rgba(239,159,39,.18);
+  --d-neutral:#A8A69D;--d-neutral-s:rgba(95,94,90,.20);
+}
+/* ===== 主题：政务蓝白 ===== */
+html[data-theme="gov"]{
+  --font:"SimSun","Songti SC","Microsoft YaHei",serif;
+  --bg:#eef2f7; --bg2:#e7edf5;
+  --panel:#ffffff; --panel2:#f7f9fc; --panel3:#eef3f9;
+  --border:#d5dfeb; --border2:#c2d0e0;
+  --text:#14243a; --text2:#5c6f88; --text3:#8a9aae;
+  --accent:#1a4b8c; --accent2:#b3261e; --accent-soft:rgba(26,75,140,.10);
+  --ok:#1a7f4b; --warn:#b45309; --link:#1a4b8c;
+  --radius:3px; --radius-lg:4px;
+  --shadow:0 2px 10px rgba(20,40,70,.08);
+  --grid:rgba(213,223,235,.8);
+  --edge:#c3d2e4;
+  --head-h:58px;
+}
+
+/* ===== 骨架 ===== */
+header{
+  height:var(--head-h);display:flex;align-items:center;gap:18px;padding:0 20px;
+  background:var(--panel);border-bottom:1px solid var(--border);
+  transition:background .35s ease,border-color .35s ease;
+}
+.brand{display:flex;align-items:center;gap:9px;white-space:nowrap}
+.brand b{font-size:15px;font-weight:600;letter-spacing:.3px}
+.brand span{font-size:11px;color:var(--text3);letter-spacing:.6px;font-family:"SFMono-Regular",Consolas,monospace}
+.brand i{width:7px;height:7px;border-radius:2px;background:var(--d-core);display:inline-block}
+.search{flex:1;max-width:430px;position:relative}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text3)}
+.search input{
+  width:100%;height:36px;padding:0 12px 0 34px;border-radius:calc(var(--radius) - 4px);
+  border:1px solid var(--border);background:var(--panel2);color:var(--text);
+  font-family:var(--font);font-size:13px;outline:none;transition:.2s;
+}
+.search input:focus{border-color:var(--accent);background:var(--panel);
+  box-shadow:0 0 0 3px var(--accent-soft)}
+.search input::placeholder{color:var(--text3)}
+.switch{margin-left:auto;display:flex;gap:6px;align-items:center}
+.switch .lbl{font-size:11px;color:var(--text3);margin-right:2px}
+.tbtn{
+  height:32px;padding:0 14px;border-radius:calc(var(--radius) - 4px);cursor:pointer;
+  border:1px solid var(--border);background:var(--panel2);color:var(--text2);
+  font-family:var(--font);font-size:12px;transition:.18s;display:flex;align-items:center;gap:6px;
+}
+.tbtn:hover{color:var(--text);border-color:var(--border2);transform:translateY(-1px)}
+.tbtn.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;
+  box-shadow:0 2px 10px var(--accent-soft)}
+.tbtn i{width:9px;height:9px;border-radius:50%;display:inline-block;outline:1px solid rgba(0,0,0,.08)}
+.tbtn.on i{outline-color:rgba(255,255,255,.5)}
+main{
+  height:calc(100vh - var(--head-h) - 30px);
+  display:grid;grid-template-columns:256px 1fr 336px;gap:12px;padding:12px;
+}
+.panel{
+  background:var(--panel);border:1px solid var(--border);border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;
+  transition:background .35s ease,border-color .35s ease,border-radius .35s ease;
+}
+.ph{
+  padding:11px 14px;font-size:11.5px;letter-spacing:.8px;color:var(--text3);
+  border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;
+  text-transform:uppercase;font-weight:600;
+}
+.ph em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:400;color:var(--text3);font-size:11px;margin-left:auto}
+
+/* ===== 类层级树 ===== */
+.tree{flex:1;min-height:0;overflow:auto;padding:8px 6px 14px}
+.tree::-webkit-scrollbar{width:8px}
+.tree::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px}
+.node-item{
+  display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:calc(var(--radius) - 5px);
+  cursor:pointer;font-size:12.5px;color:var(--text2);user-select:none;transition:.15s;position:relative;
+}
+.node-item::before{
+  content:'';position:absolute;left:0;top:6px;bottom:6px;width:3px;border-radius:2px;
+  background:var(--nv,transparent);opacity:0;transition:opacity .18s;
+}
+.node-item:hover{background:var(--panel3);color:var(--text)}
+.node-item:hover::before{opacity:.45}
+.node-item.sel{background:var(--nv-s,var(--accent-soft));color:var(--nv,var(--accent));font-weight:600}
+.node-item.sel::before{opacity:1}
+.node-item .caret{width:12px;font-size:9px;color:var(--text3);transition:transform .2s;display:inline-block}
+.node-item.open .caret{transform:rotate(90deg)}
+.node-item .cn{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.node-item .badge{
+  font-size:10px;padding:1px 7px;border-radius:20px;background:var(--panel3);
+  color:var(--text3);font-family:"SFMono-Regular",Consolas,monospace;border:1px solid var(--border);
+}
+.node-item.sel .badge{background:#fff;border-color:var(--nv,var(--accent));color:var(--nv,var(--accent))}
+html[data-theme="dark"] .node-item.sel .badge{background:rgba(255,255,255,.08)}
+.node-item.leaf .caret{opacity:0}
+.node-item .sub{font-size:10.5px;color:var(--text3);font-family:"SFMono-Regular",Consolas,monospace}
+.children{display:none;padding-left:14px;border-left:1px dashed var(--border);margin-left:14px}
+.children.show{display:block}
+
+/* ===== 维度条（五级各占一色） ===== */
+.dim-strip{display:flex;border-bottom:1px solid var(--border);background:var(--panel2)}
+.dim{flex:1;padding:9px 6px;text-align:center;border-right:1px solid var(--border);position:relative}
+.dim:last-child{border-right:none}
+.dim::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--dc)}
+.dim b{display:block;font-size:17px;font-weight:700;color:var(--dc);font-family:"SFMono-Regular",Consolas,monospace;line-height:1.2}
+.dim span{font-size:11px;color:var(--text3)}
+
+/* ===== 图谱画布 ===== */
+.canvas{flex:1;min-height:0;position:relative;background:
+  radial-gradient(circle at 1px 1px,var(--grid) 1px,transparent 0) 0 0/24px 24px,var(--panel)}
+html[data-theme="gov"] .canvas{background:var(--panel)}
+html[data-theme="dark"] .canvas{background:
+  linear-gradient(var(--grid) 1px,transparent 1px) 0 0/26px 26px,
+  linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/26px 26px,var(--panel)}
+/* 现代中性 · 混合版：界面浅色，中间图谱画布保留深色（局部下沉深色档域色，深底上自动提亮） */
+html[data-theme="modern"] .canvas{
+  --edge:#33465c;
+  --text3:rgba(255,255,255,.52);
+  --d-core:#5AA3E8;   --d-core-s:rgba(55,138,221,.18);
+  --d-metric:#9C93EE; --d-metric-s:rgba(127,119,221,.18);
+  --d-axis:#4CC79E;   --d-axis-s:rgba(29,158,117,.18);
+  --d-space:#F0865C;  --d-space-s:rgba(216,90,48,.20);
+  --d-renew:#9FCB5C;  --d-renew-s:rgba(99,153,34,.18);
+  --d-policy:#EFB44A; --d-policy-s:rgba(239,159,39,.18);
+  --d-neutral:#A8A69D;--d-neutral-s:rgba(95,94,90,.20);
+  background:
+    radial-gradient(circle at 1px 1px,rgba(255,255,255,.075) 1px,transparent 0) 0 0/24px 24px,
+    #101820;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.35);
+}
+#graph{width:100%;height:100%;display:block;cursor:grab}
+#graph:active{cursor:grabbing}
+.edge{stroke:var(--edge);stroke-width:1.2;fill:none;transition:stroke .3s,opacity .2s}
+.edge.dash{stroke-dasharray:5 4}
+.edge.core{stroke:var(--d-core);stroke-width:2.2;opacity:.85}
+.edge.dimmed{opacity:.1}
+.elabel{font-size:9px;fill:var(--text3);pointer-events:none;opacity:0;transition:opacity .2s;
+  font-family:"SFMono-Regular",Consolas,monospace}
+.edge-g:hover .elabel{opacity:1}
+.gnode{cursor:pointer}
+.gnode circle{stroke-width:1.6;transition:fill .3s,stroke .25s,stroke-width .2s,filter .25s}
+.gnode text{font-family:var(--font);font-size:11.5px;text-anchor:middle;dominant-baseline:middle;
+  pointer-events:none;font-weight:600}
+.gnode .en{font-size:8.5px;font-weight:400;font-family:"SFMono-Regular",Consolas,monospace;opacity:.8}
+/* 主干闭环：实心高饱和，最醒目 */
+.gnode.g-core circle{fill:var(--d-core);stroke:var(--d-core)}
+.gnode.g-core text{fill:#fff}
+.gnode.g-core .en{fill:rgba(255,255,255,.86);opacity:1}
+.gnode.hub circle{filter:drop-shadow(0 4px 12px var(--d-core-s))}
+/* 其余各域：浅底 + 本域色描边与文字 */
+.gnode.g-metric circle{fill:var(--d-metric-s);stroke:var(--d-metric)}
+.gnode.g-metric text{fill:var(--d-metric)}
+.gnode.g-axis circle{fill:var(--d-axis-s);stroke:var(--d-axis)}
+.gnode.g-axis text{fill:var(--d-axis)}
+.gnode.g-space circle{fill:var(--d-space-s);stroke:var(--d-space)}
+.gnode.g-space text{fill:var(--d-space)}
+.gnode.g-renew circle{fill:var(--d-renew-s);stroke:var(--d-renew)}
+.gnode.g-renew text{fill:var(--d-renew)}
+.gnode.g-policy circle{fill:var(--d-policy-s);stroke:var(--d-policy)}
+.gnode.g-policy text{fill:var(--d-policy)}
+/* 空间子级：细描边 */
+.gnode.small circle{fill:transparent;stroke:var(--d-space);stroke-width:1;opacity:.65}
+.gnode.small text{fill:var(--d-space);font-weight:500;font-size:10.5px}
+.gnode:hover circle{stroke-width:3.4}
+.gnode.dimmed{opacity:.12}
+.gnode.pulse circle{animation:pulse 1.5s ease-out infinite}
+@keyframes pulse{0%{stroke-width:2}50%{stroke-width:5}100%{stroke-width:2}}
+
+/* ===== 图例 ===== */
+.legend{
+  position:absolute;left:14px;bottom:14px;background:var(--panel);border:1px solid var(--border);
+  border-radius:calc(var(--radius) - 2px);padding:10px 12px;box-shadow:var(--shadow);
+  display:grid;grid-template-columns:auto auto;gap:5px 14px;font-size:11px;color:var(--text2);
+  transition:background .35s ease;
+}
+.legend .lg-t{grid-column:1/-1;font-size:10px;letter-spacing:.8px;color:var(--text3);
+  font-weight:600;text-transform:uppercase;margin-bottom:2px}
+.legend .lg{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.sw{width:11px;height:11px;border-radius:3px;display:inline-block;flex:none}
+.sw.core{background:var(--d-core)}
+.sw.metric{background:var(--d-metric)}
+.sw.axis{background:var(--d-axis)}
+.sw.space{background:var(--d-space)}
+.sw.renew{background:var(--d-renew)}
+.sw.policy{background:var(--d-policy)}
+/* 深色画布上的图例：随画布转为深色控件 */
+html[data-theme="modern"] .legend{
+  background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);
+  color:rgba(255,255,255,.78);box-shadow:0 4px 16px rgba(0,0,0,.35);
+}
+html[data-theme="modern"] .legend .lg-t{color:rgba(255,255,255,.45)}
+
+/* ===== 详情面板 ===== */
+.detail{flex:1;min-height:0;overflow:auto;padding:0 16px 18px}
+.detail::-webkit-scrollbar{width:8px}
+.detail::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px}
+.d-bar{height:5px;margin:0 -16px 14px;background:var(--nv,var(--accent))}
+.d-top{display:flex;align-items:flex-start;gap:10px}
+.d-title{font-size:17px;font-weight:700;letter-spacing:.2px;flex:1}
+.d-tag{font-size:10.5px;padding:3px 9px;border-radius:20px;font-weight:600;white-space:nowrap;
+  background:var(--nv-s,var(--accent-soft));color:var(--nv,var(--accent));border:1px solid var(--nv,var(--accent))}
+.d-en{font-size:11.5px;color:var(--text3);font-family:"SFMono-Regular",Consolas,monospace;margin:4px 0 12px}
+.d-uri{
+  font-size:10.5px;font-family:"SFMono-Regular",Consolas,monospace;color:var(--nv,var(--link));
+  background:var(--nv-s,var(--accent-soft));padding:7px 10px;
+  border-radius:calc(var(--radius) - 6px);word-break:break-all;line-height:1.5;margin-bottom:14px;
+  border-left:3px solid var(--nv,var(--accent));
+}
+.d-sec{font-size:10.5px;letter-spacing:.8px;color:var(--text3);font-weight:700;
+  margin:16px 0 7px;text-transform:uppercase}
+.d-text{font-size:12.5px;line-height:1.75;color:var(--text2)}
+.d-note{
+  font-size:12px;line-height:1.75;color:var(--text2);border-left:3px solid var(--nv,var(--accent));
+  background:var(--nv-s,var(--accent-soft));padding:9px 12px;border-radius:0 6px 6px 0;
+}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:11.5px;padding:4px 10px;border-radius:20px;border:1px solid var(--border);
+  background:var(--panel2);color:var(--text2);transition:.2s}
+html[data-theme="gov"] .chip{border-radius:3px}
+.chip.ac{border-color:var(--nv,var(--accent));color:var(--nv,var(--accent));
+  background:var(--nv-s,var(--accent-soft));font-weight:600}
+.pill{display:inline-block;font-size:10.5px;padding:3px 9px;border-radius:20px;margin:0 6px 6px 0;
+  border:1px solid var(--border);color:var(--text3)}
+.pill.ok{border-color:var(--ok);color:var(--ok)}
+.pill.todo{border-color:var(--warn);color:var(--warn)}
+.kv{display:grid;grid-template-columns:76px 1fr;gap:6px 10px;font-size:12.5px;line-height:1.6}
+.kv dt{color:var(--text3)}
+.kv dd{color:var(--text2);font-family:"SFMono-Regular",Consolas,monospace}
+.empty{color:var(--text3);font-size:12px;line-height:2;text-align:center;margin-top:60px}
+footer{
+  height:30px;display:flex;align-items:center;gap:14px;padding:0 20px;font-size:11px;
+  color:var(--text3);border-top:1px solid var(--border);background:var(--panel);
+  transition:background .35s ease;
+}
+footer b{color:var(--accent);font-weight:600}
+footer .sep{opacity:.35}
+footer .right{margin-left:auto;font-family:"SFMono-Regular",Consolas,monospace}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><i></i><b>城市体检与更新本体</b><span>urban-renewal-ontology</span></div>
+  <div class="search">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input id="q" placeholder="检索类 / 属性 / 指标，如 空间单元、Problem、燃气">
+  </div>
+  <div class="switch">
+    <span class="lbl">视觉风格</span>
+    <button class="tbtn" data-t="dark"><i style="background:#22d3ee"></i>科技深色</button>
+    <button class="tbtn" data-t="gov"><i style="background:#1a4b8c"></i>政务蓝白</button>
+    <button class="tbtn" data-t="modern"><i style="background:#0f766e"></i>现代中性</button>
+  </div>
+</header>
+
+<main>
+  <aside class="panel">
+    <div class="ph">类层级 <em id="treeCount">16 个顶层类</em></div>
+    <div class="tree" id="tree"></div>
+  </aside>
+
+  <section class="panel">
+    <div class="dim-strip" id="dims"></div>
+    <div class="canvas">
+      <svg id="graph" viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="legend">
+        <div class="lg-t">节点域</div>
+        <span class="lg"><i class="sw core"></i>主干闭环</span>
+        <span class="lg"><i class="sw metric"></i>指标内核</span>
+        <span class="lg"><i class="sw axis"></i>指标双轴</span>
+        <span class="lg"><i class="sw space"></i>空间主轴</span>
+        <span class="lg"><i class="sw renew"></i>更新要素</span>
+        <span class="lg"><i class="sw policy"></i>政策依据</span>
+      </div>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <div class="ph">详情</div>
+    <div class="detail" id="detail"></div>
+  </aside>
+</main>
+
+<footer>
+  <span>当前风格：<b id="fStyle">现代中性</b></span>
+  <span class="sep">|</span>
+  <span id="fDesc">浅色界面 + 深色图谱画布 · 六域各占一色，主干闭环实心高饱和</span>
+  <span class="right">city-checkup ontology · 279 nodes / 1574 triples</span>
+</footer>
+
+<script>
+/* ===== 语义域名称 ===== */
+const DOMAINS={core:'主干闭环',metric:'指标内核',axis:'指标双轴',
+  space:'空间主轴',renew:'更新要素',policy:'政策依据',neutral:'通用'};
+
+/* ===== 类详情（中文名 / 英文别名 / 定义 / 来源） ===== */
+const DEF = {
+  SpatialUnit:['空间单元','Spatial Unit','承载体检与更新的空间载体，按五级维度组织','建科〔2023〕75号 附件「城市体检基础指标体系」层级划分'],
+  Dimension:['指标维度','Indicator Dimension','体检指标归属的维度（五级），指标分类主轴','建科〔2023〕75号；建办科〔2026〕16号 附件1'],
+  IndicatorCategory:['指标分类','Indicator Category','指标的一级分类轴，与 Dimension 并行的独立轴','2026-10-09 决议（我方 55 项口径）'],
+  Indicator:['体检指标','Indicator','度量项，分基础 / 推荐 / 特色；由 1..n 数据对象派生','建办科〔2026〕16号 附件1（55 项基础指标）'],
+  DataObject:['数据对象','Data Object','指标计算依赖的基础数据项，具独立定义 / 采集层级 / 来源','建办科〔2026〕16号 附件1（指标计算方法栏）'],
+  ExaminationActivity:['体检活动','Examination Activity','一次体检评估工作（年度 / 批次）','建科〔2023〕75号（城市体检评估机制）'],
+  AssessmentResult:['评估结果','Assessment Result','指标值 + 达标判定 + 等级','建科〔2023〕75号（评估工作要求）'],
+  Problem:['问题短板','Problem','由评估结果导出的不足项，触发更新','主干闭环需要（依据体检问题清单机制）'],
+  RemediationSuggestion:['整治建议','Remediation Suggestion','问题短板与更新项目之间的中介层：整治建议 / 区域 / 类型 / 责任单位','样本市城区成果表5「整治清单」【地方实操】'],
+  RenewalObject:['更新对象','Renewal Object','被更新的实体（语义角色，不并空间单元）','城市更新行动范畴（国办发〔2020〕23号 等）'],
+  RenewalProject:['更新项目','Renewal Project','具体实施的项目','城市更新项目库机制（建科〔2023〕75号）'],
+  RenewalApproach:['更新方式','Renewal Approach','改造 / 提升 / 重建等路径','城市更新政策（建科〔2021〕63号「留改拆」）'],
+  Actor:['行动主体','Actor','政府、实施主体、产权人、居民、社会资本','城市更新 / 老旧小区改造实施机制'],
+  Fund:['资金','Fund','资金来源与投资额','中央财政示范（财办建〔2024〕24号 / 〔2025〕11号）'],
+  PolicyStandard:['政策标准','Policy Standard','依据文件（标准 / 导则 / 政策 / 条例）','现行有效文件总清单（77 件）'],
+  TimePeriod:['时间周期','Time Period','年度、时序、工期','通用时间维度']
+};
+
+const TREE = [
+  {id:'SpatialUnit',cn:'空间单元',en:'SpatialUnit',n:5,d:'space',children:[
+    ['城区','UrbanDistrict'],['街区','Neighborhood'],['社区','Community'],
+    ['小区','ResidentialQuarter'],['建筑（楼栋）','Building']]},
+  {id:'Dimension',cn:'指标维度',en:'Dimension',n:5,d:'axis',tag:'成员',
+   children:[['住房维度','HousingDimension'],['小区维度','ResidentialQuarterDimension'],
+             ['社区维度','CommunityDimension'],['街区维度','NeighborhoodDimension'],
+             ['城区维度','UrbanDistrictDimension']]},
+  {id:'IndicatorCategory',cn:'指标分类',en:'IndicatorCategory',n:13,d:'axis',tag:'成员',
+   children:[['安全耐久',''],['功能完备',''],['设施完善',''],['环境宜居',''],['管理健全',''],
+             ['功能完善',''],['整洁有序',''],['特色活力',''],['生态宜居',''],
+             ['历史文化保护利用',''],['产城融合职住平衡',''],['安全韧性',''],['智慧高效','']]},
+  {id:'Indicator',cn:'体检指标',en:'Indicator',n:55,d:'metric',tag:'个体',
+   children:[['存在结构安全隐患的住宅数量','#1'],['存在燃气安全隐患的住宅数量','#2'],
+             ['道路网密度',''],['燃气管网改造率','']]},
+  {id:'DataObject',cn:'数据对象',en:'DataObject',n:50,d:'metric',tag:'角色类',
+   children:[['建筑','Building'],['小区','ResidentialQuarter'],['问题','Problem'],
+             ['设施对象','FacilityObject'],['管理对象','ManagementObject']]},
+  {id:'ExaminationActivity',cn:'体检活动',en:'ExaminationActivity',n:0,d:'core'},
+  {id:'AssessmentResult',cn:'评估结果',en:'AssessmentResult',n:0,d:'core'},
+  {id:'Problem',cn:'问题短板',en:'Problem',n:0,d:'core'},
+  {id:'RemediationSuggestion',cn:'整治建议',en:'RemediationSuggestion',n:0,d:'core'},
+  {id:'RenewalProject',cn:'更新项目',en:'RenewalProject',n:0,d:'core'},
+  {id:'RenewalObject',cn:'更新对象',en:'RenewalObject',n:0,d:'renew',
+   children:[['老旧小区','OldResidentialBlock'],['老旧商业街区','OldCommercialBlock'],
+             ['老旧厂区','OldIndustrialArea'],['城中村','UrbanVillage'],['完整社区','CompleteCommunity']]},
+  {id:'RenewalApproach',cn:'更新方式',en:'RenewalApproach',n:0,d:'renew',
+   children:[['改造',''],['提升',''],['重建','']]},
+  {id:'Actor',cn:'行动主体',en:'Actor',n:0,d:'renew'},
+  {id:'Fund',cn:'资金',en:'Fund',n:0,d:'renew'},
+  {id:'PolicyStandard',cn:'政策标准',en:'PolicyStandard',n:77,d:'policy'},
+  {id:'TimePeriod',cn:'时间周期',en:'TimePeriod',n:0,d:'neutral'}
+];
+
+/* 五级维度各占一色 */
+const DIMS = [
+  ['住房',8,'--d-core'],
+  ['小区',6,'--d-metric'],
+  ['社区',4,'--d-axis'],
+  ['街区',8,'--d-renew'],
+  ['城区',29,'--d-space']
+];
+
+/* ===== 图谱节点（d = 所属语义域） ===== */
+const GNODES = [
+  {id:'EA', cn:'体检活动', d:'core', hub:1, r:28},
+  {id:'AR', cn:'评估结果', d:'core', hub:1, r:26},
+  {id:'PR', cn:'问题短板', d:'core', hub:1, r:26},
+  {id:'RS', cn:'整治建议', d:'core', hub:1, r:25},
+  {id:'RP', cn:'更新项目', d:'core', hub:1, r:27},
+  {id:'IND',cn:'体检指标', d:'metric', r:24},
+  {id:'DO', cn:'数据对象', d:'metric', r:20},
+  {id:'DIM',cn:'指标维度', d:'axis', r:20},
+  {id:'IC', cn:'指标分类', d:'axis', r:20},
+  {id:'SU', cn:'空间单元', d:'space', r:25},
+  {id:'RO', cn:'更新对象', d:'renew', r:20},
+  {id:'RA', cn:'更新方式', d:'renew', r:20},
+  {id:'AC', cn:'行动主体', d:'renew', r:20},
+  {id:'FD', cn:'资金', d:'renew', r:18},
+  {id:'PS', cn:'政策标准', d:'policy', r:21},
+  {id:'U1', cn:'城区', d:'space', small:1, r:16},
+  {id:'U2', cn:'街区', d:'space', small:1, r:16},
+  {id:'U3', cn:'社区', d:'space', small:1, r:16},
+  {id:'U4', cn:'小区', d:'space', small:1, r:16},
+  {id:'U5', cn:'建筑', d:'space', small:1, r:16}
+];
+
+/* 边：[源, 目标, 标签, 是否主干闭环, 是否虚线] */
+const GEDGES = [
+  ['EA','AR','produces',1],['AR','PR','revealsProblem',1],['PR','RS','proposes',1],['RS','RP','leadsTo',1],
+  ['IND','DO','computedFrom'],['IND','DIM','inDimension'],['IND','IC','inCategory'],
+  ['IND','PS','basedOn'],['EA','IND','usesIndicator'],['EA','SU','examines'],
+  ['PR','SU','locatedIn'],['RS','AC','assignedTo'],['RP','RO','actsOn'],
+  ['RP','RA','adoptsApproach'],['RP','AC','implementedBy'],['RP','FD','fundedBy'],
+  ['PR','RP','triggers',0,1],
+  ['SU','U1'],['SU','U2'],['SU','U3'],['SU','U4'],['SU','U5']
+];
+
+/* ===== 主题 ===== */
+const THEMES = {
+  modern:['现代中性','浅色界面 + 深色图谱画布 · 六域各占一色，主干闭环实心高饱和'],
+  dark:['科技深色','深底 + 域色提亮，适合技术评审、数据大屏'],
+  gov:['政务蓝白','白底深蓝 + 公文红点缀，克制正式，适合政府汇报']
+};
+function applyTheme(t){
+  if(!THEMES[t])t='modern';
+  document.documentElement.dataset.theme=t;
+  document.querySelectorAll('.tbtn').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
+  document.getElementById('fStyle').textContent=THEMES[t][0];
+  document.getElementById('fDesc').textContent=THEMES[t][1];
+}
+document.querySelectorAll('.tbtn').forEach(b=>{b.onclick=()=>applyTheme(b.dataset.t);});
+
+/* ===== 维度条 ===== */
+document.getElementById('dims').innerHTML = DIMS.map(d=>
+  `<div class="dim" style="--dc:var(${d[2]})"><b>${d[1]}</b><span>${d[0]}</span></div>`).join('');
+
+/* ===== 类层级树 ===== */
+const treeEl=document.getElementById('tree');
+const itemMap={};
+function renderTree(){
+  treeEl.innerHTML='';
+  TREE.forEach(t=>{
+    const kids=(t.children||[]);
+    const hasKids=kids.length>0;
+    const el=document.createElement('div');
+    el.innerHTML=
+      `<div class="node-item ${hasKids?'':'leaf'}" data-id="${t.id}"
+            style="--nv:var(--d-${t.d});--nv-s:var(--d-${t.d}-s)">
+         <span class="caret">▶</span>
+         <span class="cn">${t.cn}</span>
+         ${t.n?`<span class="badge">${t.n}</span>`:(t.tag?`<span class="badge">${t.tag}</span>`:'')}
+       </div>
+       <div class="children">${kids.map(k=>
+         `<div class="node-item leaf" data-id="${t.id}">
+            <span class="caret">▶</span>
+            <span class="cn">${k[0]}${k[1]?` <span class="sub">${k[1]}</span>`:''}</span>
+          </div>`).join('')}</div>`;
+    const head=el.children[0], box=el.children[1];
+    itemMap[t.id]=head;
+    head.onclick=()=>{box.classList.toggle('show');head.classList.toggle('open');select(t.id);};
+    el.querySelectorAll('.children .node-item').forEach(k=>{
+      k.onclick=e=>{e.stopPropagation();select(t.id);};
+    });
+    treeEl.appendChild(el);
+  });
+}
+function select(id){
+  document.querySelectorAll('.node-item').forEach(x=>x.classList.remove('sel'));
+  if(itemMap[id])itemMap[id].classList.add('sel');
+  showDetail(id); highlight(id);
+}
+const GMAP={EA:'ExaminationActivity',IND:'Indicator',AR:'AssessmentResult',PR:'Problem',
+  RS:'RemediationSuggestion',RP:'RenewalProject',DO:'DataObject',DIM:'Dimension',
+  IC:'IndicatorCategory',SU:'SpatialUnit',RO:'RenewalObject',RA:'RenewalApproach',
+  AC:'Actor',FD:'Fund',PS:'PolicyStandard'};
+const SHORT={};Object.keys(GMAP).forEach(k=>SHORT[GMAP[k]]=k);
+function isLinked(a,b){return GEDGES.some(e=>(e[0]===a&&e[1]===b)||(e[1]===a&&e[0]===b));}
+function highlight(id){
+  const sid=SHORT[id]||id;
+  const has=!!nodeEls[sid];
+  Object.keys(nodeEls).forEach(k=>{
+    nodeEls[k].classList.toggle('pulse',k===sid);
+    nodeEls[k].classList.toggle('dimmed',has&&k!==sid&&!isLinked(sid,k));
+  });
+  gEdges.forEach(e=>{
+    const on=(e.a.id===sid||e.b.id===sid);
+    e.p.classList.toggle('dimmed',has&&!on);
+  });
+}
+renderTree();
+
+/* ===== 详情 ===== */
+const detailEl=document.getElementById('detail');
+function showDetail(id){
+  const d=DEF[id];
+  if(!d){
+    detailEl.innerHTML='<div class="d-bar" style="--nv:var(--d-neutral)"></div>'+
+      '<div class="empty">该节点为示例条目<br>（本样例未展开此层）</div>';
+    return;
+  }
+  const t=TREE.find(x=>x.id===id)||{d:'neutral'};
+  const dom=DOMAINS[t.d]||'通用';
+  const kids=t.children||[];
+  let extra='';
+  if(id==='Indicator'){extra=`
+    <div class="d-sec">指标维度分布</div>
+    <div class="chips">${DIMS.map(x=>
+      `<span class="chip" style="border-color:var(${x[2]});color:var(${x[2]});background:var(${x[2]}-s)">${x[0]} <b>${x[1]}</b></span>`).join('')}</div>
+    <div class="d-sec">示例条目</div>
+    <div class="chips">
+      <span class="chip">#1 存在结构安全隐患的住宅数量</span>
+      <span class="chip">#2 存在燃气安全隐患的住宅数量</span>
+      <span class="chip">#30 道路网密度</span>
+      <span class="chip ac">共 55 项</span>
+    </div>`;}
+  else if(id==='IndicatorCategory'){extra=`
+    <div class="d-sec">与维度的归属（belongsToDimension）</div>
+    <div class="d-note">13 个分类为<b>跨维度的独立轴</b>，一个分类可归属多个维度（如「设施完善」同归社区 + 小区维度）。</div>`;}
+  else if(id==='Problem'){extra=`
+    <div class="d-sec">约束</div>
+    <div class="d-text"><span class="pill ok">locatedIn 1..1</span><span class="pill ok">derivedFrom 1..1</span><span class="pill todo">severity ∈ [0,1]（档位【待核】）</span></div>`;}
+  else if(id==='DataObject'){extra=`
+    <div class="d-sec">角色类说明</div>
+    <div class="d-note">computedFrom 值域 = DataObject ∪ SpatialUnit ∪ RenewalObject ∪ Problem ∪ RenewalProject。复用实体不新建 DataObject。</div>`;}
+  detailEl.innerHTML=`
+    <div class="d-bar" style="--nv:var(--d-${t.d})"></div>
+    <div class="d-top">
+      <div class="d-title">${d[0]}</div>
+      <span class="d-tag">${dom}</span>
+    </div>
+    <div class="d-en">${d[1]}</div>
+    <div class="d-uri">https://ontology.cset-digital.cn/urban-renewal#${id}</div>
+    <div class="d-sec">定义</div>
+    <div class="d-text">${d[2]}</div>
+    <div class="d-sec">来源</div>
+    <div class="d-text">${d[3]}</div>
+    ${kids.length?`<div class="d-sec">下位 / 成员</div><div class="chips">${kids.map(k=>`<span class="chip">${k[0]}</span>`).join('')}</div>`:''}
+    <div class="d-sec">归属</div>
+    <dl class="kv">
+      <dt>英文名</dt><dd>${d[1]}</dd>
+      <dt>URI 名</dt><dd>${id}</dd>
+      <dt>所属域</dt><dd>${dom}</dd>
+      <dt>序号</dt><dd>顶层类 ${TREE.findIndex(x=>x.id===id)+1} / 16</dd>
+      <dt>状态</dt><dd>建模稿</dd>
+    </dl>
+    ${extra}`;
+}
+showDetail('SpatialUnit');
+
+/* ===== 知识图谱 ===== */
+const svg=document.getElementById('graph');
+const NS='http://www.w3.org/2000/svg';
+const N=GNODES.map(n=>({...n,vx:0,vy:0}));
+const M={}; N.forEach(n=>M[n.id]=n);
+const seed={EA:[90,300],IND:[230,150],DO:[90,140],DIM:[190,55],IC:[300,55],
+  AR:[250,300],PR:[400,300],RS:[545,300],RP:[705,300],SU:[150,440],
+  RO:[725,150],RA:[815,215],AC:[625,160],FD:[815,110],PS:[615,430],
+  U1:[230,530],U2:[335,555],U3:[445,560],U4:[555,545],U5:[380,455]};
+N.forEach(n=>{const s=seed[n.id]||[450,310];n.x=s[0];n.y=s[1];});
+
+const gEdges=[];
+GEDGES.forEach(e=>{
+  const a=M[e[0]],b=M[e[1]]; if(!a||!b)return;
+  const wrap=document.createElementNS(NS,'g');
+  wrap.setAttribute('class','edge-g');
+  const p=document.createElementNS(NS,'path');
+  p.setAttribute('class','edge'+(e[4]?' dash':'')+(e[3]?' core':''));
+  wrap.appendChild(p);
+  const t=document.createElementNS(NS,'text');
+  t.setAttribute('class','elabel');
+  if(e[2])t.textContent=e[2];
+  wrap.appendChild(t);
+  svg.appendChild(wrap);
+  gEdges.push({a,b,p,t});
+});
+const nodeEls={};
+N.forEach(n=>{
+  const g=document.createElementNS(NS,'g');
+  g.setAttribute('class','gnode g-'+n.d+(n.hub?' hub':'')+(n.small?' small':''));
+  const c=document.createElementNS(NS,'circle');
+  c.setAttribute('r',n.r); g.appendChild(c);
+  const t1=document.createElementNS(NS,'text');
+  t1.textContent=n.cn; t1.setAttribute('y',n.small?0:-4);
+  g.appendChild(t1);
+  if(!n.small){
+    const t2=document.createElementNS(NS,'text');
+    t2.setAttribute('class','en'); t2.setAttribute('y',10);
+    t2.textContent=n.id; g.appendChild(t2);
+  }
+  svg.appendChild(g);
+  nodeEls[n.id]=g; n.el=g;
+  const full=GMAP[n.id];
+  g.onclick=()=>{ if(full){select(full);} else {showDetail(n.id);highlight(n.id);} };
+  enableDrag(n);
+});
+function render(){
+  N.forEach(n=>n.el.setAttribute('transform',`translate(${n.x.toFixed(1)},${n.y.toFixed(1)})`));
+  gEdges.forEach(e=>{
+    const mx=(e.a.x+e.b.x)/2,my=(e.a.y+e.b.y)/2;
+    e.p.setAttribute('d',`M${e.a.x.toFixed(1)} ${e.a.y.toFixed(1)} Q ${mx} ${my} ${e.b.x.toFixed(1)} ${e.b.y.toFixed(1)}`);
+    const dx=e.b.x-e.a.x,dy=e.b.y-e.a.y,len=Math.hypot(dx,dy)||1;
+    e.t.setAttribute('x',(mx-dx/len*10).toFixed(1));
+    e.t.setAttribute('y',(my-dy/len*13).toFixed(1));
+    e.t.setAttribute('text-anchor','middle');
+  });
+}
+let alpha=1,running=false;
+function tick(){
+  alpha*=.985;
+  for(let i=0;i<N.length;i++)for(let j=i+1;j<N.length;j++){
+    const a=N[i],b=N[j];
+    let dx=b.x-a.x,dy=b.y-a.y;const d2=dx*dx+dy*dy||1,d=Math.sqrt(d2);
+    const f=Math.min(9000/d2,9);dx/=d;dy/=d;
+    a.vx-=dx*f;a.vy-=dy*f;b.vx+=dx*f;b.vy+=dy*f;
+  }
+  gEdges.forEach(e=>{
+    const dx=e.b.x-e.a.x,dy=e.b.y-e.a.y,d=Math.hypot(dx,dy)||1;
+    const L=(e.a.small||e.b.small)?110:175;
+    const f=(d-L)*.012,ux=dx/d,uy=dy/d;
+    e.a.vx+=ux*f;e.a.vy+=uy*f;e.b.vx-=ux*f;e.b.vy-=uy*f;
+  });
+  N.forEach(n=>{
+    n.vx+=(450-n.x)*.0018;n.vy+=(310-n.y)*.0022;
+    if(n.fixed)return;
+    n.vx*=.84;n.vy*=.84;
+    n.x+=n.vx*alpha;n.y+=n.vy*alpha;
+    n.x=Math.max(n.r+8,Math.min(892-n.r,n.x));
+    n.y=Math.max(n.r+8,Math.min(612-n.r,n.y));
+  });
+  render();
+  if(alpha>.02)requestAnimationFrame(tick);else running=false;
+}
+function kick(){if(running)return;running=true;alpha=Math.max(alpha,.35);requestAnimationFrame(tick);}
+function enableDrag(n){
+  let ox,oy,drag=false;
+  n.el.addEventListener('pointerdown',e=>{
+    drag=true;n.fixed=true;
+    const pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;
+    const p=pt.matrixTransform(svg.getScreenCTM().inverse());
+    ox=p.x-n.x;oy=p.y-n.y;
+    n.el.setPointerCapture(e.pointerId);
+  });
+  n.el.addEventListener('pointermove',e=>{
+    if(!drag)return;
+    const pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;
+    const p=pt.matrixTransform(svg.getScreenCTM().inverse());
+    n.x=p.x-ox;n.y=p.y-oy;n.vx=0;n.vy=0;render();kick();
+  });
+  const end=()=>{drag=false;n.fixed=false;kick();};
+  n.el.addEventListener('pointerup',end);
+  n.el.addEventListener('pointercancel',end);
+}
+render();requestAnimationFrame(tick);
+
+/* ===== 检索 ===== */
+document.getElementById('q').oninput=e=>{
+  const v=e.target.value.trim().toLowerCase();
+  let hit=0;
+  TREE.forEach(t=>{
+    const kids=t.children||[];
+    const self=(t.cn+t.en+t.id).toLowerCase().includes(v);
+    let kidHit=false;
+    const box=itemMap[t.id].nextElementSibling;
+    box.querySelectorAll('.node-item').forEach((k,i)=>{
+      const m=(kids[i][0]+kids[i][1]).toLowerCase().includes(v);
+      k.style.display=(!v||m)?'':'none';
+      if(m)kidHit=true;
+    });
+    if(v&&kidHit){box.classList.add('show');itemMap[t.id].classList.add('open');}
+    itemMap[t.id].style.display=(!v||self||kidHit)?'':'none';
+    if(self)hit++;
+  });
+  document.getElementById('treeCount').textContent=v?`命中 ${hit} 个顶层类`:'16 个顶层类';
+  N.forEach(n=>{
+    const el=nodeEls[n.id],m=(n.cn+n.id).toLowerCase().includes(v);
+    el.classList.toggle('dimmed',!!v&&!m);
+    el.classList.toggle('pulse',!!v&&m);
+  });
+};
+
+applyTheme(new URLSearchParams(location.search).get('theme')||'modern');
+</script>
+</body>
+</html>
