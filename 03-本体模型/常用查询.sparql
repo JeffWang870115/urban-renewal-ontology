@@ -63,3 +63,28 @@ SELECT ?ind ?name ?threshold ?pv WHERE {
   ?ind a ur:Indicator ; ur:threshold ?threshold ; ur:basedOn ?pol ; rdfs:label ?name .
   ?pol ur:policyVersion ?pv
 }
+
+PREFIX ur: <https://ontology.cset-digital.cn/urban-renewal#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+# Q7. 指标判断分布（2026-11-08 新增）：按「指标 × 判断值」统计单元数
+SELECT ?ind ?name ?jv (COUNT(?ij) AS ?n) WHERE {
+  ?ij a ur:IndicatorJudgement ; ur:ofIndicator ?ind ; ur:judgementValue ?jv .
+  ?ind rdfs:label ?name
+} GROUP BY ?ind ?name ?jv ORDER BY ?name ?jv
+
+PREFIX ur: <https://ontology.cset-digital.cn/urban-renewal#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+# Q8. 聚合对账（2026-11-08 新增）：评估结果值 vs 「判断≠达标」条数，不一致的列出
+SELECT ?ar ?name ?unit ?value ?expected WHERE {
+  ?ar a ur:AssessmentResult ; ur:ofIndicator ?ind ; ur:assesses ?unit ; ur:indicatorValue ?value .
+  ?ind rdfs:label ?name .
+  { SELECT ?ind ?unit (COUNT(?ij) AS ?expected) WHERE {
+      ?ij a ur:IndicatorJudgement ; ur:ofIndicator ?ind ; ur:judgementValue ?jv ; ur:assesses ?cm .
+      FILTER(STR(?jv) != "达标") ?cm ur:locatedIn+ ?unit
+    } GROUP BY ?ind ?unit }
+  FILTER(STR(?value) != STR(?expected))
+} ORDER BY ?name

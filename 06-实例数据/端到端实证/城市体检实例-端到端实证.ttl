@@ -1,0 +1,109 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ur: <https://ontology.cset-digital.cn/urban-renewal#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ur:AR_CM_S01_I13 a ur:AssessmentResult ;
+    rdfs:comment "实证演示判定（规则+语义），非标准结论"@zh ;
+    ur:assesses ur:CM_S01 ;
+    ur:grade "很好"@zh ;
+    ur:indicatorValue 1e+00 ;
+    ur:ofIndicator ur:Indicator_13 .
+
+ur:AR_CM_S01_I15 a ur:AssessmentResult ;
+    rdfs:comment "实证演示判定（规则+语义），非标准结论"@zh ;
+    ur:assesses ur:CM_S01 ;
+    ur:grade "很好"@zh ;
+    ur:indicatorValue 0e+00 ;
+    ur:ofIndicator ur:Indicator_15 .
+
+ur:AR_CM_S01_I18 a ur:AssessmentResult ;
+    rdfs:comment "实证演示判定（规则+语义），非标准结论"@zh ;
+    ur:assesses ur:CM_S01 ;
+    ur:grade "很好"@zh ;
+    ur:indicatorValue 0e+00 ;
+    ur:ofIndicator ur:Indicator_18 .
+
+ur:AR_CM_S01_I12 a ur:AssessmentResult ;
+    rdfs:comment "实证演示判定（规则+语义），非标准结论"@zh ;
+    ur:assesses ur:CM_S01 ;
+    ur:grade "不足"@zh ;
+    ur:indicatorValue 6.8e+01 ;
+    ur:ofIndicator ur:Indicator_12 ;
+    ur:revealsProblem ur:P_CM_S01_I12_evidence .
+
+ur:AR_CM_S01_I16 a ur:AssessmentResult ;
+    rdfs:comment "实证演示判定（规则+语义），非标准结论"@zh ;
+    ur:assesses ur:CM_S01 ;
+    ur:grade "不足"@zh ;
+    ur:indicatorValue 6e+00 ;
+    ur:ofIndicator ur:Indicator_16 ;
+    ur:revealsProblem ur:P_CM_S01_I16_evidence .
+
+ur:AR_CM_S01_I17 a ur:AssessmentResult ;
+    rdfs:comment "实证演示判定（规则+语义），非标准结论"@zh ;
+    ur:assesses ur:CM_S01 ;
+    ur:grade "不足"@zh ;
+    ur:indicatorValue 1e+00 ;
+    ur:ofIndicator ur:Indicator_17 ;
+    ur:revealsProblem ur:P_CM_S01_I17_evidence .
+
+ur:P_CM_S01_I12_evidence a ur:Problem ;
+    ur:derivedFrom ur:AR_CM_S01_I12 ;
+    ur:locatedIn ur:CM_S01 ;
+    ur:problemDescription "社区CM_S01指标12实测68，判定不足"@zh ;
+    ur:proposes ur:RS_CM_S01_I12_evidence ;
+    ur:severity 0.5 .
+
+ur:P_CM_S01_I16_evidence a ur:Problem ;
+    ur:derivedFrom ur:AR_CM_S01_I16 ;
+    ur:locatedIn ur:CM_S01 ;
+    ur:problemDescription "社区CM_S01指标16实测6，判定不足"@zh ;
+    ur:proposes ur:RS_CM_S01_I16_evidence ;
+    ur:severity 0.5 .
+
+ur:P_CM_S01_I17_evidence a ur:Problem ;
+    ur:derivedFrom ur:AR_CM_S01_I17 ;
+    ur:locatedIn ur:CM_S01 ;
+    ur:problemDescription "社区CM_S01指标17实测1，判定不足"@zh ;
+    ur:proposes ur:RS_CM_S01_I17_evidence ;
+    ur:severity 0.5 .
+
+ur:RO_CM_S01_I12_evidence a ur:Infrastructure ;
+    rdfs:label "充电设施补建"@zh ;
+    ur:belongsTo ur:CM_S01 .
+
+ur:RO_CM_S01_I16_evidence a ur:Infrastructure ;
+    rdfs:label "垃圾分类设施配置"@zh ;
+    ur:belongsTo ur:CM_S01 .
+
+ur:RO_CM_S01_I17_evidence a ur:Infrastructure ;
+    rdfs:label "物业管理体系建设"@zh ;
+    ur:belongsTo ur:CM_S01 .
+
+ur:RP_CM_S01_I12_evidence a ur:RenewalProject ;
+    rdfs:label "CM_S01充电设施缺口整治项目"@zh ;
+    ur:actsOn ur:RO_CM_S01_I12_evidence ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_CM_S01_I16_evidence a ur:RenewalProject ;
+    rdfs:label "CM_S01垃圾分类推进项目"@zh ;
+    ur:actsOn ur:RO_CM_S01_I16_evidence ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_CM_S01_I17_evidence a ur:RenewalProject ;
+    rdfs:label "CM_S01物业管理覆盖项目"@zh ;
+    ur:actsOn ur:RO_CM_S01_I17_evidence ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RS_CM_S01_I12_evidence a ur:RemediationSuggestion ;
+    rdfs:label "充电设施缺口整治"@zh ;
+    ur:leadsTo ur:RP_CM_S01_I12_evidence .
+
+ur:RS_CM_S01_I16_evidence a ur:RemediationSuggestion ;
+    rdfs:label "垃圾分类推进"@zh ;
+    ur:leadsTo ur:RP_CM_S01_I16_evidence .
+
+ur:RS_CM_S01_I17_evidence a ur:RemediationSuggestion ;
+    rdfs:label "物业管理覆盖"@zh ;
+    ur:leadsTo ur:RP_CM_S01_I17_evidence .
+

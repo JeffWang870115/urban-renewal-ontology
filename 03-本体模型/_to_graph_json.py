@@ -40,7 +40,7 @@ NS = "https://ontology.cset-digital.cn/urban-renewal#"
 
 # 语义域（视觉约定，2026-10-11 大王认可）—— 顶层类 → 域
 DOMAIN_OF = {
-    "ExaminationActivity": "core", "AssessmentResult": "core", "Problem": "core",
+    "ExaminationActivity": "core", "AssessmentResult": "core", "IndicatorJudgement": "core", "Problem": "core",
     "RemediationSuggestion": "core", "RenewalProject": "core",
     "Indicator": "metric", "DataObject": "metric",
     "Dimension": "axis", "IndicatorCategory": "axis",
@@ -96,8 +96,8 @@ def parse_md():
         if m:
             cn, en, uid, desc, src, status = (x.strip() for x in m.groups())
             top[uid] = {"cn": cn, "en": en, "desc": desc, "source": src, "status": status}
-    if len(top) != 16:
-        die(f"类与层级.md §一 解析到 {len(top)} 个顶层类，期望 16")
+    if len(top) != 17:
+        die(f"类与层级.md §一 解析到 {len(top)} 个顶层类，期望 17")
 
     # §2.9 支撑类表（对象分类父类 / 受控词表 / 规则族）
     support, inside = {}, False

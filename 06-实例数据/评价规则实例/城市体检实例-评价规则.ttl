@@ -1,0 +1,720 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ur: <https://ontology.cset-digital.cn/urban-renewal#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ur:ER_I27 a ur:EvaluationRule ;
+    rdfs:label "指标27绿道服务半径覆盖率四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_27 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I27 .
+
+ur:ER_I28 a ur:EvaluationRule ;
+    rdfs:label "指标28新增各类体育场地面积四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_28 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I28 .
+
+ur:ER_I30 a ur:EvaluationRule ;
+    rdfs:label "指标30城市道路网密度四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_30 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I30 .
+
+ur:ER_I31 a ur:EvaluationRule ;
+    rdfs:label "指标31新建建筑中绿色建筑占比四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_31 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I31 .
+
+ur:ER_I32 a ur:EvaluationRule ;
+    rdfs:label "指标32历史文化街区、历史建筑挂牌建档率四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_32 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I32 .
+
+ur:ER_I33 a ur:EvaluationRule ;
+    rdfs:label "指标33历史建筑空置率四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_33 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I33 .
+
+ur:ER_I34 a ur:EvaluationRule ;
+    rdfs:label "指标34历史文化资源遭受破坏的负面事件数四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_34 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I34 .
+
+ur:ER_I35 a ur:EvaluationRule ;
+    rdfs:label "指标35擅自拆除历史文化街区内建筑物、构筑物的数量四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_35 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I35 .
+
+ur:ER_I37 a ur:EvaluationRule ;
+    rdfs:label "指标37城市高峰期机动车平均速度四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_37 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I37 .
+
+ur:ER_I38 a ur:EvaluationRule ;
+    rdfs:label "指标38轨道站点周边覆盖通勤比例四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_38 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I38 .
+
+ur:ER_I39 a ur:EvaluationRule ;
+    rdfs:label "指标39公租房保障最长轮候时间四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_39 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I39 .
+
+ur:ER_I42 a ur:EvaluationRule ;
+    rdfs:label "指标42房屋市政工程生产安全事故死亡率四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_42 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I42 .
+
+ur:ER_I44 a ur:EvaluationRule ;
+    rdfs:label "指标44应急水源供水保障率四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_44 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I44 .
+
+ur:ER_I48 a ur:EvaluationRule ;
+    rdfs:label "指标48城市消防站服务半径覆盖率四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_48 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I48 .
+
+ur:ER_I49 a ur:EvaluationRule ;
+    rdfs:label "指标49存量应急避难场所改造个数四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_49 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I49 .
+
+ur:ER_I51 a ur:EvaluationRule ;
+    rdfs:label "指标51建筑施工危险性较大的分部分项工程安全监测覆盖率四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_51 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I51 .
+
+ur:ER_I52 a ur:EvaluationRule ;
+    rdfs:label "指标52高层民用建筑智能化火灾监测预警覆盖率四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_52 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I52 .
+
+ur:ER_I53 a ur:EvaluationRule ;
+    rdfs:label "指标53城市运行管理服务智慧化水平四级评价规则"@zh ;
+    ur:evaluates ur:Indicator_53 ;
+    ur:evaluationMethod ur:EvaluationMethod_直接比较 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_I53 .
+
+ur:ERef_I27 a ur:EvaluationReference ;
+    rdfs:label "指标27绿道服务半径覆盖率评价标准（国家园林城市评选标准2022）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_园林城市评选2022 ;
+    ur:direction "正向"@zh ;
+    ur:forIndicator ur:Indicator_27 ;
+    ur:hasRatingBand ur:RB_I27_一般,
+        ur:RB_I27_不足,
+        ur:RB_I27_很好,
+        ur:RB_I27_较好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I28 a ur:EvaluationReference ;
+    rdfs:label "指标28新增各类体育场地面积评价标准（全国体育场地统计调查制度）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_体育场地统计制度 ;
+    ur:direction "正向"@zh ;
+    ur:forIndicator ur:Indicator_28 ;
+    ur:hasRatingBand ur:RB_I28_一般,
+        ur:RB_I28_不足,
+        ur:RB_I28_很好,
+        ur:RB_I28_较好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I30 a ur:EvaluationReference ;
+    rdfs:label "指标30城市道路网密度评价标准（中发〔2016〕6号）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_中发2016_6 ;
+    ur:direction "正向"@zh ;
+    ur:forIndicator ur:Indicator_30 ;
+    ur:hasRatingBand ur:RB_I30_一般,
+        ur:RB_I30_不足,
+        ur:RB_I30_很好,
+        ur:RB_I30_较好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I31 a ur:EvaluationReference ;
+    rdfs:label "指标31新建建筑中绿色建筑占比评价标准（城乡建设领域碳达峰实施方案）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_碳达峰实施方案 ;
+    ur:direction "正向"@zh ;
+    ur:forIndicator ur:Indicator_31 ;
+    ur:hasRatingBand ur:RB_I31_不足,
+        ur:RB_I31_很好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I32 a ur:EvaluationReference ;
+    rdfs:label "指标32历史文化街区、历史建筑挂牌建档率评价标准（中办国办加强历史文化保护传承意见）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_历史文化保护意见 ;
+    ur:direction "正向"@zh ;
+    ur:forIndicator ur:Indicator_32 ;
+    ur:hasRatingBand ur:RB_I32_不足,
+        ur:RB_I32_很好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I33 a ur:EvaluationReference ;
+    rdfs:label "指标33历史建筑空置率评价标准（住建部2022城市体检指标体系）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_体检指标体系2022 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_33 ;
+    ur:hasRatingBand ur:RB_I33_一般,
+        ur:RB_I33_不足,
+        ur:RB_I33_很好,
+        ur:RB_I33_较好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I34 a ur:EvaluationReference ;
+    rdfs:label "指标34历史文化资源遭受破坏的负面事件数评价标准（2026手册）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_34 ;
+    ur:hasRatingBand ur:RB_I34_不足,
+        ur:RB_I34_很好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I35 a ur:EvaluationReference ;
+    rdfs:label "指标35擅自拆除历史文化街区内建筑物、构筑物的数量评价标准（2026手册）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_35 ;
+    ur:hasRatingBand ur:RB_I35_不足,
+        ur:RB_I35_很好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I37 a ur:EvaluationReference ;
+    rdfs:label "指标37城市高峰期机动车平均速度评价标准（GB/T51328-2018）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_GBT51328_2018 ;
+    ur:direction "正向"@zh ;
+    ur:forIndicator ur:Indicator_37 ;
+    ur:hasRatingBand ur:RB_I37_一般,
+        ur:RB_I37_不足,
+        ur:RB_I37_很好,
+        ur:RB_I37_较好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I38 a ur:EvaluationReference ;
+    rdfs:label "指标38轨道站点周边覆盖通勤比例评价标准（中国主要城市通勤监测报告2022）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_通勤监测报告2022 ;
+    ur:direction "正向"@zh ;
+    ur:forIndicator ur:Indicator_38 ;
+    ur:hasRatingBand ur:RB_I38_一般,
+        ur:RB_I38_不足,
+        ur:RB_I38_很好,
+        ur:RB_I38_较好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I39 a ur:EvaluationReference ;
+    rdfs:label "指标39公租房保障最长轮候时间评价标准（建保〔2019〕55号）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_建保2019_55 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_39 ;
+    ur:hasRatingBand ur:RB_I39_一般,
+        ur:RB_I39_不足,
+        ur:RB_I39_很好,
+        ur:RB_I39_较好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I42 a ur:EvaluationReference ;
+    rdfs:label "指标42房屋市政工程生产安全事故死亡率评价标准（建质规〔2022〕2号）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_建质规2022_2 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_42 ;
+    ur:hasRatingBand ur:RB_I42_不足,
+        ur:RB_I42_很好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I44 a ur:EvaluationReference ;
+    rdfs:label "指标44应急水源供水保障率评价标准（GB50282-2016等）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_GB50282_2016 ;
+    ur:direction "正向"@zh ;
+    ur:forIndicator ur:Indicator_44 ;
+    ur:hasRatingBand ur:RB_I44_一般,
+        ur:RB_I44_不足,
+        ur:RB_I44_很好,
+        ur:RB_I44_较好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I48 a ur:EvaluationReference ;
+    rdfs:label "指标48城市消防站服务半径覆盖率评价标准（城市消防站建设标准）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_消防站建设标准 ;
+    ur:direction "正向"@zh ;
+    ur:forIndicator ur:Indicator_48 ;
+    ur:hasRatingBand ur:RB_I48_一般,
+        ur:RB_I48_不足,
+        ur:RB_I48_很好,
+        ur:RB_I48_较好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I49 a ur:EvaluationReference ;
+    rdfs:label "指标49存量应急避难场所改造个数评价标准（应急〔2023〕126号）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_应急2023_126 ;
+    ur:direction "正向"@zh ;
+    ur:forIndicator ur:Indicator_49 ;
+    ur:hasRatingBand ur:RB_I49_不足,
+        ur:RB_I49_很好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I51 a ur:EvaluationReference ;
+    rdfs:label "指标51建筑施工危险性较大的分部分项工程安全监测覆盖率评价标准（住建部令37号）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_住建部令37 ;
+    ur:direction "正向"@zh ;
+    ur:forIndicator ur:Indicator_51 ;
+    ur:hasRatingBand ur:RB_I51_一般,
+        ur:RB_I51_不足,
+        ur:RB_I51_很好,
+        ur:RB_I51_较好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I52 a ur:EvaluationReference ;
+    rdfs:label "指标52高层民用建筑智能化火灾监测预警覆盖率评价标准（2026手册）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:direction "正向"@zh ;
+    ur:forIndicator ur:Indicator_52 ;
+    ur:hasRatingBand ur:RB_I52_不足,
+        ur:RB_I52_很好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:ERef_I53 a ur:EvaluationReference ;
+    rdfs:label "指标53城市运行管理服务智慧化水平评价标准（住建部一网统管通知）"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_一网统管通知 ;
+    ur:direction "正向"@zh ;
+    ur:forIndicator ur:Indicator_53 ;
+    ur:hasRatingBand ur:RB_I53_一般,
+        ur:RB_I53_不足,
+        ur:RB_I53_很好,
+        ur:RB_I53_较好 ;
+    ur:sourceScope "标准口径"@zh ;
+    ur:validPeriod "2026"@zh .
+
+ur:RB_I27_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 50.0 ;
+    ur:bandUpper 60.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I27_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandUpper 50.0 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_I27_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandLower 70.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I27_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 60.0 ;
+    ur:bandUpper 70.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I28_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 0.1 ;
+    ur:bandUpper 0.2 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I28_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandUpper 0.1 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_I28_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandLower 0.3 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I28_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 0.2 ;
+    ur:bandUpper 0.3 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I30_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 6.0 ;
+    ur:bandUpper 7.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I30_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandUpper 6.0 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_I30_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandLower 8.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I30_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 7.0 ;
+    ur:bandUpper 8.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I31_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandUpper 100.0 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_I31_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandLower 100.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I32_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandUpper 100.0 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_I32_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandLower 100.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I33_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 15.0 ;
+    ur:bandUpper 20.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I33_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 20.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I33_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 10.0 ;
+    ur:includeLower false ;
+    ur:includeUpper true .
+
+ur:RB_I33_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 10.0 ;
+    ur:bandUpper 15.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I34_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 0.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I34_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 0.0 ;
+    ur:includeLower false ;
+    ur:includeUpper true .
+
+ur:RB_I35_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 0.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I35_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 0.0 ;
+    ur:includeLower false ;
+    ur:includeUpper true .
+
+ur:RB_I37_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 10.0 ;
+    ur:bandUpper 20.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I37_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandUpper 10.0 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_I37_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandLower 30.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I37_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 20.0 ;
+    ur:bandUpper 30.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I38_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 5.0 ;
+    ur:bandUpper 10.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I38_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandUpper 5.0 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_I38_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandLower 15.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I38_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 10.0 ;
+    ur:bandUpper 15.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I39_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 48.0 ;
+    ur:bandUpper 60.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I39_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 60.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I39_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 36.0 ;
+    ur:includeLower false ;
+    ur:includeUpper true .
+
+ur:RB_I39_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 36.0 ;
+    ur:bandUpper 48.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I42_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 0.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I42_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 0.0 ;
+    ur:includeLower false ;
+    ur:includeUpper true .
+
+ur:RB_I44_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 30.0 ;
+    ur:bandUpper 40.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I44_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandUpper 30.0 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_I44_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandLower 60.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I44_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 40.0 ;
+    ur:bandUpper 60.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I48_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 45.0 ;
+    ur:bandUpper 60.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I48_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandUpper 45.0 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_I48_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandLower 75.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I48_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 60.0 ;
+    ur:bandUpper 75.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I49_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandUpper 100.0 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_I49_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandLower 100.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I51_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 50.0 ;
+    ur:bandUpper 70.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I51_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandUpper 30.0 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_I51_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandLower 90.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I51_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 70.0 ;
+    ur:bandUpper 90.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I52_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandUpper 100.0 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_I52_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandLower 100.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I53_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 500.0 ;
+    ur:bandUpper 1000.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I53_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandUpper 500.0 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_I53_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandLower 2000.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_I53_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 1000.0 ;
+    ur:bandUpper 2000.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+

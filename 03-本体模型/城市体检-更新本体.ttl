@@ -4,13 +4,390 @@
 @prefix ur: <https://ontology.cset-digital.cn/urban-renewal#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-ur:AssessmentRule a owl:Class ;
-    rdfs:label "达标评价规则"@zh ;
-    rdfs:subClassOf ur:EvaluationRule .
-
 ur:AssociationStandard a owl:Class ;
     rdfs:label "团体标准"@zh ;
     rdfs:subClassOf ur:PolicyStandard .
+
+ur:BasicCompliantResult a owl:Class ;
+    rdfs:label "基本达标结果"@zh ;
+    rdfs:subClassOf ur:AssessmentResult .
+
+ur:BestEffortRemedy a owl:Class ;
+    rdfs:label "尽力解决类整治建议"@zh ;
+    rdfs:subClassOf ur:RemediationSuggestion .
+
+ur:CI_C_1 a ur:CheckItem ;
+    rdfs:label "业态聚集（核心功能区占比与单一业态占比）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_24 ;
+    ur:checkItemThreshold "核心功能区空间占比≥60%；单一功能业态占比≤70%（按经营面积计）"@zh ;
+    ur:checkItemType "阈值型"@zh ;
+    ur:checkItemUnit "%"@zh .
+
+ur:CI_C_2 a ur:CheckItem ;
+    rdfs:label "步行环境（慢行系统与步道宽度）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_24 ;
+    ur:checkItemThreshold "步道宽度≥1.5；慢行系统与无障碍按 3 个必查点全满足"@zh ;
+    ur:checkItemType "阈值型"@zh ;
+    ur:checkItemUnit "m"@zh .
+
+ur:CI_C_3 a ur:CheckItem ;
+    rdfs:label "交通出行（站点与停靠点距离）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_24 ;
+    ur:checkItemThreshold "500 m 内有地铁站或公交站；100 m 内有出租车与非机动车停靠点"@zh ;
+    ur:checkItemType "阈值型"@zh ;
+    ur:checkItemUnit "m"@zh .
+
+ur:CI_C_4 a ur:CheckItem ;
+    rdfs:label "公共空间（休憩空间密度）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_24 ;
+    ur:checkItemThreshold "每 50 m 1 处休憩空间及设施"@zh ;
+    ur:checkItemType "阈值型"@zh ;
+    ur:checkItemUnit "m"@zh .
+
+ur:CI_C_5 a ur:CheckItem ;
+    rdfs:label "商业特色（历史记忆与民族文化景观）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_24 ;
+    ur:checkItemThreshold "有≥1 处体现历史/民族/文化的景观或设施（建议口径·待核）"@zh ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_C_6 a ur:CheckItem ;
+    rdfs:label "运营服务（无线网络覆盖）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_24 ;
+    ur:checkItemThreshold "街区公共区域 100% 覆盖（建议口径·待核）"@zh ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_F_1 a ur:CheckItem ;
+    rdfs:label "上位规划（用地合规）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_25 ;
+    ur:checkItemThreshold "以片区控规/上位规划为准，符合用地要求（判据建议·待核）"@zh ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_F_10 a ur:CheckItem ;
+    rdfs:label "运营管理（专业运营管理团队）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_25 ;
+    ur:checkItemThreshold "有专业的运营管理团队"@zh ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_F_2 a ur:CheckItem ;
+    rdfs:label "房屋设施利用（房屋与市政设施老化）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_25 ;
+    ur:checkItemThreshold "房屋或市政设施需修缮即视为老化（建议口径·待核）"@zh ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_F_3 a ur:CheckItem ;
+    rdfs:label "空间利用（工业仓储建筑空置率）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_25 ;
+    ur:checkItemThreshold "空置率≥30%（建议值·待核）"@zh ;
+    ur:checkItemType "比率型"@zh ;
+    ur:checkItemUnit "%"@zh .
+
+ur:CI_F_4 a ur:CheckItem ;
+    rdfs:label "低效情况（工业仓储用地容积率）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_25 ;
+    ur:checkItemThreshold "容积率<0.6（建议值·待核）"@zh ;
+    ur:checkItemType "比率型"@zh .
+
+ur:CI_F_5 a ur:CheckItem ;
+    rdfs:label "空间特色（厂区环境特色）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_25 ;
+    ur:checkItemThreshold "有≥1 处体现厂区空间特色的要素（建议口径·待核）"@zh ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_F_6 a ur:CheckItem ;
+    rdfs:label "经济产出（工业仓储用地单位产出）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_25 ;
+    ur:checkItemThreshold "低于地方产业用地标准（标准值待核·建议以万元/亩计）"@zh ;
+    ur:checkItemType "比率型"@zh ;
+    ur:checkItemUnit "万元/亩"@zh .
+
+ur:CI_F_7 a ur:CheckItem ;
+    rdfs:label "产业业态合规（禁止类淘汰类或导向不符）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_25 ;
+    ur:checkItemThreshold "属国家产业政策禁止类/淘汰类，或与片区产业导向不符即不通过（目录版本待核）"@zh ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_F_8 a ur:CheckItem ;
+    rdfs:label "产业业态结构（经营性业态占比）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_25 ;
+    ur:checkItemThreshold "阈值按地方口径（建议值·待核）"@zh ;
+    ur:checkItemType "比率型"@zh ;
+    ur:checkItemUnit "%"@zh .
+
+ur:CI_F_9 a ur:CheckItem ;
+    rdfs:label "运营管理（物业管理组织体系）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_25 ;
+    ur:checkItemThreshold "有完备的物业管理组织体系"@zh ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H1_1 a ur:CheckItem ;
+    rdfs:label "混凝土结构构件裂缝（承重墙体/楼板/结构梁）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_1 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H1_2 a ur:CheckItem ;
+    rdfs:label "违规拆除结构承重构件"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_1 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H1_3 a ur:CheckItem ;
+    rdfs:label "砖混结构主体砖体缺棱掉角、砂浆饱满度差"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_1 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H1_4 a ur:CheckItem ;
+    rdfs:label "违规拆除外窗窗下墙体加建阳台"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_1 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H2_1 a ur:CheckItem ;
+    rdfs:label "燃气立管/引入管/水平管锈蚀泄漏"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_2 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H2_2 a ur:CheckItem ;
+    rdfs:label "户内燃气橡胶软管硬化老化"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_2 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H2_3 a ur:CheckItem ;
+    rdfs:label "私改私接燃气管道"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_2 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H3_1 a ur:CheckItem ;
+    rdfs:label "楼梯踏步缺损松动"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_3 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H3_2 a ur:CheckItem ;
+    rdfs:label "通风井道、排风烟道堵塞"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_3 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H3_3 a ur:CheckItem ;
+    rdfs:label "消防门缺失损坏或无法关闭"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_3 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H3_4 a ur:CheckItem ;
+    rdfs:label "高层住宅消火栓无日常维护"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_3 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H3_5 a ur:CheckItem ;
+    rdfs:label "灭火器缺失或未设置"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_3 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H3_6 a ur:CheckItem ;
+    rdfs:label "消防安全出口指示灯损坏"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_3 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H3_7 a ur:CheckItem ;
+    rdfs:label "占用消防楼梯或楼道"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_3 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H3_8 a ur:CheckItem ;
+    rdfs:label "公共楼道停放自行车电动车"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_3 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H4_1 a ur:CheckItem ;
+    rdfs:label "外墙装饰与保温材料开裂脱落"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_4 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H4_2 a ur:CheckItem ;
+    rdfs:label "外墙悬挂设施不规范"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_4 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H4_3 a ur:CheckItem ;
+    rdfs:label "门窗玻璃破损脱落"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_4 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H4_4 a ur:CheckItem ;
+    rdfs:label "屋面排水不畅或漏水"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_4 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H4_5 a ur:CheckItem ;
+    rdfs:label "外墙内侧或地下室渗水漏水"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_4 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H5_1 a ur:CheckItem ;
+    rdfs:label "给水管线跑冒滴漏"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_5 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H5_2 a ur:CheckItem ;
+    rdfs:label "采暖季室温不达标"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_5 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H5_3 a ur:CheckItem ;
+    rdfs:label "电力电信管线老化破损"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_5 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H6_1 a ur:CheckItem ;
+    rdfs:label "建成时未安装电梯的多层住宅"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_6 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H6_2 a ur:CheckItem ;
+    rdfs:label "单元出入口与通道未适老化改造"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_6 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H6_3 a ur:CheckItem ;
+    rdfs:label "楼梯间未沿墙加装扶手"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_6 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H6_4 a ur:CheckItem ;
+    rdfs:label "特殊困难老年人家庭未适老化改造"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_6 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H7_1 a ur:CheckItem ;
+    rdfs:label "具备节能改造价值但尚未改造"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_7 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H8_1 a ur:CheckItem ;
+    rdfs:label "不具备光纤入户条件"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_8 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H8_2 a ur:CheckItem ;
+    rdfs:label "公共空间未安装楼宇门禁"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_8 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H8_3 a ur:CheckItem ;
+    rdfs:label "高层楼梯间或走道未覆盖"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_8 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_H8_4 a ur:CheckItem ;
+    rdfs:label "未安装家庭健康紧急呼叫系统"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_8 ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_L_1 a ur:CheckItem ;
+    rdfs:label "闲置空间资源（低效闲置地块面积）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_26 ;
+    ur:checkItemThreshold "低效闲置地块面积≥1000（建议值·待核）"@zh ;
+    ur:checkItemType "阈值型"@zh ;
+    ur:checkItemUnit "㎡"@zh .
+
+ur:CI_L_2 a ur:CheckItem ;
+    rdfs:label "闲置空间资源（低效闲置老旧建筑数量与产权）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_26 ;
+    ur:checkItemThreshold "低效闲置老旧建筑≥1 处（建议值·待核），并明确产权及经营权"@zh ;
+    ur:checkItemType "阈值型"@zh ;
+    ur:checkItemUnit "处"@zh .
+
+ur:CI_L_3 a ur:CheckItem ;
+    rdfs:label "服务设施（A 类用地与建筑面积/千人）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_26 ;
+    ur:checkItemThreshold "A 类用地 1250–2360 ㎡/千人；建筑面积 1130–1380 ㎡/千人（按常住人口、取区间下限）"@zh ;
+    ur:checkItemType "阈值型"@zh ;
+    ur:checkItemUnit "㎡/千人"@zh .
+
+ur:CI_L_4 a ur:CheckItem ;
+    rdfs:label "服务设施（人均公共绿地与公共活动空间）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_26 ;
+    ur:checkItemThreshold "人均公共绿地≥2.0 ㎡/人；并满足完整居住社区“公共活动空间充足”（原 L4 与 L9 合并）"@zh ;
+    ur:checkItemType "阈值型"@zh ;
+    ur:checkItemUnit "㎡/人"@zh .
+
+ur:CI_L_5 a ur:CheckItem ;
+    rdfs:label "基础设施配置（设施配置与独立用地）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_26 ;
+    ur:checkItemThreshold "满足“居住区配套设施”设施配置与独立用地标准（标准号待核）"@zh ;
+    ur:checkItemType "是否型"@zh .
+
+ur:CI_L_6 a ur:CheckItem ;
+    rdfs:label "人口活力（迁入迁出比例）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_26 ;
+    ur:checkItemThreshold "净迁出率>5% 视为活力不足（建议值·待核）"@zh ;
+    ur:checkItemType "比率型"@zh ;
+    ur:checkItemUnit "%"@zh .
+
+ur:CI_L_7 a ur:CheckItem ;
+    rdfs:label "人口活力（新市民与青年人占比）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_26 ;
+    ur:checkItemThreshold "新市民与青年人占比<20% 视为结构失衡（建议值·待核）"@zh ;
+    ur:checkItemType "比率型"@zh ;
+    ur:checkItemUnit "%"@zh .
+
+ur:CI_L_8 a ur:CheckItem ;
+    rdfs:label "便民商业（便民商业服务设施健全）"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:checkItemFor ur:Indicator_26 ;
+    ur:checkItemThreshold "满足“便民商业服务设施健全”标准（出处待核）"@zh ;
+    ur:checkItemType "是否型"@zh .
 
 ur:CentralTransfer a owl:Class ;
     rdfs:label "中央财政转移支付"@zh ;
@@ -47,9 +424,31 @@ ur:CompleteCommunity a owl:Class ;
     rdfs:label "完整社区"@zh ;
     rdfs:subClassOf ur:RenewalObject .
 
-ur:CrossDomainRule a owl:Class ;
-    rdfs:label "跨域规则"@zh ;
-    rdfs:subClassOf ur:EvaluationRule .
+ur:CompliantResult a owl:Class ;
+    rdfs:label "达标结果"@zh ;
+    rdfs:subClassOf ur:AssessmentResult .
+
+ur:EvaluationMethod_占比化 a ur:EvaluationMethod ;
+    rdfs:label "占比化"@zh .
+
+ur:EvaluationMethod_均值化 a ur:EvaluationMethod ;
+    rdfs:label "均值化"@zh .
+
+ur:EvaluationMethod_直接比较 a ur:EvaluationMethod ;
+    rdfs:label "直接比较"@zh .
+
+ur:EvaluationMethod_跨域组合 a ur:EvaluationMethod ;
+    rdfs:label "跨域组合"@zh .
+
+ur:EvaluationOutput_二元预警 a ur:EvaluationOutput ;
+    rdfs:label "二元预警"@zh .
+
+ur:EvaluationOutput_四级等级 a ur:EvaluationOutput ;
+    rdfs:label "四级等级"@zh .
+
+ur:ExtremeValueAssessmentResult a owl:Class ;
+    rdfs:label "极值/周期评估结果"@zh ;
+    rdfs:subClassOf ur:AssessmentResult .
 
 ur:FormulaType_avg a ur:FormulaType ;
     rdfs:label "avg"@zh .
@@ -75,6 +474,10 @@ ur:FormulaType_sum a ur:FormulaType ;
 ur:Government a owl:Class ;
     rdfs:label "政府/主管部门"@zh ;
     rdfs:subClassOf ur:Actor .
+
+ur:HousingProblem a owl:Class ;
+    rdfs:label "住房问题"@zh ;
+    rdfs:subClassOf ur:Problem .
 
 ur:Implementer a owl:Class ;
     rdfs:label "实施主体"@zh ;
@@ -104,9 +507,21 @@ ur:NationalStandard a owl:Class ;
     rdfs:label "国家标准"@zh ;
     rdfs:subClassOf ur:PolicyStandard .
 
+ur:NeighborhoodProblem a owl:Class ;
+    rdfs:label "街区问题"@zh ;
+    rdfs:subClassOf ur:Problem .
+
+ur:NonCompliantResult a owl:Class ;
+    rdfs:label "不达标结果"@zh ;
+    rdfs:subClassOf ur:AssessmentResult .
+
 ur:OldResidentialQuarter a owl:Class ;
     rdfs:label "老旧小区"@zh ;
     rdfs:subClassOf ur:RenewalObject .
+
+ur:QuarterProblem a owl:Class ;
+    rdfs:label "小区/社区问题"@zh ;
+    rdfs:subClassOf ur:Problem .
 
 ur:Reconstruction a owl:Class ;
     rdfs:label "拆除重建"@zh ;
@@ -136,9 +551,28 @@ ur:SocialCapitalFund a owl:Class ;
     rdfs:label "社会资本"@zh ;
     rdfs:subClassOf ur:Fund .
 
+ur:SpatialScale_BuildingScale a ur:SpatialScale ;
+    rdfs:label "建筑尺度"@zh .
+
+ur:SpatialScale_CommunityScale a ur:SpatialScale ;
+    rdfs:label "社区尺度"@zh .
+
+ur:SpatialScale_DistrictScale a ur:SpatialScale ;
+    rdfs:label "城区尺度"@zh .
+
+ur:SpatialScale_NeighborhoodScale a ur:SpatialScale ;
+    rdfs:label "街道尺度"@zh .
+
+ur:SpatialScale_QuarterScale a ur:SpatialScale ;
+    rdfs:label "小区尺度"@zh .
+
 ur:TechnicalGuide a owl:Class ;
     rdfs:label "技术导则"@zh ;
     rdfs:subClassOf ur:PolicyStandard .
+
+ur:TimeLimitedRemedy a owl:Class ;
+    rdfs:label "限时解决类整治建议"@zh ;
+    rdfs:subClassOf ur:RemediationSuggestion .
 
 ur:TreatmentType_尽力解决 a ur:TreatmentType ;
     rdfs:label "尽力解决"@zh .
@@ -146,42 +580,83 @@ ur:TreatmentType_尽力解决 a ur:TreatmentType ;
 ur:TreatmentType_限时解决 a ur:TreatmentType ;
     rdfs:label "限时解决"@zh .
 
-ur:WarningRule a owl:Class ;
-    rdfs:label "预警规则"@zh ;
-    rdfs:subClassOf ur:EvaluationRule .
+ur:UrbanDistrictProblem a owl:Class ;
+    rdfs:label "城区问题"@zh ;
+    rdfs:subClassOf ur:Problem .
+
+ur:WeightedAssessmentResult a owl:Class ;
+    rdfs:label "加权/复合评估结果"@zh ;
+    rdfs:subClassOf ur:AssessmentResult .
 
 ur:actsOn a owl:ObjectProperty ;
     rdfs:label "作用于"@zh ;
-    rdfs:domain ur:RemediationSuggestion,
-        ur:RenewalProject ;
-    rdfs:range ur:RenewalObject,
-        ur:SpatialUnit .
+    rdfs:domain ur:Union_actsOn_dom ;
+    rdfs:range ur:Union_actsOn_rng .
 
 ur:adoptsApproach a owl:ObjectProperty ;
     rdfs:label "采用方式"@zh ;
     rdfs:domain ur:RenewalProject ;
     rdfs:range ur:RenewalApproach .
 
+ur:aggregatedFrom a owl:ObjectProperty ;
+    rdfs:label "聚合自"@zh ;
+    rdfs:domain ur:AssessmentResult ;
+    rdfs:range ur:IndicatorJudgement .
+
 ur:agingAdaptationNeed a owl:DatatypeProperty ;
     rdfs:label "适老化改造需求"@zh ;
     rdfs:domain ur:Building ;
     rdfs:range xsd:boolean .
+
+ur:appliesToScale a owl:ObjectProperty ;
+    rdfs:label "适用空间尺度"@zh ;
+    rdfs:domain ur:EvaluationReference ;
+    rdfs:range ur:SpatialScale .
 
 ur:archiveStatus a owl:DatatypeProperty ;
     rdfs:label "挂牌建档状态"@zh ;
     rdfs:domain ur:HistoricalBuilding ;
     rdfs:range xsd:string .
 
+ur:areaKm2 a owl:DatatypeProperty ;
+    rdfs:label "面积（平方千米）"@zh ;
+    rdfs:domain ur:SpatialUnit ;
+    rdfs:range xsd:decimal .
+
+ur:assesses a owl:ObjectProperty ;
+    rdfs:label "评估"@zh ;
+    rdfs:domain ur:Union_assesses_dom ;
+    rdfs:range ur:SpatialUnit .
+
 ur:assignedTo a owl:ObjectProperty ;
     rdfs:label "责任单位"@zh ;
     rdfs:domain ur:RemediationSuggestion ;
     rdfs:range ur:Actor .
 
+ur:bandLabel a owl:DatatypeProperty ;
+    rdfs:label "档位名"@zh ;
+    rdfs:domain ur:RatingBand ;
+    rdfs:range xsd:string .
+
+ur:bandLower a owl:DatatypeProperty ;
+    rdfs:label "档位下界"@zh ;
+    rdfs:domain ur:RatingBand ;
+    rdfs:range xsd:decimal .
+
+ur:bandUpper a owl:DatatypeProperty ;
+    rdfs:label "档位上界"@zh ;
+    rdfs:domain ur:RatingBand ;
+    rdfs:range xsd:decimal .
+
 ur:basedOn a owl:ObjectProperty ;
     rdfs:label "依据"@zh ;
-    rdfs:domain ur:Indicator,
-        ur:RenewalProject ;
+    rdfs:domain ur:Union_basedOn_dom ;
     rdfs:range ur:PolicyStandard .
+
+ur:basedOnEvidence a owl:ObjectProperty ;
+    rdfs:label "证据"@zh ;
+    rdfs:domain ur:IndicatorJudgement ;
+    rdfs:range ur:Union_basedOnEvidence_rng .
 
 ur:belongsTo a owl:ObjectProperty ;
     rdfs:label "属于"@zh ;
@@ -193,10 +668,20 @@ ur:belongsToDimension a owl:ObjectProperty ;
     rdfs:domain ur:IndicatorCategory ;
     rdfs:range ur:Dimension .
 
+ur:buildingCount a owl:DatatypeProperty ;
+    rdfs:label "建筑数量"@zh ;
+    rdfs:domain ur:ResidentialQuarter ;
+    rdfs:range xsd:integer .
+
 ur:buildingNature a owl:DatatypeProperty ;
     rdfs:label "建筑性质"@zh ;
     rdfs:domain ur:Building ;
     rdfs:range xsd:string .
+
+ur:carOwnership a owl:DatatypeProperty ;
+    rdfs:label "小汽车拥有量"@zh ;
+    rdfs:domain ur:Community ;
+    rdfs:range xsd:integer .
 
 ur:causeType a owl:DatatypeProperty ;
     rdfs:label "病因类型"@zh ;
@@ -208,13 +693,29 @@ ur:causedBy a owl:ObjectProperty ;
     rdfs:domain ur:Problem ;
     rdfs:range ur:ProblemCause .
 
+ur:checkItemFor a owl:ObjectProperty ;
+    rdfs:label "核查项适用指标"@zh ;
+    rdfs:domain ur:CheckItem ;
+    rdfs:range ur:Indicator .
+
+ur:checkItemThreshold a owl:DatatypeProperty ;
+    rdfs:label "核查项阈值"@zh ;
+    rdfs:domain ur:CheckItem ;
+    rdfs:range xsd:string .
+
+ur:checkItemType a owl:DatatypeProperty ;
+    rdfs:label "核查项判定类型"@zh ;
+    rdfs:domain ur:CheckItem ;
+    rdfs:range xsd:string .
+
+ur:checkItemUnit a owl:DatatypeProperty ;
+    rdfs:label "核查项单位"@zh ;
+    rdfs:domain ur:CheckItem ;
+    rdfs:range xsd:string .
+
 ur:code a owl:DatatypeProperty ;
     rdfs:label "编码"@zh ;
-    rdfs:domain ur:DataObject,
-        ur:Dimension,
-        ur:Indicator,
-        ur:RenewalProject,
-        ur:SpatialUnit ;
+    rdfs:domain ur:Union_code_dom ;
     rdfs:range xsd:string .
 
 ur:collectedAt a owl:DatatypeProperty ;
@@ -232,13 +733,14 @@ ur:collectionMethod a owl:DatatypeProperty ;
     rdfs:domain ur:DataObject ;
     rdfs:range xsd:string .
 
+ur:communityCount a owl:DatatypeProperty ;
+    rdfs:label "社区数量"@zh ;
+    rdfs:domain ur:Neighborhood ;
+    rdfs:range xsd:integer .
+
 ur:complianceStatus a owl:DatatypeProperty ;
     rdfs:label "配建达标状态"@zh ;
-    rdfs:domain ur:CulturalActivityCenter,
-        ur:ElderlyCareFacility,
-        ur:InfantCareFacility,
-        ur:MultiFunctionSportsGround,
-        ur:PublicActivityVenue ;
+    rdfs:domain ur:Union_complianceStatus_dom ;
     rdfs:range xsd:string .
 
 ur:computedFrom a owl:ObjectProperty ;
@@ -249,9 +751,7 @@ ur:computedFrom a owl:ObjectProperty ;
 
 ur:configuredStatus a owl:DatatypeProperty ;
     rdfs:label "配建状态"@zh ;
-    rdfs:domain ur:EVChargingPile,
-        ur:EbikeChargingFacility,
-        ur:ParkingSpace ;
+    rdfs:domain ur:Union_configuredStatus_dom ;
     rdfs:range xsd:string .
 
 ur:constructionStage a owl:DatatypeProperty ;
@@ -261,7 +761,7 @@ ur:constructionStage a owl:DatatypeProperty ;
 
 ur:constructionYear a owl:DatatypeProperty ;
     rdfs:label "建成年代"@zh ;
-    rdfs:domain ur:Building ;
+    rdfs:domain ur:Union_constructionYear_dom ;
     rdfs:range xsd:gYear .
 
 ur:corridorSafetyStatus a owl:DatatypeProperty ;
@@ -296,8 +796,12 @@ ur:digitalRetrofitNeed a owl:DatatypeProperty ;
 
 ur:dilapidatedStatus a owl:DatatypeProperty ;
     rdfs:label "危旧状态"@zh ;
-    rdfs:domain ur:Bridge,
-        ur:Building ;
+    rdfs:domain ur:Union_dilapidatedStatus_dom ;
+    rdfs:range xsd:string .
+
+ur:direction a owl:DatatypeProperty ;
+    rdfs:label "方向"@zh ;
+    rdfs:domain ur:EvaluationReference ;
     rdfs:range xsd:string .
 
 ur:duration a owl:DatatypeProperty ;
@@ -305,36 +809,105 @@ ur:duration a owl:DatatypeProperty ;
     rdfs:domain ur:RenewalProject ;
     rdfs:range xsd:string .
 
+ur:ebikeFacilityBuilt a owl:DatatypeProperty ;
+    rdfs:label "配建电动自行车设施"@zh ;
+    rdfs:domain ur:ResidentialQuarter ;
+    rdfs:range xsd:boolean .
+
+ur:ebikeFacilityCount a owl:DatatypeProperty ;
+    rdfs:label "电动自行车设施数量"@zh ;
+    rdfs:domain ur:ResidentialQuarter ;
+    rdfs:range xsd:integer .
+
+ur:elderlyPopulation a owl:DatatypeProperty ;
+    rdfs:label "老年人口"@zh ;
+    rdfs:domain ur:SpatialUnit ;
+    rdfs:range xsd:integer .
+
+ur:employmentCount a owl:DatatypeProperty ;
+    rdfs:label "就业人数"@zh ;
+    rdfs:domain ur:Neighborhood ;
+    rdfs:range xsd:integer .
+
 ur:energyRetrofitNeed a owl:DatatypeProperty ;
     rdfs:label "节能改造需求"@zh ;
     rdfs:domain ur:Building ;
     rdfs:range xsd:boolean .
+
+ur:enterpriseCount a owl:DatatypeProperty ;
+    rdfs:label "企业数量"@zh ;
+    rdfs:domain ur:Neighborhood ;
+    rdfs:range xsd:integer .
 
 ur:envelopeSafetyStatus a owl:DatatypeProperty ;
     rdfs:label "围护安全状态"@zh ;
     rdfs:domain ur:Building ;
     rdfs:range xsd:string .
 
+ur:evChargerDemand a owl:DatatypeProperty ;
+    rdfs:label "充电桩需求"@zh ;
+    rdfs:domain ur:ResidentialQuarter ;
+    rdfs:range xsd:integer .
+
+ur:evChargerSupply a owl:DatatypeProperty ;
+    rdfs:label "充电桩供给"@zh ;
+    rdfs:domain ur:ResidentialQuarter ;
+    rdfs:range xsd:integer .
+
+ur:evCount a owl:DatatypeProperty ;
+    rdfs:label "新能源汽车数量"@zh ;
+    rdfs:domain ur:Community ;
+    rdfs:range xsd:integer .
+
 ur:evaluatedBy a owl:ObjectProperty ;
     rdfs:label "由…评价"@zh ;
     rdfs:domain ur:Indicator ;
     rdfs:range ur:EvaluationRule .
+
+ur:evaluates a owl:ObjectProperty ;
+    rdfs:label "评价…指标"@zh ;
+    rdfs:domain ur:EvaluationRule ;
+    rdfs:range ur:Indicator .
+
+ur:evaluationMethod a owl:ObjectProperty ;
+    rdfs:label "采用评价方法"@zh ;
+    rdfs:domain ur:EvaluationRule ;
+    rdfs:range ur:EvaluationMethod .
+
+ur:evaluationOutput a owl:ObjectProperty ;
+    rdfs:label "评价输出类型"@zh ;
+    rdfs:domain ur:EvaluationRule ;
+    rdfs:range ur:EvaluationOutput .
 
 ur:examines a owl:ObjectProperty ;
     rdfs:label "针对"@zh ;
     rdfs:domain ur:ExaminationActivity ;
     rdfs:range ur:SpatialUnit .
 
+ur:facilityArea a owl:DatatypeProperty ;
+    rdfs:label "设施占地面积"@zh ;
+    rdfs:domain ur:Union_facilityArea_dom ;
+    rdfs:range xsd:decimal .
+
+ur:failsCheckItem a owl:ObjectProperty ;
+    rdfs:label "核查项未通过"@zh ;
+    rdfs:domain ur:Union_failsCheckItem_dom ;
+    rdfs:range ur:CheckItem .
+
 ur:floorArea a owl:DatatypeProperty ;
     rdfs:label "建筑面积"@zh ;
-    rdfs:domain ur:Building,
-        ur:RenewalObject ;
+    rdfs:domain ur:Union_floorArea_dom ;
     rdfs:range xsd:decimal .
 
 ur:floorCount a owl:DatatypeProperty ;
     rdfs:label "层数"@zh ;
     rdfs:domain ur:Building ;
     rdfs:range xsd:integer .
+
+ur:forIndicator a owl:ObjectProperty ;
+    rdfs:label "针对指标"@zh ;
+    rdfs:domain ur:EvaluationReference ;
+    rdfs:range ur:Indicator .
 
 ur:formula a owl:DatatypeProperty ;
     rdfs:label "计算公式"@zh ;
@@ -371,10 +944,25 @@ ur:hasPart a owl:ObjectProperty ;
     rdfs:domain ur:SpatialUnit ;
     rdfs:range ur:SpatialUnit .
 
+ur:hasRatingBand a owl:ObjectProperty ;
+    rdfs:label "具有档位"@zh ;
+    rdfs:domain ur:EvaluationReference ;
+    rdfs:range ur:RatingBand .
+
 ur:hasTrend a owl:ObjectProperty ;
     rdfs:label "具有趋势"@zh ;
     rdfs:domain ur:Problem ;
     rdfs:range ur:TemporalTrend .
+
+ur:householdCount a owl:DatatypeProperty ;
+    rdfs:label "户数"@zh ;
+    rdfs:domain ur:SpatialUnit ;
+    rdfs:range xsd:integer .
+
+ur:housingUnitCount a owl:DatatypeProperty ;
+    rdfs:label "住宅套数"@zh ;
+    rdfs:domain ur:ResidentialQuarter ;
+    rdfs:range xsd:integer .
 
 ur:implementedBy a owl:ObjectProperty ;
     rdfs:label "由…实施"@zh ;
@@ -391,6 +979,16 @@ ur:inDimension a owl:ObjectProperty ;
     rdfs:domain ur:Indicator ;
     rdfs:range ur:Dimension .
 
+ur:includeLower a owl:DatatypeProperty ;
+    rdfs:label "含下界"@zh ;
+    rdfs:domain ur:RatingBand ;
+    rdfs:range xsd:boolean .
+
+ur:includeUpper a owl:DatatypeProperty ;
+    rdfs:label "含上界"@zh ;
+    rdfs:domain ur:RatingBand ;
+    rdfs:range xsd:boolean .
+
 ur:indicatorValue a owl:DatatypeProperty ;
     rdfs:label "指标值"@zh ;
     rdfs:domain ur:AssessmentResult ;
@@ -398,15 +996,18 @@ ur:indicatorValue a owl:DatatypeProperty ;
 
 ur:investment a owl:DatatypeProperty ;
     rdfs:label "投资额"@zh ;
-    rdfs:domain ur:Fund,
-        ur:RenewalProject ;
+    rdfs:domain ur:Union_investment_dom ;
     rdfs:range xsd:decimal .
 
 ur:involves a owl:ObjectProperty ;
     rdfs:label "涉及"@zh ;
     rdfs:domain ur:NegativeEvent ;
-    rdfs:range ur:HistoricalBuilding,
-        ur:ProtectedObject .
+    rdfs:range ur:Union_involves_rng .
+
+ur:judgementValue a owl:DatatypeProperty ;
+    rdfs:label "指标判断值"@zh ;
+    rdfs:domain ur:IndicatorJudgement ;
+    rdfs:range xsd:string .
 
 ur:landArea a owl:DatatypeProperty ;
     rdfs:label "用地面积"@zh ;
@@ -426,9 +1027,7 @@ ur:leadsTo a owl:ObjectProperty ;
 ur:locatedIn a owl:ObjectProperty,
         owl:TransitiveProperty ;
     rdfs:label "位于"@zh ;
-    rdfs:domain ur:Land,
-        ur:Problem,
-        ur:SpatialUnit ;
+    rdfs:domain ur:Union_locatedIn_dom ;
     rdfs:range ur:SpatialUnit .
 
 ur:locationDescription a owl:DatatypeProperty ;
@@ -458,29 +1057,47 @@ ur:measures a owl:ObjectProperty ;
 
 ur:monitoringStatus a owl:DatatypeProperty ;
     rdfs:label "监测状态"@zh ;
-    rdfs:domain ur:LifelineRiskPoint,
-        ur:RiskyConstructionWorks ;
+    rdfs:domain ur:Union_monitoringStatus_dom ;
     rdfs:range xsd:string .
 
 ur:name a owl:DatatypeProperty ;
     rdfs:label "名称"@zh ;
     rdfs:range xsd:string .
 
+ur:nonCompliantWalkwayLength a owl:DatatypeProperty ;
+    rdfs:label "不达标步行道长度"@zh ;
+    rdfs:domain ur:ResidentialQuarter ;
+    rdfs:range xsd:decimal .
+
 ur:occursIn a owl:ObjectProperty ;
     rdfs:label "发生于"@zh ;
-    rdfs:domain ur:ExaminationActivity,
-        ur:RenewalProject ;
+    rdfs:domain ur:Union_occursIn_dom ;
     rdfs:range ur:TimePeriod .
+
+ur:ofIndicator a owl:ObjectProperty ;
+    rdfs:label "针对指标"@zh ;
+    rdfs:domain ur:Union_ofIndicator_dom ;
+    rdfs:range ur:Indicator .
 
 ur:ontology a owl:Ontology ;
     rdfs:label "城市体检与更新本体"@zh ;
     rdfs:comment "由 03-本体模型/_gen_ttl.py 导出；TBox 源 = 类与层级.md / 属性与关系.md；ABox 源 = 04-指标映射/55项指标.yaml。命名空间为占位【待核】。"@zh ;
-    owl:versionInfo "v0.1-export-2026-10-10" .
+    owl:versionInfo "v0.2-export-2026-11-08" .
 
 ur:orientation a owl:DatatypeProperty ;
     rdfs:label "指标导向"@zh ;
     rdfs:domain ur:Indicator ;
     rdfs:range xsd:string .
+
+ur:parkingDemand a owl:DatatypeProperty ;
+    rdfs:label "停车位需求"@zh ;
+    rdfs:domain ur:Union_parkingDemand_dom ;
+    rdfs:range xsd:integer .
+
+ur:parkingSupply a owl:DatatypeProperty ;
+    rdfs:label "停车位供给"@zh ;
+    rdfs:domain ur:Union_parkingSupply_dom ;
+    rdfs:range xsd:integer .
 
 ur:parkingViolationStatus a owl:DatatypeProperty ;
     rdfs:label "乱停乱放状态"@zh ;
@@ -528,10 +1145,45 @@ ur:proposes a owl:ObjectProperty ;
     rdfs:domain ur:Problem ;
     rdfs:range ur:RemediationSuggestion .
 
+ur:publicGreenArea a owl:DatatypeProperty ;
+    rdfs:label "公共绿地面积"@zh ;
+    rdfs:domain ur:ResidentialQuarter ;
+    rdfs:range xsd:decimal .
+
+ur:publicGreenBuilt a owl:DatatypeProperty ;
+    rdfs:label "配建公共绿地"@zh ;
+    rdfs:domain ur:ResidentialQuarter ;
+    rdfs:range xsd:boolean .
+
+ur:publicVenueArea a owl:DatatypeProperty ;
+    rdfs:label "公共活动场地面积"@zh ;
+    rdfs:domain ur:ResidentialQuarter ;
+    rdfs:range xsd:decimal .
+
+ur:publicVenueBuilt a owl:DatatypeProperty ;
+    rdfs:label "配建公共活动场地"@zh ;
+    rdfs:domain ur:ResidentialQuarter ;
+    rdfs:range xsd:boolean .
+
+ur:ratioOf a owl:DatatypeProperty ;
+    rdfs:label "比值口径"@zh ;
+    rdfs:domain ur:DerivedRatio ;
+    rdfs:range xsd:string .
+
+ur:ratioValue a owl:DatatypeProperty ;
+    rdfs:label "比值"@zh ;
+    rdfs:domain ur:DerivedRatio ;
+    rdfs:range xsd:decimal .
+
 ur:referencePeriod a owl:DatatypeProperty ;
     rdfs:label "参考周期"@zh ;
     rdfs:domain ur:TemporalTrend ;
     rdfs:range xsd:string .
+
+ur:referenceValue a owl:DatatypeProperty ;
+    rdfs:label "参考值"@zh ;
+    rdfs:domain ur:EvaluationReference ;
+    rdfs:range xsd:decimal .
 
 ur:remediationStatus a owl:DatatypeProperty ;
     rdfs:label "整治状态"@zh ;
@@ -540,24 +1192,38 @@ ur:remediationStatus a owl:DatatypeProperty ;
 
 ur:renewalNeed a owl:DatatypeProperty ;
     rdfs:label "改造需求"@zh ;
-    rdfs:domain ur:OldBlock,
-        ur:OldCommercialBlock,
-        ur:OldIndustrialArea,
-        ur:OldResidentialBlock ;
+    rdfs:domain ur:Union_renewalNeed_dom ;
     rdfs:range xsd:boolean .
 
 ur:renovationStatus a owl:DatatypeProperty ;
     rdfs:label "改造完成状态"@zh ;
-    rdfs:domain ur:Building,
-        ur:EmergencyShelter,
-        ur:GasPipeline,
-        ur:UrbanVillage ;
+    rdfs:domain ur:Union_renovationStatus_dom ;
     rdfs:range xsd:string .
+
+ur:residentPopulation a owl:DatatypeProperty ;
+    rdfs:label "常住人口"@zh ;
+    rdfs:domain ur:SpatialUnit ;
+    rdfs:range xsd:integer .
+
+ur:reusesBandsOf a owl:ObjectProperty ;
+    rdfs:label "档次复用于"@zh ;
+    rdfs:domain ur:EvaluationReference ;
+    rdfs:range ur:EvaluationReference .
 
 ur:revealsProblem a owl:ObjectProperty ;
     rdfs:label "揭示"@zh ;
     rdfs:domain ur:AssessmentResult ;
     rdfs:range ur:Problem .
+
+ur:rqCount a owl:DatatypeProperty ;
+    rdfs:label "小区数量"@zh ;
+    rdfs:domain ur:Community ;
+    rdfs:range xsd:integer .
+
+ur:rqType a owl:DatatypeProperty ;
+    rdfs:label "小区类型"@zh ;
+    rdfs:domain ur:ResidentialQuarter ;
+    rdfs:range xsd:string .
 
 ur:severity a owl:DatatypeProperty ;
     rdfs:label "严重程度"@zh ;
@@ -569,10 +1235,25 @@ ur:smartFireMonitorStatus a owl:DatatypeProperty ;
     rdfs:domain ur:Building ;
     rdfs:range xsd:boolean .
 
+ur:smartParcelLocker a owl:DatatypeProperty ;
+    rdfs:label "智能信包箱"@zh ;
+    rdfs:domain ur:ResidentialQuarter ;
+    rdfs:range xsd:boolean .
+
 ur:smartRetrofitNeed a owl:DatatypeProperty ;
     rdfs:label "智慧化改造需求"@zh ;
     rdfs:domain ur:ResidentialQuarter ;
     rdfs:range xsd:boolean .
+
+ur:smartSecurity a owl:DatatypeProperty ;
+    rdfs:label "智能安防"@zh ;
+    rdfs:domain ur:ResidentialQuarter ;
+    rdfs:range xsd:boolean .
+
+ur:sourceScope a owl:DatatypeProperty ;
+    rdfs:label "来源口径"@zh ;
+    rdfs:domain ur:EvaluationReference ;
+    rdfs:range xsd:string .
 
 ur:structureSafetyStatus a owl:DatatypeProperty ;
     rdfs:label "结构安全状态"@zh ;
@@ -587,6 +1268,11 @@ ur:suggestionText a owl:DatatypeProperty ;
 ur:threshold a owl:DatatypeProperty ;
     rdfs:label "阈值/标准值"@zh ;
     rdfs:domain ur:Indicator ;
+    rdfs:range xsd:decimal .
+
+ur:totalFloorArea a owl:DatatypeProperty ;
+    rdfs:label "总建筑面积"@zh ;
+    rdfs:domain ur:ResidentialQuarter ;
     rdfs:range xsd:decimal .
 
 ur:treatmentType a owl:DatatypeProperty ;
@@ -606,20 +1292,38 @@ ur:triggers a owl:ObjectProperty ;
 
 ur:unit a owl:DatatypeProperty ;
     rdfs:label "计量单位"@zh ;
-    rdfs:domain ur:AssessmentResult,
-        ur:DataObject,
-        ur:Indicator ;
+    rdfs:domain ur:Union_unit_dom ;
     rdfs:range xsd:string .
+
+ur:unitCount a owl:DatatypeProperty ;
+    rdfs:label "单元数量"@zh ;
+    rdfs:domain ur:Building ;
+    rdfs:range xsd:integer .
 
 ur:usesIndicator a owl:ObjectProperty ;
     rdfs:label "采用指标"@zh ;
     rdfs:domain ur:ExaminationActivity ;
     rdfs:range ur:Indicator .
 
+ur:usesReference a owl:ObjectProperty ;
+    rdfs:label "使用参考值"@zh ;
+    rdfs:domain ur:EvaluationRule ;
+    rdfs:range ur:EvaluationReference .
+
 ur:vacancyStatus a owl:DatatypeProperty ;
     rdfs:label "空置状态"@zh ;
     rdfs:domain ur:HistoricalBuilding ;
     rdfs:range xsd:string .
+
+ur:validPeriod a owl:DatatypeProperty ;
+    rdfs:label "适用时期"@zh ;
+    rdfs:domain ur:EvaluationReference ;
+    rdfs:range xsd:string .
+
+ur:wasteSortingStationCount a owl:DatatypeProperty ;
+    rdfs:label "垃圾分类点数量"@zh ;
+    rdfs:domain ur:ResidentialQuarter ;
+    rdfs:range xsd:integer .
 
 ur:wasteSortingStatus a owl:DatatypeProperty ;
     rdfs:label "生活垃圾分类实施状态"@zh ;
@@ -628,8 +1332,7 @@ ur:wasteSortingStatus a owl:DatatypeProperty ;
 
 ur:year a owl:DatatypeProperty ;
     rdfs:label "统计年份"@zh ;
-    rdfs:domain ur:AssessmentResult,
-        ur:ExaminationActivity ;
+    rdfs:domain ur:Union_year_dom ;
     rdfs:range xsd:gYear .
 
 ur:AverageDailyWaterSupply a owl:Class ;
@@ -671,20 +1374,6 @@ ur:Greenway a owl:Class ;
     rdfs:label "绿道"@zh ;
     rdfs:subClassOf ur:LineObject ;
     ur:feedsInto ur:Indicator_27 .
-
-ur:Indicator_1 a ur:Indicator ;
-    rdfs:label "存在结构安全隐患的住宅数量"@zh ;
-    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表1"@zh ;
-    ur:basedOn ur:Policy_2026_16 ;
-    ur:code "1" ;
-    ur:computedFrom ur:Building ;
-    ur:formula "count(住宅，结构安全状态≠安全)"@zh ;
-    ur:inCategory ur:安全耐久 ;
-    ur:inDimension ur:HousingDimension ;
-    ur:measures ur:Building ;
-    ur:name "存在结构安全隐患的住宅数量"@zh ;
-    ur:orientation "逆向"@zh ;
-    ur:unit "栋"@zh .
 
 ur:Indicator_10 a ur:Indicator ;
     rdfs:label "未达标配建婴幼儿托育设施的社区数量"@zh ;
@@ -812,20 +1501,6 @@ ur:Indicator_18 a ur:Indicator ;
     ur:orientation "逆向"@zh ;
     ur:unit "个"@zh .
 
-ur:Indicator_2 a ur:Indicator ;
-    rdfs:label "存在燃气安全隐患的住宅数量"@zh ;
-    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表1"@zh ;
-    ur:basedOn ur:Policy_2026_16 ;
-    ur:code "2" ;
-    ur:computedFrom ur:Building ;
-    ur:formula "count(住宅，燃气安全状态=有隐患)"@zh ;
-    ur:inCategory ur:安全耐久 ;
-    ur:inDimension ur:HousingDimension ;
-    ur:measures ur:Building ;
-    ur:name "存在燃气安全隐患的住宅数量"@zh ;
-    ur:orientation "逆向"@zh ;
-    ur:unit "栋"@zh .
-
 ur:Indicator_20 a ur:Indicator ;
     rdfs:label "未达标配建的多功能运动场地数量"@zh ;
     rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表7"@zh ;
@@ -868,48 +1543,6 @@ ur:Indicator_23 a ur:Indicator ;
     ur:orientation "逆向"@zh ;
     ur:unit "条"@zh .
 
-ur:Indicator_24 a ur:Indicator ;
-    rdfs:label "需要更新改造的老旧商业街区数量"@zh ;
-    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表7"@zh ;
-    ur:basedOn ur:Policy_2026_16 ;
-    ur:code "24" ;
-    ur:computedFrom ur:OldCommercialBlock ;
-    ur:formula "count(老旧商业街区，需更新改造)"@zh ;
-    ur:inCategory ur:特色活力 ;
-    ur:inDimension ur:NeighborhoodDimension ;
-    ur:measures ur:Neighborhood ;
-    ur:name "需要更新改造的老旧商业街区数量"@zh ;
-    ur:orientation "逆向"@zh ;
-    ur:unit "个"@zh .
-
-ur:Indicator_25 a ur:Indicator ;
-    rdfs:label "需要更新改造的老旧厂区数量"@zh ;
-    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表7"@zh ;
-    ur:basedOn ur:Policy_2026_16 ;
-    ur:code "25" ;
-    ur:computedFrom ur:OldIndustrialArea ;
-    ur:formula "count(老旧厂区，需更新改造)"@zh ;
-    ur:inCategory ur:特色活力 ;
-    ur:inDimension ur:NeighborhoodDimension ;
-    ur:measures ur:Neighborhood ;
-    ur:name "需要更新改造的老旧厂区数量"@zh ;
-    ur:orientation "逆向"@zh ;
-    ur:unit "个"@zh .
-
-ur:Indicator_26 a ur:Indicator ;
-    rdfs:label "需要更新改造的老旧生活街区数量"@zh ;
-    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表7"@zh ;
-    ur:basedOn ur:Policy_2026_16 ;
-    ur:code "26" ;
-    ur:computedFrom ur:OldResidentialBlock ;
-    ur:formula "count(老旧生活街区，需更新改造)"@zh ;
-    ur:inCategory ur:特色活力 ;
-    ur:inDimension ur:NeighborhoodDimension ;
-    ur:measures ur:Neighborhood ;
-    ur:name "需要更新改造的老旧生活街区数量"@zh ;
-    ur:orientation "逆向"@zh ;
-    ur:unit "个"@zh .
-
 ur:Indicator_28 a ur:Indicator ;
     rdfs:label "新增各类体育场地面积"@zh ;
     rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表11"@zh ;
@@ -923,20 +1556,6 @@ ur:Indicator_28 a ur:Indicator ;
     ur:name "新增各类体育场地面积"@zh ;
     ur:orientation "正向"@zh ;
     ur:unit "平方米"@zh .
-
-ur:Indicator_3 a ur:Indicator ;
-    rdfs:label "存在楼道安全隐患的住宅数量"@zh ;
-    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表1"@zh ;
-    ur:basedOn ur:Policy_2026_16 ;
-    ur:code "3" ;
-    ur:computedFrom ur:Building ;
-    ur:formula "count(住宅，楼道安全状态=有隐患)"@zh ;
-    ur:inCategory ur:安全耐久 ;
-    ur:inDimension ur:HousingDimension ;
-    ur:measures ur:Building ;
-    ur:name "存在楼道安全隐患的住宅数量"@zh ;
-    ur:orientation "逆向"@zh ;
-    ur:unit "栋"@zh .
 
 ur:Indicator_31 a ur:Indicator ;
     rdfs:label "新建建筑中绿色建筑占比"@zh ;
@@ -1053,20 +1672,6 @@ ur:Indicator_39 a ur:Indicator ;
     ur:orientation "逆向"@zh ;
     ur:unit "月"@zh .
 
-ur:Indicator_4 a ur:Indicator ;
-    rdfs:label "存在围护安全隐患的住宅数量"@zh ;
-    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表1"@zh ;
-    ur:basedOn ur:Policy_2026_16 ;
-    ur:code "4" ;
-    ur:computedFrom ur:Building ;
-    ur:formula "count(住宅，围护安全状态=有隐患)"@zh ;
-    ur:inCategory ur:安全耐久 ;
-    ur:inDimension ur:HousingDimension ;
-    ur:measures ur:Building ;
-    ur:name "存在围护安全隐患的住宅数量"@zh ;
-    ur:orientation "逆向"@zh ;
-    ur:unit "栋"@zh .
-
 ur:Indicator_40 a ur:Indicator ;
     rdfs:label "城中村改造完成率"@zh ;
     rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表11"@zh ;
@@ -1151,20 +1756,6 @@ ur:Indicator_49 a ur:Indicator ;
     ur:orientation "正向"@zh ;
     ur:unit "个"@zh .
 
-ur:Indicator_5 a ur:Indicator ;
-    rdfs:label "存在管线管道破损的住宅数量"@zh ;
-    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表1"@zh ;
-    ur:basedOn ur:Policy_2026_16 ;
-    ur:code "5" ;
-    ur:computedFrom ur:Building ;
-    ur:formula "count(住宅，管线管道状态=破损)"@zh ;
-    ur:inCategory ur:功能完备 ;
-    ur:inDimension ur:HousingDimension ;
-    ur:measures ur:Building ;
-    ur:name "存在管线管道破损的住宅数量"@zh ;
-    ur:orientation "逆向"@zh ;
-    ur:unit "栋"@zh .
-
 ur:Indicator_50 a ur:Indicator ;
     rdfs:label "城市生命线安全工程监测覆盖率"@zh ;
     rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表11"@zh ;
@@ -1233,48 +1824,6 @@ ur:Indicator_55 a ur:Indicator ;
     ur:name "城市更新入库项目数"@zh ;
     ur:orientation "正向"@zh ;
     ur:unit "个"@zh .
-
-ur:Indicator_6 a ur:Indicator ;
-    rdfs:label "需要进行适老化改造的住宅数量"@zh ;
-    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表1"@zh ;
-    ur:basedOn ur:Policy_2026_16 ;
-    ur:code "6" ;
-    ur:computedFrom ur:Building ;
-    ur:formula "count(住宅，适老化改造需求=是)"@zh ;
-    ur:inCategory ur:功能完备 ;
-    ur:inDimension ur:HousingDimension ;
-    ur:measures ur:Building ;
-    ur:name "需要进行适老化改造的住宅数量"@zh ;
-    ur:orientation "逆向"@zh ;
-    ur:unit "栋"@zh .
-
-ur:Indicator_7 a ur:Indicator ;
-    rdfs:label "需要进行节能改造的住宅数量"@zh ;
-    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表1"@zh ;
-    ur:basedOn ur:Policy_2026_16 ;
-    ur:code "7" ;
-    ur:computedFrom ur:Building ;
-    ur:formula "count(住宅，节能改造需求=是)"@zh ;
-    ur:inCategory ur:功能完备 ;
-    ur:inDimension ur:HousingDimension ;
-    ur:measures ur:Building ;
-    ur:name "需要进行节能改造的住宅数量"@zh ;
-    ur:orientation "逆向"@zh ;
-    ur:unit "栋"@zh .
-
-ur:Indicator_8 a ur:Indicator ;
-    rdfs:label "需要进行数字化改造的住宅数量"@zh ;
-    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表1"@zh ;
-    ur:basedOn ur:Policy_2026_16 ;
-    ur:code "8" ;
-    ur:computedFrom ur:Building ;
-    ur:formula "count(住宅，数字化改造需求=是)"@zh ;
-    ur:inCategory ur:功能完备 ;
-    ur:inDimension ur:HousingDimension ;
-    ur:measures ur:Building ;
-    ur:name "需要进行数字化改造的住宅数量"@zh ;
-    ur:orientation "逆向"@zh ;
-    ur:unit "栋"@zh .
 
 ur:Indicator_9 a ur:Indicator ;
     rdfs:label "未达标配建养老服务设施的社区数量"@zh ;
@@ -1347,6 +1896,106 @@ ur:TotalCommutingVolume a owl:Class ;
     rdfs:subClassOf ur:DataObject ;
     ur:feedsInto ur:Indicator_38 .
 
+ur:Union_actsOn_dom a owl:Class ;
+    rdfs:label "作用于·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:RenewalProject ur:RemediationSuggestion ) .
+
+ur:Union_actsOn_rng a owl:Class ;
+    rdfs:label "作用于·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:RenewalObject ur:SpatialUnit ) .
+
+ur:Union_assesses_dom a owl:Class ;
+    rdfs:label "评估·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:AssessmentResult ur:IndicatorJudgement ) .
+
+ur:Union_basedOnEvidence_rng a owl:Class ;
+    rdfs:label "证据·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:FacilityObject ur:SpaceObject ) .
+
+ur:Union_basedOn_dom a owl:Class ;
+    rdfs:label "依据·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:Indicator ur:RenewalProject ur:CheckItem ) .
+
+ur:Union_code_dom a owl:Class ;
+    rdfs:label "编码·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:SpatialUnit ur:Indicator ur:RenewalProject ur:Dimension ur:DataObject ) .
+
+ur:Union_complianceStatus_dom a owl:Class ;
+    rdfs:label "配建达标状态·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:ElderlyCareFacility ur:InfantCareFacility ur:PublicActivityVenue ur:MultiFunctionSportsGround ur:CulturalActivityCenter ) .
+
+ur:Union_configuredStatus_dom a owl:Class ;
+    rdfs:label "配建状态·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:ParkingSpace ur:EVChargingPile ur:EbikeChargingFacility ) .
+
+ur:Union_constructionYear_dom a owl:Class ;
+    rdfs:label "建成年代·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:Building ur:ResidentialQuarter ur:PublicActivityVenue ) .
+
+ur:Union_dilapidatedStatus_dom a owl:Class ;
+    rdfs:label "危旧状态·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:Building ur:Bridge ) .
+
+ur:Union_facilityArea_dom a owl:Class ;
+    rdfs:label "设施占地面积·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:FacilityObject ur:SpaceObject ) .
+
+ur:Union_failsCheckItem_dom a owl:Class ;
+    rdfs:label "核查项未通过·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:Building ur:RenewalObject ) .
+
+ur:Union_floorArea_dom a owl:Class ;
+    rdfs:label "建筑面积·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:Building ur:RenewalObject ) .
+
+ur:Union_investment_dom a owl:Class ;
+    rdfs:label "投资额·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:Fund ur:RenewalProject ) .
+
+ur:Union_involves_rng a owl:Class ;
+    rdfs:label "涉及·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:ProtectedObject ur:HistoricalBuilding ) .
+
+ur:Union_locatedIn_dom a owl:Class ;
+    rdfs:label "位于·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:SpatialUnit ur:Land ur:Problem ) .
+
+ur:Union_monitoringStatus_dom a owl:Class ;
+    rdfs:label "监测状态·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:LifelineRiskPoint ur:RiskyConstructionWorks ) .
+
+ur:Union_occursIn_dom a owl:Class ;
+    rdfs:label "发生于·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:ExaminationActivity ur:RenewalProject ) .
+
+ur:Union_ofIndicator_dom a owl:Class ;
+    rdfs:label "针对指标·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:AssessmentResult ur:IndicatorJudgement ) .
+
+ur:Union_parkingDemand_dom a owl:Class ;
+    rdfs:label "停车位需求·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:ResidentialQuarter ur:Community ) .
+
+ur:Union_parkingSupply_dom a owl:Class ;
+    rdfs:label "停车位供给·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:ResidentialQuarter ur:Community ) .
+
+ur:Union_renewalNeed_dom a owl:Class ;
+    rdfs:label "改造需求·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:OldBlock ur:OldCommercialBlock ur:OldResidentialBlock ur:OldIndustrialArea ) .
+
+ur:Union_renovationStatus_dom a owl:Class ;
+    rdfs:label "改造完成状态·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:GasPipeline ur:EmergencyShelter ur:UrbanVillage ur:Building ) .
+
+ur:Union_unit_dom a owl:Class ;
+    rdfs:label "计量单位·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:Indicator ur:AssessmentResult ur:DataObject ) .
+
+ur:Union_year_dom a owl:Class ;
+    rdfs:label "统计年份·定义域/值域并集"@zh ;
+    owl:unionOf ( ur:ExaminationActivity ur:AssessmentResult ) .
+
 ur:UrbanOperationPlatform a owl:Class ;
     rdfs:label "城市运行管理平台"@zh ;
     rdfs:subClassOf ur:ManagementObject ;
@@ -1390,6 +2039,9 @@ ur:CulturalActivityCenter a owl:Class ;
 ur:DataObjectRoleUnion a owl:Class ;
     rdfs:label "数据对象角色类并集"@zh ;
     owl:unionOf ( ur:DataObject ur:SpatialUnit ur:RenewalObject ur:Problem ur:RenewalProject ) .
+
+ur:DerivedRatio a owl:Class ;
+    rdfs:label "派生比值"@zh .
 
 ur:EVChargingPile a owl:Class ;
     rdfs:label "新能源汽车充电桩"@zh ;
@@ -1578,6 +2230,20 @@ ur:Indicator_51 a ur:Indicator ;
     ur:orientation "正向"@zh ;
     ur:unit "%"@zh .
 
+ur:Indicator_7 a ur:Indicator ;
+    rdfs:label "需要进行节能改造的住宅数量"@zh ;
+    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表1"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:code "7" ;
+    ur:computedFrom ur:Building ;
+    ur:formula "count(住宅，节能改造需求=是)"@zh ;
+    ur:inCategory ur:功能完备 ;
+    ur:inDimension ur:HousingDimension ;
+    ur:measures ur:Building ;
+    ur:name "需要进行节能改造的住宅数量"@zh ;
+    ur:orientation "逆向"@zh ;
+    ur:unit "栋"@zh .
+
 ur:InfantCareFacility a owl:Class ;
     rdfs:label "婴幼儿托育设施"@zh ;
     rdfs:subClassOf ur:FacilityObject ;
@@ -1632,11 +2298,6 @@ ur:ProtectedObject a owl:Class ;
     rdfs:subClassOf ur:HeritageObject ;
     ur:feedsInto ur:Indicator_36 .
 
-ur:PublicActivityVenue a owl:Class ;
-    rdfs:label "公共活动场地"@zh ;
-    rdfs:subClassOf ur:SpaceObject ;
-    ur:feedsInto ur:Indicator_14 .
-
 ur:RiskyConstructionWorks a owl:Class ;
     rdfs:label "危险性较大分部分项工程"@zh ;
     rdfs:subClassOf ur:ManagementObject ;
@@ -1659,6 +2320,9 @@ ur:管理健全 a ur:IndicatorCategory ;
     rdfs:label "管理健全"@zh ;
     ur:belongsToDimension ur:CommunityDimension,
         ur:ResidentialQuarterDimension .
+
+ur:EvaluationOutput a owl:Class ;
+    rdfs:label "评价输出"@zh .
 
 ur:HeritageObject a owl:Class ;
     rdfs:label "历史文化保护实体"@zh ;
@@ -1692,6 +2356,11 @@ ur:OldBlock a owl:Class ;
 ur:ProblemIndicatorMapping a owl:Class ;
     rdfs:label "问题-指标映射"@zh .
 
+ur:PublicActivityVenue a owl:Class ;
+    rdfs:label "公共活动场地"@zh ;
+    rdfs:subClassOf ur:SpaceObject ;
+    ur:feedsInto ur:Indicator_14 .
+
 ur:ResidentialLand a owl:Class ;
     rdfs:label "居住用地"@zh ;
     rdfs:subClassOf ur:Land ;
@@ -1711,19 +2380,36 @@ ur:环境宜居 a ur:IndicatorCategory ;
     ur:belongsToDimension ur:CommunityDimension,
         ur:ResidentialQuarterDimension .
 
-ur:Community a owl:Class ;
-    rdfs:label "社区"@zh ;
-    rdfs:subClassOf ur:SpatialUnit .
+ur:Indicator_2 a ur:Indicator ;
+    rdfs:label "存在燃气安全隐患的住宅数量"@zh ;
+    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表1"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:code "2" ;
+    ur:computedFrom ur:Building ;
+    ur:formula "count(住宅，燃气安全状态=有隐患)"@zh ;
+    ur:inCategory ur:安全耐久 ;
+    ur:inDimension ur:HousingDimension ;
+    ur:measures ur:Building ;
+    ur:name "存在燃气安全隐患的住宅数量"@zh ;
+    ur:orientation "逆向"@zh ;
+    ur:unit "栋"@zh .
 
-ur:EvaluationRule a owl:Class ;
-    rdfs:label "评价规则"@zh .
+ur:Indicator_5 a ur:Indicator ;
+    rdfs:label "存在管线管道破损的住宅数量"@zh ;
+    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表1"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:code "5" ;
+    ur:computedFrom ur:Building ;
+    ur:formula "count(住宅，管线管道状态=破损)"@zh ;
+    ur:inCategory ur:功能完备 ;
+    ur:inDimension ur:HousingDimension ;
+    ur:measures ur:Building ;
+    ur:name "存在管线管道破损的住宅数量"@zh ;
+    ur:orientation "逆向"@zh ;
+    ur:unit "栋"@zh .
 
 ur:LineObject a owl:Class ;
     rdfs:label "线路对象"@zh ;
-    rdfs:subClassOf ur:DataObject .
-
-ur:SpaceObject a owl:Class ;
-    rdfs:label "空间对象"@zh ;
     rdfs:subClassOf ur:DataObject .
 
 ur:产城融合职住平衡 a ur:IndicatorCategory ;
@@ -1746,11 +2432,62 @@ ur:智慧高效 a ur:IndicatorCategory ;
     rdfs:label "智慧高效"@zh ;
     ur:belongsToDimension ur:UrbanDistrictDimension .
 
+ur:EvaluationMethod a owl:Class ;
+    rdfs:label "评价方法"@zh .
+
+ur:EvaluationRule a owl:Class ;
+    rdfs:label "评价规则"@zh .
+
 ur:ExaminationActivity a owl:Class ;
     rdfs:label "体检活动"@zh .
 
 ur:Fund a owl:Class ;
     rdfs:label "资金"@zh .
+
+ur:IndicatorJudgement a owl:Class ;
+    rdfs:label "指标判断"@zh .
+
+ur:Indicator_1 a ur:Indicator ;
+    rdfs:label "存在结构安全隐患的住宅数量"@zh ;
+    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表1"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:code "1" ;
+    ur:computedFrom ur:Building ;
+    ur:formula "count(住宅，结构安全状态≠安全)"@zh ;
+    ur:inCategory ur:安全耐久 ;
+    ur:inDimension ur:HousingDimension ;
+    ur:measures ur:Building ;
+    ur:name "存在结构安全隐患的住宅数量"@zh ;
+    ur:orientation "逆向"@zh ;
+    ur:unit "栋"@zh .
+
+ur:Indicator_6 a ur:Indicator ;
+    rdfs:label "需要进行适老化改造的住宅数量"@zh ;
+    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表1"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:code "6" ;
+    ur:computedFrom ur:Building ;
+    ur:formula "count(住宅，适老化改造需求=是)"@zh ;
+    ur:inCategory ur:功能完备 ;
+    ur:inDimension ur:HousingDimension ;
+    ur:measures ur:Building ;
+    ur:name "需要进行适老化改造的住宅数量"@zh ;
+    ur:orientation "逆向"@zh ;
+    ur:unit "栋"@zh .
+
+ur:Indicator_8 a ur:Indicator ;
+    rdfs:label "需要进行数字化改造的住宅数量"@zh ;
+    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表1"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:code "8" ;
+    ur:computedFrom ur:Building ;
+    ur:formula "count(住宅，数字化改造需求=是)"@zh ;
+    ur:inCategory ur:功能完备 ;
+    ur:inDimension ur:HousingDimension ;
+    ur:measures ur:Building ;
+    ur:name "需要进行数字化改造的住宅数量"@zh ;
+    ur:orientation "逆向"@zh ;
+    ur:unit "栋"@zh .
 
 ur:Land a owl:Class ;
     rdfs:label "用地"@zh ;
@@ -1778,17 +2515,49 @@ ur:HistoricalBuilding a owl:Class ;
     ur:feedsInto ur:Indicator_32,
         ur:Indicator_33 .
 
+ur:Indicator_4 a ur:Indicator ;
+    rdfs:label "存在围护安全隐患的住宅数量"@zh ;
+    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表1"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:code "4" ;
+    ur:computedFrom ur:Building ;
+    ur:formula "count(住宅，围护安全状态=有隐患)"@zh ;
+    ur:inCategory ur:安全耐久 ;
+    ur:inDimension ur:HousingDimension ;
+    ur:measures ur:Building ;
+    ur:name "存在围护安全隐患的住宅数量"@zh ;
+    ur:orientation "逆向"@zh ;
+    ur:unit "栋"@zh .
+
+ur:RatingBand a owl:Class ;
+    rdfs:label "评价档位"@zh .
+
+ur:SpaceObject a owl:Class ;
+    rdfs:label "空间对象"@zh ;
+    rdfs:subClassOf ur:DataObject .
+
+ur:SpatialScale a owl:Class ;
+    rdfs:label "空间尺度"@zh .
+
 ur:Actor a owl:Class ;
     rdfs:label "行动主体"@zh .
-
-ur:AssessmentResult a owl:Class ;
-    rdfs:label "评估结果"@zh .
 
 ur:CommunityDimension a ur:Dimension ;
     rdfs:label "社区维度"@zh .
 
-ur:RemediationSuggestion a owl:Class ;
-    rdfs:label "整治建议"@zh .
+ur:Indicator_24 a ur:Indicator ;
+    rdfs:label "需要更新改造的老旧商业街区数量"@zh ;
+    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表7"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:code "24" ;
+    ur:computedFrom ur:OldCommercialBlock ;
+    ur:formula "count(老旧商业街区，需更新改造)"@zh ;
+    ur:inCategory ur:特色活力 ;
+    ur:inDimension ur:NeighborhoodDimension ;
+    ur:measures ur:Neighborhood ;
+    ur:name "需要更新改造的老旧商业街区数量"@zh ;
+    ur:orientation "逆向"@zh ;
+    ur:unit "个"@zh .
 
 ur:Dimension a owl:Class ;
     rdfs:label "指标维度"@zh .
@@ -1796,15 +2565,43 @@ ur:Dimension a owl:Class ;
 ur:FormulaType a owl:Class ;
     rdfs:label "公式类型"@zh .
 
-ur:Neighborhood a owl:Class ;
-    rdfs:label "街区"@zh ;
-    rdfs:subClassOf ur:SpatialUnit .
-
 ur:PolicyStandard a owl:Class ;
     rdfs:label "政策标准"@zh .
 
-ur:RenewalObject a owl:Class ;
-    rdfs:label "更新对象"@zh .
+ur:Community a owl:Class ;
+    rdfs:label "社区"@zh ;
+    rdfs:subClassOf ur:SpatialUnit .
+
+ur:Indicator_26 a ur:Indicator ;
+    rdfs:label "需要更新改造的老旧生活街区数量"@zh ;
+    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表7"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:code "26" ;
+    ur:computedFrom ur:OldResidentialBlock ;
+    ur:formula "count(老旧生活街区，需更新改造)"@zh ;
+    ur:inCategory ur:特色活力 ;
+    ur:inDimension ur:NeighborhoodDimension ;
+    ur:measures ur:Neighborhood ;
+    ur:name "需要更新改造的老旧生活街区数量"@zh ;
+    ur:orientation "逆向"@zh ;
+    ur:unit "个"@zh .
+
+ur:Indicator_3 a ur:Indicator ;
+    rdfs:label "存在楼道安全隐患的住宅数量"@zh ;
+    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表1"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:code "3" ;
+    ur:computedFrom ur:Building ;
+    ur:formula "count(住宅，楼道安全状态=有隐患)"@zh ;
+    ur:inCategory ur:安全耐久 ;
+    ur:inDimension ur:HousingDimension ;
+    ur:measures ur:Building ;
+    ur:name "存在楼道安全隐患的住宅数量"@zh ;
+    ur:orientation "逆向"@zh ;
+    ur:unit "栋"@zh .
+
+ur:RemediationSuggestion a owl:Class ;
+    rdfs:label "整治建议"@zh .
 
 ur:ResidentialQuarterDimension a ur:Dimension ;
     rdfs:label "小区维度"@zh .
@@ -1816,26 +2613,42 @@ ur:安全韧性 a ur:IndicatorCategory ;
 ur:CollectionMethod a owl:Class ;
     rdfs:label "采集方式"@zh .
 
+ur:EvaluationReference a owl:Class ;
+    rdfs:label "评价参考值"@zh .
+
 ur:HousingDimension a ur:Dimension ;
     rdfs:label "住房维度"@zh .
 
+ur:RenewalObject a owl:Class ;
+    rdfs:label "更新对象"@zh .
+
+ur:Indicator_25 a ur:Indicator ;
+    rdfs:label "需要更新改造的老旧厂区数量"@zh ;
+    rdfs:comment "原始状态：基本确认；来源：附件1【待核】；手册表7"@zh ;
+    ur:basedOn ur:Policy_2026_16 ;
+    ur:code "25" ;
+    ur:computedFrom ur:OldIndustrialArea ;
+    ur:formula "count(老旧厂区，需更新改造)"@zh ;
+    ur:inCategory ur:特色活力 ;
+    ur:inDimension ur:NeighborhoodDimension ;
+    ur:measures ur:Neighborhood ;
+    ur:name "需要更新改造的老旧厂区数量"@zh ;
+    ur:orientation "逆向"@zh ;
+    ur:unit "个"@zh .
+
+ur:Neighborhood a owl:Class ;
+    rdfs:label "街区"@zh ;
+    rdfs:subClassOf ur:SpatialUnit .
+
 ur:NeighborhoodDimension a ur:Dimension ;
     rdfs:label "街区维度"@zh .
-
-ur:ResidentialQuarter a owl:Class ;
-    rdfs:label "小区"@zh ;
-    rdfs:subClassOf ur:SpatialUnit ;
-    ur:feedsInto ur:Indicator_16,
-        ur:Indicator_17,
-        ur:Indicator_18 .
 
 ur:RenewalProject a owl:Class ;
     rdfs:label "更新项目"@zh ;
     ur:feedsInto ur:Indicator_55 .
 
-ur:Problem a owl:Class ;
-    rdfs:label "问题短板"@zh ;
-    ur:feedsInto ur:Indicator_54 .
+ur:AssessmentResult a owl:Class ;
+    rdfs:label "评估结果"@zh .
 
 ur:IndicatorCategory a owl:Class ;
     rdfs:label "指标分类"@zh .
@@ -1843,6 +2656,10 @@ ur:IndicatorCategory a owl:Class ;
 ur:FacilityObject a owl:Class ;
     rdfs:label "设施对象"@zh ;
     rdfs:subClassOf ur:DataObject .
+
+ur:Problem a owl:Class ;
+    rdfs:label "问题短板"@zh ;
+    ur:feedsInto ur:Indicator_54 .
 
 ur:SpatialUnit a owl:Class ;
     rdfs:label "空间单元"@zh .
@@ -1853,6 +2670,13 @@ ur:DataObject a owl:Class ;
 ur:UrbanDistrict a owl:Class ;
     rdfs:label "城区（城市）"@zh ;
     rdfs:subClassOf ur:SpatialUnit .
+
+ur:ResidentialQuarter a owl:Class ;
+    rdfs:label "小区"@zh ;
+    rdfs:subClassOf ur:SpatialUnit ;
+    ur:feedsInto ur:Indicator_16,
+        ur:Indicator_17,
+        ur:Indicator_18 .
 
 ur:UrbanDistrictDimension a ur:Dimension ;
     rdfs:label "城区维度"@zh .
@@ -1872,10 +2696,13 @@ ur:Building a owl:Class ;
         ur:Indicator_7,
         ur:Indicator_8 .
 
-ur:Policy_2026_16 a ur:PolicyDocument ;
-    rdfs:label "建办科〔2026〕16号 附件1《城市体检基础指标体系》"@zh ;
-    ur:policyVersion "建办科〔2026〕16号【待核】"@zh .
+ur:CheckItem a owl:Class ;
+    rdfs:label "核查项"@zh .
 
 ur:Indicator a owl:Class ;
     rdfs:label "体检指标"@zh .
+
+ur:Policy_2026_16 a ur:PolicyDocument ;
+    rdfs:label "建办科〔2026〕16号 附件1《城市体检基础指标体系》"@zh ;
+    ur:policyVersion "建办科〔2026〕16号【待核】"@zh .
 

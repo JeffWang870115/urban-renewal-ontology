@@ -37,6 +37,54 @@
     sh:targetClass ur:Indicator .
 
 [] a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "加权/复合评估结果须指明针对哪个指标（ofIndicator 1..1）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:ofIndicator ],
+        [ sh:class ur:SpatialUnit ;
+            sh:maxCount 1 ;
+            sh:message "加权/复合评估结果须落到具体空间单元（assesses 1..1）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:assesses ],
+        [ sh:message "加权/复合评估结果须有指标值（数值型，加权汇总）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:indicatorValue ] ;
+    sh:targetClass ur:WeightedAssessmentResult .
+
+[] a sh:NodeShape ;
+    sh:property [ sh:message "设施占地面积须 ≥ 0（单位 ㎡）"@zh ;
+            sh:minInclusive 0 ;
+            sh:path ur:facilityArea ] ;
+    sh:targetClass ur:FacilityObject,
+        ur:SpaceObject .
+
+[] a sh:NodeShape ;
+    sh:property [ sh:message "核查项须标判定类型（是否型/阈值型/比率型）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:checkItemType ],
+        [ sh:class ur:Indicator ;
+            sh:maxCount 1 ;
+            sh:message "核查项须指明服务哪个指标（checkItemFor 1..1）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:checkItemFor ] ;
+    sh:targetClass ur:CheckItem .
+
+[] a sh:NodeShape ;
+    sh:property [ sh:class ur:SpatialScale ;
+            sh:maxCount 1 ;
+            sh:message "评价参考值须声明适用空间尺度（1..1，取自 SpatialScale）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:appliesToScale ] ;
+    sh:targetClass ur:EvaluationReference .
+
+[] a sh:NodeShape ;
+    sh:property [ sh:in ( "限时解决"@zh "尽力解决"@zh ) ;
+            sh:maxCount 1 ;
+            sh:message "整治类型若标，须在 限时解决/尽力解决 中二选一、互斥（大王2026-11-20定）"@zh ;
+            sh:path ur:treatmentType ] ;
+    sh:targetClass ur:RemediationSuggestion .
+
+[] a sh:NodeShape ;
     sh:property [ sh:message "政策标准须带 policyVersion（阈值溯源）"@zh ;
             sh:minCount 1 ;
             sh:path ur:policyVersion ] ;
@@ -69,4 +117,53 @@
             sh:minInclusive 0 ;
             sh:path ur:severity ] ;
     sh:targetClass ur:Problem .
+
+[] a sh:NodeShape ;
+    sh:property [ sh:in ( "未配建"@zh "配建不达标"@zh "达标"@zh ) ;
+            sh:maxCount 1 ;
+            sh:message "判断值取 未配建 / 配建不达标 / 达标（三值，不可合并）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:judgementValue ],
+        [ sh:class ur:SpatialUnit ;
+            sh:maxCount 1 ;
+            sh:message "指标判断须绑定恰好 1 个空间单元"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:assesses ],
+        [ sh:class ur:Indicator ;
+            sh:maxCount 1 ;
+            sh:message "指标判断须指明针对哪个指标（ofIndicator 1..1）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:ofIndicator ] ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "同一指标在同一空间单元上不得有重复判断"@zh ;
+            sh:select "SELECT $this ?other WHERE { $this <https://ontology.cset-digital.cn/urban-renewal#ofIndicator> ?i ; <https://ontology.cset-digital.cn/urban-renewal#assesses> ?u . ?other <https://ontology.cset-digital.cn/urban-renewal#ofIndicator> ?i ; <https://ontology.cset-digital.cn/urban-renewal#assesses> ?u . FILTER(?other != $this) }" ],
+        [ a sh:SPARQLConstraint ;
+            sh:message "未配建→无证据；达标/配建不达标→至少 1 条证据"@zh ;
+            sh:select "SELECT $this WHERE { $this <https://ontology.cset-digital.cn/urban-renewal#judgementValue> ?j . OPTIONAL { $this <https://ontology.cset-digital.cn/urban-renewal#basedOnEvidence> ?e } FILTER( (STR(?j) = \"未配建\" && BOUND(?e)) || (STR(?j) != \"未配建\" && !BOUND(?e)) ) }" ] ;
+    sh:targetClass ur:IndicatorJudgement .
+
+[] a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "评估结果须指明针对哪个指标（ofIndicator 1..1）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:ofIndicator ] ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "评估结果值须等于其单元范围内「判断≠达标」的条数"@zh ;
+            sh:select "SELECT $this ?v ?expected WHERE { $this <https://ontology.cset-digital.cn/urban-renewal#ofIndicator> ?ind ; <https://ontology.cset-digital.cn/urban-renewal#assesses> ?ud ; <https://ontology.cset-digital.cn/urban-renewal#indicatorValue> ?v . ?anyj a <https://ontology.cset-digital.cn/urban-renewal#IndicatorJudgement> ; <https://ontology.cset-digital.cn/urban-renewal#ofIndicator> ?ind . { SELECT $this (COUNT(DISTINCT ?ij) AS ?expected) WHERE { $this <https://ontology.cset-digital.cn/urban-renewal#ofIndicator> ?ind2 ; <https://ontology.cset-digital.cn/urban-renewal#assesses> ?ud2 . OPTIONAL { ?ij <https://ontology.cset-digital.cn/urban-renewal#ofIndicator> ?ind2 ; <https://ontology.cset-digital.cn/urban-renewal#judgementValue> ?jv ; <https://ontology.cset-digital.cn/urban-renewal#assesses> ?cm . FILTER(STR(?jv) != \"达标\") ?cm <https://ontology.cset-digital.cn/urban-renewal#locatedIn>+ ?ud2 } } GROUP BY $this } FILTER(STR(?v) != STR(?expected)) }" ] ;
+    sh:targetClass ur:AssessmentResult .
+
+[] a sh:NodeShape ;
+    sh:property [ sh:message "极值/周期评估结果须有指标值（数值型，极值取自观测）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:indicatorValue ],
+        [ sh:maxCount 1 ;
+            sh:message "极值/周期评估结果须指明针对哪个指标（ofIndicator 1..1）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:ofIndicator ],
+        [ sh:class ur:SpatialUnit ;
+            sh:maxCount 1 ;
+            sh:message "极值/周期评估结果须落到具体空间单元（assesses 1..1）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:assesses ] ;
+    sh:targetClass ur:ExtremeValueAssessmentResult .
 

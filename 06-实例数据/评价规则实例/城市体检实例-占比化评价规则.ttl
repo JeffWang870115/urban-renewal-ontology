@@ -1,0 +1,1032 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ur: <https://ontology.cset-digital.cn/urban-renewal#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ur:DR_sample_I1 a ur:DerivedRatio ;
+    rdfs:comment "分母=3599（楼栋表序号上限，大王2026-11-19拍板）；精确比值见本地对照表"@zh ;
+    ur:derivedFrom ur:AR_sample_I1 ;
+    ur:ratioOf "结构隐患住宅占比%"@zh .
+
+ur:DR_sample_I10 a ur:DerivedRatio ;
+    ur:derivedFrom ur:AR_sample_I10 ;
+    ur:ratioOf "托育设施未达标社区占比%"@zh .
+
+ur:DR_sample_I11 a ur:DerivedRatio ;
+    ur:derivedFrom ur:AR_sample_I11 ;
+    ur:ratioOf "每小区停车泊位缺口数"@zh .
+
+ur:DR_sample_I12 a ur:DerivedRatio ;
+    ur:derivedFrom ur:AR_sample_I12 ;
+    ur:ratioOf "每小区充电桩缺口数"@zh .
+
+ur:DR_sample_I13 a ur:DerivedRatio ;
+    ur:derivedFrom ur:AR_sample_I13 ;
+    ur:ratioOf "电动车充电未配建小区占比%"@zh .
+
+ur:DR_sample_I14 a ur:DerivedRatio ;
+    ur:derivedFrom ur:AR_sample_I14 ;
+    ur:ratioOf "公共活动场地未达标社区占比%"@zh .
+
+ur:DR_sample_I15 a ur:DerivedRatio ;
+    ur:derivedFrom ur:AR_sample_I15 ;
+    ur:ratioOf "不达标步行道长度占比% = 不达标长度/区域面积"@zh .
+
+ur:DR_sample_I16 a ur:DerivedRatio ;
+    ur:derivedFrom ur:AR_sample_I16 ;
+    ur:ratioOf "未垃圾分类小区占比%"@zh .
+
+ur:DR_sample_I17 a ur:DerivedRatio ;
+    ur:derivedFrom ur:AR_sample_I17 ;
+    ur:ratioOf "未物业管理小区占比%"@zh .
+
+ur:DR_sample_I18 a ur:DerivedRatio ;
+    ur:derivedFrom ur:AR_sample_I18 ;
+    ur:ratioOf "智慧化改造小区占比%"@zh .
+
+ur:DR_sample_I2 a ur:DerivedRatio ;
+    rdfs:comment "分母=3599（楼栋表序号上限，大王2026-11-19拍板）；精确比值见本地对照表"@zh ;
+    ur:derivedFrom ur:AR_sample_I2 ;
+    ur:ratioOf "燃气隐患住宅占比%"@zh .
+
+ur:DR_sample_I3 a ur:DerivedRatio ;
+    rdfs:comment "分母=3599（楼栋表序号上限，大王2026-11-19拍板）；精确比值见本地对照表"@zh ;
+    ur:derivedFrom ur:AR_sample_I3 ;
+    ur:ratioOf "楼道隐患住宅占比%"@zh .
+
+ur:DR_sample_I4 a ur:DerivedRatio ;
+    rdfs:comment "分母=3599（楼栋表序号上限，大王2026-11-19拍板）；精确比值见本地对照表"@zh ;
+    ur:derivedFrom ur:AR_sample_I4 ;
+    ur:ratioOf "围护隐患住宅占比%"@zh .
+
+ur:DR_sample_I5 a ur:DerivedRatio ;
+    rdfs:comment "分母=3599（楼栋表序号上限，大王2026-11-19拍板）；精确比值见本地对照表"@zh ;
+    ur:derivedFrom ur:AR_sample_I5 ;
+    ur:ratioOf "管线破损住宅占比%"@zh .
+
+ur:DR_sample_I6 a ur:DerivedRatio ;
+    rdfs:comment "分母=3599（楼栋表序号上限，大王2026-11-19拍板）；精确比值见本地对照表"@zh ;
+    ur:derivedFrom ur:AR_sample_I6 ;
+    ur:ratioOf "适老化改造住宅占比%"@zh .
+
+ur:DR_sample_I7 a ur:DerivedRatio ;
+    rdfs:comment "分母=3599（楼栋表序号上限，大王2026-11-19拍板）；精确比值见本地对照表"@zh ;
+    ur:derivedFrom ur:AR_sample_I7 ;
+    ur:ratioOf "节能改造住宅占比%"@zh .
+
+ur:DR_sample_I8 a ur:DerivedRatio ;
+    rdfs:comment "分母=3599（楼栋表序号上限，大王2026-11-19拍板）；精确比值见本地对照表"@zh ;
+    ur:derivedFrom ur:AR_sample_I8 ;
+    ur:ratioOf "数字化改造住宅占比%"@zh .
+
+ur:DR_sample_I9 a ur:DerivedRatio ;
+    rdfs:comment "分母=3599（楼栋表序号上限，大王2026-11-19拍板）；精确比值见本地对照表"@zh ;
+    ur:derivedFrom ur:AR_sample_I9 ;
+    ur:ratioOf "养老设施未达标社区占比%"@zh .
+
+ur:ER_P1 a ur:EvaluationRule ;
+    rdfs:label "指标1存在结构安全隐患的住宅数量占比化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_1 ;
+    ur:evaluationMethod ur:EvaluationMethod_占比化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P1 .
+
+ur:ER_P10 a ur:EvaluationRule ;
+    rdfs:label "指标10未达标配建婴幼儿托育设施的社区数量占比化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_10 ;
+    ur:evaluationMethod ur:EvaluationMethod_占比化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P10 .
+
+ur:ER_P11 a ur:EvaluationRule ;
+    rdfs:label "指标11停车泊位缺口数均值化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_11 ;
+    ur:evaluationMethod ur:EvaluationMethod_均值化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P11 .
+
+ur:ER_P12 a ur:EvaluationRule ;
+    rdfs:label "指标12新能源汽车充电桩缺口数均值化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_12 ;
+    ur:evaluationMethod ur:EvaluationMethod_均值化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P12 .
+
+ur:ER_P13 a ur:EvaluationRule ;
+    rdfs:label "指标13未配建电动自行车充电设施的小区数量占比化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_13 ;
+    ur:evaluationMethod ur:EvaluationMethod_占比化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P13 .
+
+ur:ER_P14 a ur:EvaluationRule ;
+    rdfs:label "指标14未达标配建公共活动场地的社区数量占比化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_14 ;
+    ur:evaluationMethod ur:EvaluationMethod_占比化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P14 .
+
+ur:ER_P15 a ur:EvaluationRule ;
+    rdfs:label "指标15不达标的步行道长度占比化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_15 ;
+    ur:evaluationMethod ur:EvaluationMethod_占比化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P15 .
+
+ur:ER_P16 a ur:EvaluationRule ;
+    rdfs:label "指标16未实施生活垃圾分类的小区数量占比化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_16 ;
+    ur:evaluationMethod ur:EvaluationMethod_占比化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P16 .
+
+ur:ER_P17 a ur:EvaluationRule ;
+    rdfs:label "指标17未实施物业管理的小区数量占比化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_17 ;
+    ur:evaluationMethod ur:EvaluationMethod_占比化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P17 .
+
+ur:ER_P18 a ur:EvaluationRule ;
+    rdfs:label "指标18需要进行智慧化改造的小区数量占比化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_18 ;
+    ur:evaluationMethod ur:EvaluationMethod_占比化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P18 .
+
+ur:ER_P2 a ur:EvaluationRule ;
+    rdfs:label "指标2存在燃气安全隐患的住宅数量占比化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_2 ;
+    ur:evaluationMethod ur:EvaluationMethod_占比化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P2 .
+
+ur:ER_P3 a ur:EvaluationRule ;
+    rdfs:label "指标3存在楼道安全隐患的住宅数量占比化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_3 ;
+    ur:evaluationMethod ur:EvaluationMethod_占比化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P3 .
+
+ur:ER_P4 a ur:EvaluationRule ;
+    rdfs:label "指标4存在围护安全隐患的住宅数量占比化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_4 ;
+    ur:evaluationMethod ur:EvaluationMethod_占比化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P4 .
+
+ur:ER_P5 a ur:EvaluationRule ;
+    rdfs:label "指标5存在管线管道破损的住宅数量占比化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_5 ;
+    ur:evaluationMethod ur:EvaluationMethod_占比化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P5 .
+
+ur:ER_P6 a ur:EvaluationRule ;
+    rdfs:label "指标6需要进行适老化改造的住宅数量占比化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_6 ;
+    ur:evaluationMethod ur:EvaluationMethod_占比化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P6 .
+
+ur:ER_P7 a ur:EvaluationRule ;
+    rdfs:label "指标7需要进行节能改造的住宅数量占比化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_7 ;
+    ur:evaluationMethod ur:EvaluationMethod_占比化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P7 .
+
+ur:ER_P8 a ur:EvaluationRule ;
+    rdfs:label "指标8需要进行数字化改造的住宅数量占比化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_8 ;
+    ur:evaluationMethod ur:EvaluationMethod_占比化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P8 .
+
+ur:ER_P9 a ur:EvaluationRule ;
+    rdfs:label "指标9未达标配建养老服务设施的社区数量占比化评价规则【地方实操】"@zh ;
+    ur:evaluates ur:Indicator_9 ;
+    ur:evaluationMethod ur:EvaluationMethod_占比化 ;
+    ur:evaluationOutput ur:EvaluationOutput_四级等级 ;
+    ur:usesReference ur:ERef_P9 .
+
+ur:AR_sample_I1 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：百级；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_1 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I10 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：百级；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_10 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I11 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：万级；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_11 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I12 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：千级；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_12 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I13 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：量级1-99；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_13 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I14 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：百级；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_14 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I15 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：百级；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_15 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I16 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：百级；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_16 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I17 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：量级1-99；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_17 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I18 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：量级1-99；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_18 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I2 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：量级1-99；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_2 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I3 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：千级；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_3 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I4 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：百级；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_4 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I5 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：千级；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_5 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I6 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：千级；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_6 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I7 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：千级；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_7 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I8 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：千级；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_8 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:AR_sample_I9 a ur:AssessmentResult ;
+    rdfs:comment "指标值量级：百级；精确值见本地脱敏对照表（不入库）【地方实操】"@zh ;
+    ur:assesses ur:UD_01 ;
+    ur:ofIndicator ur:Indicator_9 ;
+    ur:year "2025"^^xsd:gYear .
+
+ur:ERef_P1 a ur:EvaluationReference ;
+    rdfs:label "指标1存在结构安全隐患的住宅数量自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_1 ;
+    ur:hasRatingBand ur:RB_P1_一般,
+        ur:RB_P1_不足,
+        ur:RB_P1_很好,
+        ur:RB_P1_较好 ;
+    ur:referenceValue 3.52 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P10 a ur:EvaluationReference ;
+    rdfs:label "指标10未达标配建婴幼儿托育设施的社区数量自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_10 ;
+    ur:hasRatingBand ur:RB_P10_一般,
+        ur:RB_P10_不足,
+        ur:RB_P10_很好,
+        ur:RB_P10_较好 ;
+    ur:referenceValue 23.04 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P11 a ur:EvaluationReference ;
+    rdfs:label "指标11停车泊位缺口数自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_11 ;
+    ur:hasRatingBand ur:RB_P11_一般,
+        ur:RB_P11_不足,
+        ur:RB_P11_很好,
+        ur:RB_P11_较好 ;
+    ur:referenceValue 86.0 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P12 a ur:EvaluationReference ;
+    rdfs:label "指标12新能源汽车充电桩缺口数自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_12 ;
+    ur:hasRatingBand ur:RB_P12_一般,
+        ur:RB_P12_不足,
+        ur:RB_P12_很好,
+        ur:RB_P12_较好 ;
+    ur:referenceValue 9.0 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P13 a ur:EvaluationReference ;
+    rdfs:label "指标13未配建电动自行车充电设施的小区数量自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_13 ;
+    ur:hasRatingBand ur:RB_P13_一般,
+        ur:RB_P13_不足,
+        ur:RB_P13_很好,
+        ur:RB_P13_较好 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P14 a ur:EvaluationReference ;
+    rdfs:label "指标14未达标配建公共活动场地的社区数量自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_14 ;
+    ur:hasRatingBand ur:RB_P14_一般,
+        ur:RB_P14_不足,
+        ur:RB_P14_很好,
+        ur:RB_P14_较好 ;
+    ur:referenceValue 18.34 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P15 a ur:EvaluationReference ;
+    rdfs:label "指标15不达标的步行道长度自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_15 ;
+    ur:hasRatingBand ur:RB_P15_一般,
+        ur:RB_P15_不足,
+        ur:RB_P15_很好,
+        ur:RB_P15_较好 ;
+    ur:referenceValue 3.57 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P16 a ur:EvaluationReference ;
+    rdfs:label "指标16未实施生活垃圾分类的小区数量自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_16 ;
+    ur:hasRatingBand ur:RB_P16_一般,
+        ur:RB_P16_不足,
+        ur:RB_P16_很好,
+        ur:RB_P16_较好 ;
+    ur:referenceValue 13.97 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P17 a ur:EvaluationReference ;
+    rdfs:label "指标17未实施物业管理的小区数量自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_17 ;
+    ur:hasRatingBand ur:RB_P17_一般,
+        ur:RB_P17_不足,
+        ur:RB_P17_很好,
+        ur:RB_P17_较好 ;
+    ur:referenceValue 33.49 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P18 a ur:EvaluationReference ;
+    rdfs:label "指标18需要进行智慧化改造的小区数量自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_18 ;
+    ur:hasRatingBand ur:RB_P18_一般,
+        ur:RB_P18_不足,
+        ur:RB_P18_很好,
+        ur:RB_P18_较好 ;
+    ur:referenceValue 39.93 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P2 a ur:EvaluationReference ;
+    rdfs:label "指标2存在燃气安全隐患的住宅数量自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_2 ;
+    ur:hasRatingBand ur:RB_P2_一般,
+        ur:RB_P2_不足,
+        ur:RB_P2_很好,
+        ur:RB_P2_较好 ;
+    ur:referenceValue 4.08 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P3 a ur:EvaluationReference ;
+    rdfs:label "指标3存在楼道安全隐患的住宅数量自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_3 ;
+    ur:hasRatingBand ur:RB_P3_一般,
+        ur:RB_P3_不足,
+        ur:RB_P3_很好,
+        ur:RB_P3_较好 ;
+    ur:referenceValue 12.85 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P4 a ur:EvaluationReference ;
+    rdfs:label "指标4存在围护安全隐患的住宅数量自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_4 ;
+    ur:hasRatingBand ur:RB_P4_一般,
+        ur:RB_P4_不足,
+        ur:RB_P4_很好,
+        ur:RB_P4_较好 ;
+    ur:referenceValue 5.87 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P5 a ur:EvaluationReference ;
+    rdfs:label "指标5存在管线管道破损的住宅数量自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_5 ;
+    ur:hasRatingBand ur:RB_P5_一般,
+        ur:RB_P5_不足,
+        ur:RB_P5_很好,
+        ur:RB_P5_较好 ;
+    ur:referenceValue 6.52 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P6 a ur:EvaluationReference ;
+    rdfs:label "指标6需要进行适老化改造的住宅数量自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_6 ;
+    ur:hasRatingBand ur:RB_P6_一般,
+        ur:RB_P6_不足,
+        ur:RB_P6_很好,
+        ur:RB_P6_较好 ;
+    ur:referenceValue 11.12 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P7 a ur:EvaluationReference ;
+    rdfs:label "指标7需要进行节能改造的住宅数量自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_7 ;
+    ur:hasRatingBand ur:RB_P7_一般,
+        ur:RB_P7_不足,
+        ur:RB_P7_很好,
+        ur:RB_P7_较好 ;
+    ur:referenceValue 2.31 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P8 a ur:EvaluationReference ;
+    rdfs:label "指标8需要进行数字化改造的住宅数量自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_8 ;
+    ur:hasRatingBand ur:RB_P8_一般,
+        ur:RB_P8_不足,
+        ur:RB_P8_很好,
+        ur:RB_P8_较好 ;
+    ur:referenceValue 13.71 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:ERef_P9 a ur:EvaluationReference ;
+    rdfs:label "指标9未达标配建养老服务设施的社区数量自评表四档参考【地方实操·待核】"@zh ;
+    ur:appliesToScale ur:SpatialScale_DistrictScale ;
+    ur:basedOn ur:Policy_样本市自评表2025 ;
+    ur:direction "逆向"@zh ;
+    ur:forIndicator ur:Indicator_9 ;
+    ur:hasRatingBand ur:RB_P9_一般,
+        ur:RB_P9_不足,
+        ur:RB_P9_很好,
+        ur:RB_P9_较好 ;
+    ur:referenceValue 20.27 ;
+    ur:sourceScope "样本市自评表2025口径"@zh ;
+    ur:validPeriod "2025"@zh .
+
+ur:RB_P10_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 23.04 ;
+    ur:bandUpper 25.34 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P10_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 25.34 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P10_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 20.74 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P10_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 20.74 ;
+    ur:bandUpper 23.04 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P11_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 86.2 ;
+    ur:bandUpper 96.5 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P11_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 96.5 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P11_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 77.3 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P11_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 77.3 ;
+    ur:bandUpper 86.2 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P12_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 9.0 ;
+    ur:bandUpper 10.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P12_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 10.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P12_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 8.0 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P12_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 8.0 ;
+    ur:bandUpper 9.0 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P13_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P13_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P13_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P13_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P14_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 18.34 ;
+    ur:bandUpper 20.17 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P14_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 20.17 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P14_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 16.5 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P14_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 16.5 ;
+    ur:bandUpper 18.34 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P15_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 3.57 ;
+    ur:bandUpper 3.92 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P15_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 3.92 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P15_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 3.21 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P15_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 3.21 ;
+    ur:bandUpper 3.57 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P16_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 13.97 ;
+    ur:bandUpper 15.36 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P16_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 15.36 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P16_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 12.57 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P16_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 12.57 ;
+    ur:bandUpper 13.97 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P17_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 33.49 ;
+    ur:bandUpper 36.83 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P17_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 36.83 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P17_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 30.14 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P17_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 30.14 ;
+    ur:bandUpper 33.49 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P18_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 39.93 ;
+    ur:bandUpper 43.92 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P18_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 43.92 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P18_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 35.97 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P18_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 35.97 ;
+    ur:bandUpper 39.93 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P1_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 3.59 ;
+    ur:bandUpper 3.94 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P1_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 3.94 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P1_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 3.21 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P1_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 3.21 ;
+    ur:bandUpper 3.59 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P2_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 4.09 ;
+    ur:bandUpper 4.49 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P2_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 4.49 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P2_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 3.66 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P2_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 3.66 ;
+    ur:bandUpper 4.09 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P3_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 11.96 ;
+    ur:bandUpper 14.14 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P3_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 14.14 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P3_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 11.55 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P3_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 11.55 ;
+    ur:bandUpper 11.96 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P4_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 5.88 ;
+    ur:bandUpper 6.46 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P4_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 6.46 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P4_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 5.27 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P4_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 5.27 ;
+    ur:bandUpper 5.88 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P5_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 6.53 ;
+    ur:bandUpper 7.18 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P5_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 7.18 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P5_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 5.85 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P5_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 5.85 ;
+    ur:bandUpper 6.53 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P6_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 11.13 ;
+    ur:bandUpper 12.24 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P6_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 12.24 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P6_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 9.99 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P6_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 9.99 ;
+    ur:bandUpper 11.13 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P7_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 3.32 ;
+    ur:bandUpper 3.65 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P7_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 3.65 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P7_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 2.96 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P7_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 2.96 ;
+    ur:bandUpper 3.32 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P8_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 13.72 ;
+    ur:bandUpper 15.09 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P8_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 15.09 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P8_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 12.32 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P8_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 12.32 ;
+    ur:bandUpper 13.72 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P9_一般 a ur:RatingBand ;
+    ur:bandLabel "一般"@zh ;
+    ur:bandLower 20.27 ;
+    ur:bandUpper 22.3 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P9_不足 a ur:RatingBand ;
+    ur:bandLabel "不足"@zh ;
+    ur:bandLower 22.3 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+
+ur:RB_P9_很好 a ur:RatingBand ;
+    ur:bandLabel "很好"@zh ;
+    ur:bandUpper 18.23 ;
+    ur:includeLower false ;
+    ur:includeUpper false .
+
+ur:RB_P9_较好 a ur:RatingBand ;
+    ur:bandLabel "较好"@zh ;
+    ur:bandLower 18.23 ;
+    ur:bandUpper 20.27 ;
+    ur:includeLower true ;
+    ur:includeUpper false .
+

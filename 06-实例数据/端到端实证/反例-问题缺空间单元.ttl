@@ -1,0 +1,7 @@
+@prefix ur: <https://ontology.cset-digital.cn/urban-renewal#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ur:P_BAD_no_location a ur:Problem ;
+    ur:derivedFrom ur:AR_CM_S01_I12 ;
+    ur:severity 0.5 .
+

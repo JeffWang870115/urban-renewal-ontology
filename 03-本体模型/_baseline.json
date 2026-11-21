@@ -1,28 +1,32 @@
 {
- "generated": "2026-11-07 21:40:10",
+ "generated": "2026-11-20 21:37:20",
  "note": "本体全链自检基线。产物发生正当变更时用 --update 重建；勿手改。",
  "counts": {
-  "ttl_triples": 1595,
-  "ttl_classes": 107,
-  "ttl_object_props": 33,
-  "ttl_datatype_props": 57,
-  "ttl_subclass_edges": 83,
-  "ttl_abox_total": 92,
+  "ttl_triples": 2385,
+  "ttl_classes": 148,
+  "ttl_object_props": 47,
+  "ttl_datatype_props": 102,
+  "ttl_subclass_edges": 91,
+  "ttl_abox_total": 159,
   "ttl_abox_by_class": {
+   "CheckItem": 56,
    "CollectionMethod": 9,
    "Dimension": 5,
+   "EvaluationMethod": 4,
+   "EvaluationOutput": 2,
    "FormulaType": 7,
    "Indicator": 55,
    "IndicatorCategory": 13,
    "PolicyDocument": 1,
+   "SpatialScale": 5,
    "TreatmentType": 2
   },
   "ttl_dangling_classes": [],
-  "shacl_triples": 197,
-  "shacl_node_shapes": 5,
-  "shacl_property_shapes": 19,
-  "shacl_target_classes": 5,
-  "sparql_queries": 6,
+  "shacl_triples": 314,
+  "shacl_node_shapes": 13,
+  "shacl_property_shapes": 34,
+  "shacl_target_classes": 14,
+  "sparql_queries": 8,
   "yaml_indicators": 55,
   "yaml_dimensions": 5,
   "yaml_categories": 13,
@@ -32,15 +36,17 @@
    "Q3": 5,
    "Q4": 11,
    "Q5": 0,
-   "Q6": 8
+   "Q6": 8,
+   "Q7": 0,
+   "Q8": 0
   }
  },
  "sha256": {
-  "03-本体模型/城市体检-更新本体.ttl": "3c9cf8035d28cdfac44bffebc89a47d5ec370c684c212a3e80e2a97b05a1abc8",
-  "03-本体模型/城市体检-更新约束.shacl": "4bacb35fe0a1dc544be8c7b18f57cfd9281cd9fff38be31d863411639b766184",
-  "03-本体模型/常用查询.sparql": "1959c1d73cba44340059b8bef319a9fe80f7feb865241862fe4830df3e2f1562",
-  "03-本体模型/类与层级.md": "137e3ec8b825de4df6a86d1acb24a2cbd8f440bf53bfbdcba8a882916e29957d",
-  "05-产出/原型方案/原型/data/ontology.json": "8977ccad2d3ea2c67129ca744e6ebb395a18728c4150decee44030ed2d1fbdfd",
-  "05-产出/原型方案/原型/data/ontology.js": "2ce5c55541e73d14645c013aab196cfea9c3a7240c4655e2ee512e0bc1927a91"
+  "03-本体模型/城市体检-更新本体.ttl": "8c652d6881708f9107c7a586597b1683d2a692a52cff3a55a492899df6785cb1",
+  "03-本体模型/城市体检-更新约束.shacl": "47e16a6f03beed6a7749a9d440a6a996a74b888aaba344abad0feddb1c632c86",
+  "03-本体模型/常用查询.sparql": "17d3517338dd376e1888e61cc84c56df1712d636e4f63ab52a2d17840aa23cc9",
+  "03-本体模型/类与层级.md": "1c1f71307701ff1fb65650cd5f33fa98037b1ce07fa7f939bd4b8922ad033dbd",
+  "05-产出/原型方案/原型/data/ontology.json": "fdd1a38cc12911d132c7917342a641aa3ee3f9a2bce4f4e0f4b881bd2b0618e7",
+  "05-产出/原型方案/原型/data/ontology.js": "323b6b2d3a02e27542c283d7f9094c178346750011af469a232c2b000a257da0"
  }
 }

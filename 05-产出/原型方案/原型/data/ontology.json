@@ -5,14 +5,14 @@
   "source": "城市体检-更新本体.ttl + 类与层级.md + 55项指标.yaml",
   "generator": "03-本体模型/_to_graph_json.py",
   "counts": {
-   "classesDeclared": 107,
+   "classesDeclared": 148,
    "classesUndeclaredParents": 0,
-   "classesTotal": 107,
-   "topClasses": 16,
-   "supportClasses": 8,
-   "objectProps": 33,
-   "datatypeProps": 57,
-   "individuals": 92,
+   "classesTotal": 148,
+   "topClasses": 17,
+   "supportClasses": 40,
+   "objectProps": 47,
+   "datatypeProps": 102,
+   "individuals": 159,
    "indicators": 55
   },
   "warnings": {
@@ -35,6 +35,7 @@
  "domainOf": {
   "ExaminationActivity": "core",
   "AssessmentResult": "core",
+  "IndicatorJudgement": "core",
   "Problem": "core",
   "RemediationSuggestion": "core",
   "RenewalProject": "core",
@@ -108,37 +109,27 @@
    "id": "AssessmentResult",
    "cn": "评估结果",
    "parent": null,
-   "children": [],
+   "children": [
+    "BasicCompliantResult",
+    "CompliantResult",
+    "ExtremeValueAssessmentResult",
+    "NonCompliantResult",
+    "WeightedAssessmentResult"
+   ],
    "declared": true,
    "en": "Assessment Result",
-   "desc": "指标值 + 达标判定 + 等级",
-   "source": "建科〔2023〕75号（评估工作要求）",
+   "desc": "指标值 + 达标判定 + 等级（**聚合层**：一条 = 一个指标在一个汇总单元上的计数结果）；**子类两组**（单继承 `subClassOf`，非多domain，规避类型爆炸硬教训①）：① **按算法** `ExtremeValueAssessmentResult`（R5 极值/周期）、`WeightedAssessmentResult`（R6 加权/复合）；② **按等级**（W-B01 2026-11-17）`CompliantResult`（达标）、`BasicCompliantResult`（基本达标）、`NonCompliantResult`（不达标）。两组**正交、非互斥非完备**，同一实例可同时属两组各一类",
+   "source": "建科〔2023〕75号（评估工作要求）；W-B01（2026-11-17 大王批复）",
    "status": "建模稿",
    "domain": "core",
    "role": "top",
    "top": true,
    "props": [
+    "aggregatedFrom",
     "grade",
     "indicatorValue",
-    "revealsProblem",
-    "unit",
-    "year"
+    "revealsProblem"
    ]
-  },
-  {
-   "id": "AssessmentRule",
-   "cn": "达标评价规则",
-   "parent": "EvaluationRule",
-   "children": [],
-   "declared": true,
-   "en": "",
-   "desc": "",
-   "source": "",
-   "status": "建模稿",
-   "domain": null,
-   "role": "sub",
-   "top": false,
-   "props": []
   },
   {
    "id": "AssociationStandard",
@@ -171,6 +162,36 @@
    "props": []
   },
   {
+   "id": "BasicCompliantResult",
+   "cn": "基本达标结果",
+   "parent": "AssessmentResult",
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "sub",
+   "top": false,
+   "props": []
+  },
+  {
+   "id": "BestEffortRemedy",
+   "cn": "尽力解决类整治建议",
+   "parent": "RemediationSuggestion",
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "sub",
+   "top": false,
+   "props": []
+  },
+  {
    "id": "Bridge",
    "cn": "桥梁",
    "parent": "FacilityObject",
@@ -183,9 +204,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "dilapidatedStatus"
-   ]
+   "props": []
   },
   {
    "id": "Building",
@@ -204,20 +223,17 @@
     "agingAdaptationNeed",
     "buildingNature",
     "constructionStage",
-    "constructionYear",
     "corridorSafetyStatus",
     "digitalRetrofitNeed",
-    "dilapidatedStatus",
     "energyRetrofitNeed",
     "envelopeSafetyStatus",
-    "floorArea",
     "floorCount",
     "gasSafetyStatus",
     "greenBuildingLevel",
     "pipelineStatus",
-    "renovationStatus",
     "smartFireMonitorStatus",
-    "structureSafetyStatus"
+    "structureSafetyStatus",
+    "unitCount"
    ]
   },
   {
@@ -249,6 +265,26 @@
    "role": "sub",
    "top": false,
    "props": []
+  },
+  {
+   "id": "CheckItem",
+   "cn": "核查项",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "checkItemFor",
+    "checkItemThreshold",
+    "checkItemType",
+    "checkItemUnit"
+   ]
   },
   {
    "id": "CityRoadLength",
@@ -293,12 +329,31 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": []
+   "props": [
+    "carOwnership",
+    "evCount",
+    "rqCount"
+   ]
   },
   {
    "id": "CompleteCommunity",
    "cn": "完整社区",
    "parent": "RenewalObject",
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "sub",
+   "top": false,
+   "props": []
+  },
+  {
+   "id": "CompliantResult",
+   "cn": "达标结果",
+   "parent": "AssessmentResult",
    "children": [],
    "declared": true,
    "en": "",
@@ -326,21 +381,6 @@
    "props": []
   },
   {
-   "id": "CrossDomainRule",
-   "cn": "跨域规则",
-   "parent": "EvaluationRule",
-   "children": [],
-   "declared": true,
-   "en": "",
-   "desc": "",
-   "source": "",
-   "status": "建模稿",
-   "domain": null,
-   "role": "sub",
-   "top": false,
-   "props": []
-  },
-  {
    "id": "CulturalActivityCenter",
    "cn": "文化活动中心",
    "parent": "FacilityObject",
@@ -353,9 +393,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "complianceStatus"
-   ]
+   "props": []
   },
   {
    "id": "DataObject",
@@ -388,13 +426,11 @@
    "top": true,
    "props": [
     "belongsTo",
-    "code",
     "collectedAt",
     "collectedVia",
     "collectionMethod",
     "dataSource",
-    "definition",
-    "unit"
+    "definition"
    ]
   },
   {
@@ -415,6 +451,24 @@
    ]
   },
   {
+   "id": "DerivedRatio",
+   "cn": "派生比值",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "ratioOf",
+    "ratioValue"
+   ]
+  },
+  {
    "id": "Dimension",
    "cn": "指标维度",
    "parent": null,
@@ -427,9 +481,7 @@
    "domain": "axis",
    "role": "top",
    "top": true,
-   "props": [
-    "code"
-   ]
+   "props": []
   },
   {
    "id": "DrainageFacility",
@@ -474,9 +526,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "configuredStatus"
-   ]
+   "props": []
   },
   {
    "id": "EbikeChargingFacility",
@@ -491,9 +541,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "configuredStatus"
-   ]
+   "props": []
   },
   {
    "id": "ElderlyCareFacility",
@@ -508,9 +556,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "complianceStatus"
-   ]
+   "props": []
   },
   {
    "id": "EmergencyShelter",
@@ -525,9 +571,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "renovationStatus"
-   ]
+   "props": []
   },
   {
    "id": "EmergencyWaterSource",
@@ -545,14 +589,64 @@
    "props": []
   },
   {
+   "id": "EvaluationMethod",
+   "cn": "评价方法",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": []
+  },
+  {
+   "id": "EvaluationOutput",
+   "cn": "评价输出",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": []
+  },
+  {
+   "id": "EvaluationReference",
+   "cn": "评价参考值",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "appliesToScale",
+    "direction",
+    "forIndicator",
+    "hasRatingBand",
+    "referenceValue",
+    "reusesBandsOf",
+    "sourceScope",
+    "validPeriod"
+   ]
+  },
+  {
    "id": "EvaluationRule",
    "cn": "评价规则",
    "parent": null,
-   "children": [
-    "AssessmentRule",
-    "CrossDomainRule",
-    "WarningRule"
-   ],
+   "children": [],
    "declared": true,
    "en": "Evaluation Rule",
    "desc": "",
@@ -561,7 +655,12 @@
    "domain": null,
    "role": "support",
    "top": false,
-   "props": []
+   "props": [
+    "evaluates",
+    "evaluationMethod",
+    "evaluationOutput",
+    "usesReference"
+   ]
   },
   {
    "id": "EventObject",
@@ -596,11 +695,24 @@
    "top": true,
    "props": [
     "examines",
-    "occursIn",
     "produces",
-    "usesIndicator",
-    "year"
+    "usesIndicator"
    ]
+  },
+  {
+   "id": "ExtremeValueAssessmentResult",
+   "cn": "极值/周期评估结果",
+   "parent": "AssessmentResult",
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "sub",
+   "top": false,
+   "props": []
   },
   {
    "id": "FacilityObject",
@@ -681,9 +793,7 @@
    "domain": "renew",
    "role": "top",
    "top": true,
-   "props": [
-    "investment"
-   ]
+   "props": []
   },
   {
    "id": "GasPipeline",
@@ -698,9 +808,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "renovationStatus"
-   ]
+   "props": []
   },
   {
    "id": "Government",
@@ -788,6 +896,21 @@
    ]
   },
   {
+   "id": "HousingProblem",
+   "cn": "住房问题",
+   "parent": "Problem",
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "sub",
+   "top": false,
+   "props": []
+  },
+  {
    "id": "Implementer",
    "cn": "实施主体",
    "parent": "Actor",
@@ -816,8 +939,6 @@
    "role": "top",
    "top": true,
    "props": [
-    "basedOn",
-    "code",
     "computedFrom",
     "evaluatedBy",
     "formula",
@@ -826,8 +947,7 @@
     "inDimension",
     "measures",
     "orientation",
-    "threshold",
-    "unit"
+    "threshold"
    ]
   },
   {
@@ -845,6 +965,24 @@
    "top": true,
    "props": [
     "belongsToDimension"
+   ]
+  },
+  {
+   "id": "IndicatorJudgement",
+   "cn": "指标判断",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "Indicator Judgement",
+   "desc": "**对象级判定**（一条 = 一个指标在一个具体单元上的判断）：未配建 / 配建不达标 / 达标；由判断**聚合**成评估结果（2026-11-08 新增）",
+   "source": "建科〔2023〕75号 评估机制；指标 14 拆解实证（大王 2026-11-08 口径）",
+   "status": "建模稿（本轮新增）",
+   "domain": "core",
+   "role": "top",
+   "top": true,
+   "props": [
+    "basedOnEvidence",
+    "judgementValue"
    ]
   },
   {
@@ -875,9 +1013,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "complianceStatus"
-   ]
+   "props": []
   },
   {
    "id": "Infrastructure",
@@ -912,8 +1048,7 @@
    "top": false,
    "props": [
     "landArea",
-    "landUseType",
-    "locatedIn"
+    "landUseType"
    ]
   },
   {
@@ -929,9 +1064,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "monitoringStatus"
-   ]
+   "props": []
   },
   {
    "id": "LineObject",
@@ -1045,9 +1178,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "complianceStatus"
-   ]
+   "props": []
   },
   {
    "id": "NationalStandard",
@@ -1094,6 +1225,40 @@
    "domain": null,
    "role": "sub",
    "top": false,
+   "props": [
+    "communityCount",
+    "employmentCount",
+    "enterpriseCount"
+   ]
+  },
+  {
+   "id": "NeighborhoodProblem",
+   "cn": "街区问题",
+   "parent": "Problem",
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "sub",
+   "top": false,
+   "props": []
+  },
+  {
+   "id": "NonCompliantResult",
+   "cn": "不达标结果",
+   "parent": "AssessmentResult",
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "sub",
+   "top": false,
    "props": []
   },
   {
@@ -1112,9 +1277,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "renewalNeed"
-   ]
+   "props": []
   },
   {
    "id": "OldCommercialBlock",
@@ -1129,9 +1292,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "renewalNeed"
-   ]
+   "props": []
   },
   {
    "id": "OldIndustrialArea",
@@ -1146,9 +1307,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "renewalNeed"
-   ]
+   "props": []
   },
   {
    "id": "OldResidentialBlock",
@@ -1163,9 +1322,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "renewalNeed"
-   ]
+   "props": []
   },
   {
    "id": "OldResidentialQuarter",
@@ -1210,9 +1367,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "configuredStatus"
-   ]
+   "props": []
   },
   {
    "id": "PermanentPopulation",
@@ -1272,11 +1427,16 @@
    "id": "Problem",
    "cn": "问题短板",
    "parent": null,
-   "children": [],
+   "children": [
+    "HousingProblem",
+    "NeighborhoodProblem",
+    "QuarterProblem",
+    "UrbanDistrictProblem"
+   ],
    "declared": true,
    "en": "Problem",
-   "desc": "由评估结果导出的不足项，触发更新",
-   "source": "（主干闭环需要；依据体检问题清单机制）",
+   "desc": "由评估结果导出的不足项，触发更新；**子类**（W-B01 2026-11-17，Q12=③ 按维度一等分型）：`HousingProblem`（住房）、`QuarterProblem`（小区/社区）、`NeighborhoodProblem`（街区）、`UrbanDistrictProblem`（城区）。严重度 `severity` 保留为属性、不做子类（避免类爆炸）",
+   "source": "（主干闭环需要；依据体检问题清单机制）；W-B01 批复（2026-11-17）",
    "status": "建模稿",
    "domain": "core",
    "role": "top",
@@ -1285,7 +1445,6 @@
     "causedBy",
     "derivedFrom",
     "hasTrend",
-    "locatedIn",
     "problemCategory",
     "problemDescription",
     "proposes",
@@ -1373,9 +1532,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "complianceStatus"
-   ]
+   "props": []
   },
   {
    "id": "PublicCulturalFacility",
@@ -1396,6 +1553,21 @@
    "id": "PublicRentalHousing",
    "cn": "公租房轮候记录",
    "parent": "ManagementObject",
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "sub",
+   "top": false,
+   "props": []
+  },
+  {
+   "id": "QuarterProblem",
+   "cn": "小区/社区问题",
+   "parent": "Problem",
    "children": [],
    "declared": true,
    "en": "",
@@ -1438,6 +1610,27 @@
    "props": []
   },
   {
+   "id": "RatingBand",
+   "cn": "评价档位",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "bandLabel",
+    "bandLower",
+    "bandUpper",
+    "includeLower",
+    "includeUpper"
+   ]
+  },
+  {
    "id": "Reconstruction",
    "cn": "拆除重建",
    "parent": "RenewalApproach",
@@ -1456,17 +1649,19 @@
    "id": "RemediationSuggestion",
    "cn": "整治建议",
    "parent": null,
-   "children": [],
+   "children": [
+    "BestEffortRemedy",
+    "TimeLimitedRemedy"
+   ],
    "declared": true,
    "en": "Remediation Suggestion",
-   "desc": "问题短板与更新项目之间的**中介层**：整治建议 / 整治区域 / 整治类型 / 责任单位（2026-10-09 新增）",
-   "source": "样本市城区成果表5「整治清单」【地方实操】；概念映射同事 `PolicyIntervention`（统一用我方术语）",
+   "desc": "问题短板与更新项目之间的**中介层**：整治建议 / 整治区域 / 整治类型 / 责任单位（2026-10-09 新增）；**子类**（W-B01 2026-11-17）：`TimeLimitedRemedy`（限时解决）、`BestEffortRemedy`（尽力解决）——二者择一互斥（大王 2026-11-20 定）",
+   "source": "样本市城区成果表5「整治清单」【地方实操】；概念映射同事 `PolicyIntervention`（统一用我方术语）；W-B01 批复（2026-11-17）",
    "status": "建模稿（本轮新增）",
    "domain": "core",
    "role": "top",
    "top": true,
    "props": [
-    "actsOn",
     "assignedTo",
     "leadsTo",
     "locationDescription",
@@ -1514,9 +1709,7 @@
    "domain": "renew",
    "role": "top",
    "top": true,
-   "props": [
-    "floorArea"
-   ]
+   "props": []
   },
   {
    "id": "RenewalProject",
@@ -1532,15 +1725,10 @@
    "role": "top",
    "top": true,
    "props": [
-    "actsOn",
     "adoptsApproach",
-    "basedOn",
-    "code",
     "duration",
     "fundedBy",
-    "implementedBy",
-    "investment",
-    "occursIn"
+    "implementedBy"
    ]
   },
   {
@@ -1602,8 +1790,24 @@
    "role": "sub",
    "top": false,
    "props": [
+    "buildingCount",
+    "ebikeFacilityBuilt",
+    "ebikeFacilityCount",
+    "evChargerDemand",
+    "evChargerSupply",
+    "housingUnitCount",
+    "nonCompliantWalkwayLength",
     "propertyManagementStatus",
+    "publicGreenArea",
+    "publicGreenBuilt",
+    "publicVenueArea",
+    "publicVenueBuilt",
+    "rqType",
+    "smartParcelLocker",
     "smartRetrofitNeed",
+    "smartSecurity",
+    "totalFloorArea",
+    "wasteSortingStationCount",
     "wasteSortingStatus"
    ]
   },
@@ -1650,9 +1854,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "monitoringStatus"
-   ]
+   "props": []
   },
   {
    "id": "Road",
@@ -1737,6 +1939,21 @@
    "props": []
   },
   {
+   "id": "SpatialScale",
+   "cn": "空间尺度",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": []
+  },
+  {
    "id": "SpatialUnit",
    "cn": "空间单元",
    "parent": null,
@@ -1756,9 +1973,11 @@
    "role": "top",
    "top": true,
    "props": [
-    "code",
+    "areaKm2",
+    "elderlyPopulation",
     "hasPart",
-    "locatedIn"
+    "householdCount",
+    "residentPopulation"
    ]
   },
   {
@@ -1810,6 +2029,21 @@
    ]
   },
   {
+   "id": "TimeLimitedRemedy",
+   "cn": "限时解决类整治建议",
+   "parent": "RemediationSuggestion",
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "sub",
+   "top": false,
+   "props": []
+  },
+  {
    "id": "TimePeriod",
    "cn": "时间周期",
    "parent": null,
@@ -1855,9 +2089,443 @@
    "props": []
   },
   {
+   "id": "Union_actsOn_dom",
+   "cn": "作用于·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "actsOn"
+   ]
+  },
+  {
+   "id": "Union_actsOn_rng",
+   "cn": "作用于·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": []
+  },
+  {
+   "id": "Union_assesses_dom",
+   "cn": "评估·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "assesses"
+   ]
+  },
+  {
+   "id": "Union_basedOnEvidence_rng",
+   "cn": "证据·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": []
+  },
+  {
+   "id": "Union_basedOn_dom",
+   "cn": "依据·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "basedOn"
+   ]
+  },
+  {
+   "id": "Union_code_dom",
+   "cn": "编码·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "code"
+   ]
+  },
+  {
+   "id": "Union_complianceStatus_dom",
+   "cn": "配建达标状态·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "complianceStatus"
+   ]
+  },
+  {
+   "id": "Union_configuredStatus_dom",
+   "cn": "配建状态·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "configuredStatus"
+   ]
+  },
+  {
+   "id": "Union_constructionYear_dom",
+   "cn": "建成年代·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "constructionYear"
+   ]
+  },
+  {
+   "id": "Union_dilapidatedStatus_dom",
+   "cn": "危旧状态·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "dilapidatedStatus"
+   ]
+  },
+  {
+   "id": "Union_facilityArea_dom",
+   "cn": "设施占地面积·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "facilityArea"
+   ]
+  },
+  {
+   "id": "Union_failsCheckItem_dom",
+   "cn": "核查项未通过·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "failsCheckItem"
+   ]
+  },
+  {
+   "id": "Union_floorArea_dom",
+   "cn": "建筑面积·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "floorArea"
+   ]
+  },
+  {
+   "id": "Union_investment_dom",
+   "cn": "投资额·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "investment"
+   ]
+  },
+  {
+   "id": "Union_involves_rng",
+   "cn": "涉及·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": []
+  },
+  {
+   "id": "Union_locatedIn_dom",
+   "cn": "位于·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "locatedIn"
+   ]
+  },
+  {
+   "id": "Union_monitoringStatus_dom",
+   "cn": "监测状态·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "monitoringStatus"
+   ]
+  },
+  {
+   "id": "Union_occursIn_dom",
+   "cn": "发生于·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "occursIn"
+   ]
+  },
+  {
+   "id": "Union_ofIndicator_dom",
+   "cn": "针对指标·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "ofIndicator"
+   ]
+  },
+  {
+   "id": "Union_parkingDemand_dom",
+   "cn": "停车位需求·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "parkingDemand"
+   ]
+  },
+  {
+   "id": "Union_parkingSupply_dom",
+   "cn": "停车位供给·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "parkingSupply"
+   ]
+  },
+  {
+   "id": "Union_renewalNeed_dom",
+   "cn": "改造需求·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "renewalNeed"
+   ]
+  },
+  {
+   "id": "Union_renovationStatus_dom",
+   "cn": "改造完成状态·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "renovationStatus"
+   ]
+  },
+  {
+   "id": "Union_unit_dom",
+   "cn": "计量单位·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "unit"
+   ]
+  },
+  {
+   "id": "Union_year_dom",
+   "cn": "统计年份·定义域/值域并集",
+   "parent": null,
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "support",
+   "top": false,
+   "props": [
+    "year"
+   ]
+  },
+  {
    "id": "UrbanDistrict",
    "cn": "城区（城市）",
    "parent": "SpatialUnit",
+   "children": [],
+   "declared": true,
+   "en": "",
+   "desc": "",
+   "source": "",
+   "status": "建模稿",
+   "domain": null,
+   "role": "sub",
+   "top": false,
+   "props": []
+  },
+  {
+   "id": "UrbanDistrictProblem",
+   "cn": "城区问题",
+   "parent": "Problem",
    "children": [],
    "declared": true,
    "en": "",
@@ -1897,9 +2565,7 @@
    "domain": null,
    "role": "sub",
    "top": false,
-   "props": [
-    "renovationStatus"
-   ]
+   "props": []
   },
   {
    "id": "VehicleTravelSpeed",
@@ -1932,9 +2598,9 @@
    "props": []
   },
   {
-   "id": "WarningRule",
-   "cn": "预警规则",
-   "parent": "EvaluationRule",
+   "id": "WeightedAssessmentResult",
+   "cn": "加权/复合评估结果",
+   "parent": "AssessmentResult",
    "children": [],
    "declared": true,
    "en": "",
@@ -1953,12 +2619,10 @@
    "cn": "作用于",
    "type": "object",
    "domain": [
-    "RemediationSuggestion",
-    "RenewalProject"
+    "Union_actsOn_dom"
    ],
    "range": [
-    "RenewalObject",
-    "SpatialUnit"
+    "Union_actsOn_rng"
    ]
   },
   {
@@ -1973,6 +2637,17 @@
    ]
   },
   {
+   "id": "aggregatedFrom",
+   "cn": "聚合自",
+   "type": "object",
+   "domain": [
+    "AssessmentResult"
+   ],
+   "range": [
+    "IndicatorJudgement"
+   ]
+  },
+  {
    "id": "agingAdaptationNeed",
    "cn": "适老化改造需求",
    "type": "datatype",
@@ -1981,6 +2656,17 @@
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#boolean"
+   ]
+  },
+  {
+   "id": "appliesToScale",
+   "cn": "适用空间尺度",
+   "type": "object",
+   "domain": [
+    "EvaluationReference"
+   ],
+   "range": [
+    "SpatialScale"
    ]
   },
   {
@@ -1995,6 +2681,28 @@
    ]
   },
   {
+   "id": "areaKm2",
+   "cn": "面积（平方千米）",
+   "type": "datatype",
+   "domain": [
+    "SpatialUnit"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#decimal"
+   ]
+  },
+  {
+   "id": "assesses",
+   "cn": "评估",
+   "type": "object",
+   "domain": [
+    "Union_assesses_dom"
+   ],
+   "range": [
+    "SpatialUnit"
+   ]
+  },
+  {
    "id": "assignedTo",
    "cn": "责任单位",
    "type": "object",
@@ -2006,15 +2714,58 @@
    ]
   },
   {
+   "id": "bandLabel",
+   "cn": "档位名",
+   "type": "datatype",
+   "domain": [
+    "RatingBand"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#string"
+   ]
+  },
+  {
+   "id": "bandLower",
+   "cn": "档位下界",
+   "type": "datatype",
+   "domain": [
+    "RatingBand"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#decimal"
+   ]
+  },
+  {
+   "id": "bandUpper",
+   "cn": "档位上界",
+   "type": "datatype",
+   "domain": [
+    "RatingBand"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#decimal"
+   ]
+  },
+  {
    "id": "basedOn",
    "cn": "依据",
    "type": "object",
    "domain": [
-    "Indicator",
-    "RenewalProject"
+    "Union_basedOn_dom"
    ],
    "range": [
     "PolicyStandard"
+   ]
+  },
+  {
+   "id": "basedOnEvidence",
+   "cn": "证据",
+   "type": "object",
+   "domain": [
+    "IndicatorJudgement"
+   ],
+   "range": [
+    "Union_basedOnEvidence_rng"
    ]
   },
   {
@@ -2040,6 +2791,17 @@
    ]
   },
   {
+   "id": "buildingCount",
+   "cn": "建筑数量",
+   "type": "datatype",
+   "domain": [
+    "ResidentialQuarter"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
+   ]
+  },
+  {
    "id": "buildingNature",
    "cn": "建筑性质",
    "type": "datatype",
@@ -2048,6 +2810,17 @@
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#string"
+   ]
+  },
+  {
+   "id": "carOwnership",
+   "cn": "小汽车拥有量",
+   "type": "datatype",
+   "domain": [
+    "Community"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
    ]
   },
   {
@@ -2073,15 +2846,55 @@
    ]
   },
   {
+   "id": "checkItemFor",
+   "cn": "核查项适用指标",
+   "type": "object",
+   "domain": [
+    "CheckItem"
+   ],
+   "range": [
+    "Indicator"
+   ]
+  },
+  {
+   "id": "checkItemThreshold",
+   "cn": "核查项阈值",
+   "type": "datatype",
+   "domain": [
+    "CheckItem"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#string"
+   ]
+  },
+  {
+   "id": "checkItemType",
+   "cn": "核查项判定类型",
+   "type": "datatype",
+   "domain": [
+    "CheckItem"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#string"
+   ]
+  },
+  {
+   "id": "checkItemUnit",
+   "cn": "核查项单位",
+   "type": "datatype",
+   "domain": [
+    "CheckItem"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#string"
+   ]
+  },
+  {
    "id": "code",
    "cn": "编码",
    "type": "datatype",
    "domain": [
-    "DataObject",
-    "Dimension",
-    "Indicator",
-    "RenewalProject",
-    "SpatialUnit"
+    "Union_code_dom"
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#string"
@@ -2121,15 +2934,22 @@
    ]
   },
   {
+   "id": "communityCount",
+   "cn": "社区数量",
+   "type": "datatype",
+   "domain": [
+    "Neighborhood"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
+   ]
+  },
+  {
    "id": "complianceStatus",
    "cn": "配建达标状态",
    "type": "datatype",
    "domain": [
-    "CulturalActivityCenter",
-    "ElderlyCareFacility",
-    "InfantCareFacility",
-    "MultiFunctionSportsGround",
-    "PublicActivityVenue"
+    "Union_complianceStatus_dom"
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#string"
@@ -2151,9 +2971,7 @@
    "cn": "配建状态",
    "type": "datatype",
    "domain": [
-    "EVChargingPile",
-    "EbikeChargingFacility",
-    "ParkingSpace"
+    "Union_configuredStatus_dom"
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#string"
@@ -2175,7 +2993,7 @@
    "cn": "建成年代",
    "type": "datatype",
    "domain": [
-    "Building"
+    "Union_constructionYear_dom"
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#gYear"
@@ -2252,8 +3070,18 @@
    "cn": "危旧状态",
    "type": "datatype",
    "domain": [
-    "Bridge",
-    "Building"
+    "Union_dilapidatedStatus_dom"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#string"
+   ]
+  },
+  {
+   "id": "direction",
+   "cn": "方向",
+   "type": "datatype",
+   "domain": [
+    "EvaluationReference"
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#string"
@@ -2271,6 +3099,50 @@
    ]
   },
   {
+   "id": "ebikeFacilityBuilt",
+   "cn": "配建电动自行车设施",
+   "type": "datatype",
+   "domain": [
+    "ResidentialQuarter"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#boolean"
+   ]
+  },
+  {
+   "id": "ebikeFacilityCount",
+   "cn": "电动自行车设施数量",
+   "type": "datatype",
+   "domain": [
+    "ResidentialQuarter"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
+   ]
+  },
+  {
+   "id": "elderlyPopulation",
+   "cn": "老年人口",
+   "type": "datatype",
+   "domain": [
+    "SpatialUnit"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
+   ]
+  },
+  {
+   "id": "employmentCount",
+   "cn": "就业人数",
+   "type": "datatype",
+   "domain": [
+    "Neighborhood"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
+   ]
+  },
+  {
    "id": "energyRetrofitNeed",
    "cn": "节能改造需求",
    "type": "datatype",
@@ -2279,6 +3151,17 @@
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#boolean"
+   ]
+  },
+  {
+   "id": "enterpriseCount",
+   "cn": "企业数量",
+   "type": "datatype",
+   "domain": [
+    "Neighborhood"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
    ]
   },
   {
@@ -2293,6 +3176,39 @@
    ]
   },
   {
+   "id": "evChargerDemand",
+   "cn": "充电桩需求",
+   "type": "datatype",
+   "domain": [
+    "ResidentialQuarter"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
+   ]
+  },
+  {
+   "id": "evChargerSupply",
+   "cn": "充电桩供给",
+   "type": "datatype",
+   "domain": [
+    "ResidentialQuarter"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
+   ]
+  },
+  {
+   "id": "evCount",
+   "cn": "新能源汽车数量",
+   "type": "datatype",
+   "domain": [
+    "Community"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
+   ]
+  },
+  {
    "id": "evaluatedBy",
    "cn": "由…评价",
    "type": "object",
@@ -2304,6 +3220,39 @@
    ]
   },
   {
+   "id": "evaluates",
+   "cn": "评价…指标",
+   "type": "object",
+   "domain": [
+    "EvaluationRule"
+   ],
+   "range": [
+    "Indicator"
+   ]
+  },
+  {
+   "id": "evaluationMethod",
+   "cn": "采用评价方法",
+   "type": "object",
+   "domain": [
+    "EvaluationRule"
+   ],
+   "range": [
+    "EvaluationMethod"
+   ]
+  },
+  {
+   "id": "evaluationOutput",
+   "cn": "评价输出类型",
+   "type": "object",
+   "domain": [
+    "EvaluationRule"
+   ],
+   "range": [
+    "EvaluationOutput"
+   ]
+  },
+  {
    "id": "examines",
    "cn": "针对",
    "type": "object",
@@ -2312,6 +3261,28 @@
    ],
    "range": [
     "SpatialUnit"
+   ]
+  },
+  {
+   "id": "facilityArea",
+   "cn": "设施占地面积",
+   "type": "datatype",
+   "domain": [
+    "Union_facilityArea_dom"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#decimal"
+   ]
+  },
+  {
+   "id": "failsCheckItem",
+   "cn": "核查项未通过",
+   "type": "object",
+   "domain": [
+    "Union_failsCheckItem_dom"
+   ],
+   "range": [
+    "CheckItem"
    ]
   },
   {
@@ -2330,8 +3301,7 @@
    "cn": "建筑面积",
    "type": "datatype",
    "domain": [
-    "Building",
-    "RenewalObject"
+    "Union_floorArea_dom"
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#decimal"
@@ -2346,6 +3316,17 @@
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#integer"
+   ]
+  },
+  {
+   "id": "forIndicator",
+   "cn": "针对指标",
+   "type": "object",
+   "domain": [
+    "EvaluationReference"
+   ],
+   "range": [
+    "Indicator"
    ]
   },
   {
@@ -2426,6 +3407,17 @@
    ]
   },
   {
+   "id": "hasRatingBand",
+   "cn": "具有档位",
+   "type": "object",
+   "domain": [
+    "EvaluationReference"
+   ],
+   "range": [
+    "RatingBand"
+   ]
+  },
+  {
    "id": "hasTrend",
    "cn": "具有趋势",
    "type": "object",
@@ -2434,6 +3426,28 @@
    ],
    "range": [
     "TemporalTrend"
+   ]
+  },
+  {
+   "id": "householdCount",
+   "cn": "户数",
+   "type": "datatype",
+   "domain": [
+    "SpatialUnit"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
+   ]
+  },
+  {
+   "id": "housingUnitCount",
+   "cn": "住宅套数",
+   "type": "datatype",
+   "domain": [
+    "ResidentialQuarter"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
    ]
   },
   {
@@ -2470,6 +3484,28 @@
    ]
   },
   {
+   "id": "includeLower",
+   "cn": "含下界",
+   "type": "datatype",
+   "domain": [
+    "RatingBand"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#boolean"
+   ]
+  },
+  {
+   "id": "includeUpper",
+   "cn": "含上界",
+   "type": "datatype",
+   "domain": [
+    "RatingBand"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#boolean"
+   ]
+  },
+  {
    "id": "indicatorValue",
    "cn": "指标值",
    "type": "datatype",
@@ -2485,8 +3521,7 @@
    "cn": "投资额",
    "type": "datatype",
    "domain": [
-    "Fund",
-    "RenewalProject"
+    "Union_investment_dom"
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#decimal"
@@ -2500,8 +3535,18 @@
     "NegativeEvent"
    ],
    "range": [
-    "HistoricalBuilding",
-    "ProtectedObject"
+    "Union_involves_rng"
+   ]
+  },
+  {
+   "id": "judgementValue",
+   "cn": "指标判断值",
+   "type": "datatype",
+   "domain": [
+    "IndicatorJudgement"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#string"
    ]
   },
   {
@@ -2542,9 +3587,7 @@
    "cn": "位于",
    "type": "object",
    "domain": [
-    "Land",
-    "Problem",
-    "SpatialUnit"
+    "Union_locatedIn_dom"
    ],
    "range": [
     "SpatialUnit"
@@ -2610,8 +3653,7 @@
    "cn": "监测状态",
    "type": "datatype",
    "domain": [
-    "LifelineRiskPoint",
-    "RiskyConstructionWorks"
+    "Union_monitoringStatus_dom"
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#string"
@@ -2627,15 +3669,36 @@
    ]
   },
   {
+   "id": "nonCompliantWalkwayLength",
+   "cn": "不达标步行道长度",
+   "type": "datatype",
+   "domain": [
+    "ResidentialQuarter"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#decimal"
+   ]
+  },
+  {
    "id": "occursIn",
    "cn": "发生于",
    "type": "object",
    "domain": [
-    "ExaminationActivity",
-    "RenewalProject"
+    "Union_occursIn_dom"
    ],
    "range": [
     "TimePeriod"
+   ]
+  },
+  {
+   "id": "ofIndicator",
+   "cn": "针对指标",
+   "type": "object",
+   "domain": [
+    "Union_ofIndicator_dom"
+   ],
+   "range": [
+    "Indicator"
    ]
   },
   {
@@ -2647,6 +3710,28 @@
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#string"
+   ]
+  },
+  {
+   "id": "parkingDemand",
+   "cn": "停车位需求",
+   "type": "datatype",
+   "domain": [
+    "Union_parkingDemand_dom"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
+   ]
+  },
+  {
+   "id": "parkingSupply",
+   "cn": "停车位供给",
+   "type": "datatype",
+   "domain": [
+    "Union_parkingSupply_dom"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
    ]
   },
   {
@@ -2749,6 +3834,72 @@
    ]
   },
   {
+   "id": "publicGreenArea",
+   "cn": "公共绿地面积",
+   "type": "datatype",
+   "domain": [
+    "ResidentialQuarter"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#decimal"
+   ]
+  },
+  {
+   "id": "publicGreenBuilt",
+   "cn": "配建公共绿地",
+   "type": "datatype",
+   "domain": [
+    "ResidentialQuarter"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#boolean"
+   ]
+  },
+  {
+   "id": "publicVenueArea",
+   "cn": "公共活动场地面积",
+   "type": "datatype",
+   "domain": [
+    "ResidentialQuarter"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#decimal"
+   ]
+  },
+  {
+   "id": "publicVenueBuilt",
+   "cn": "配建公共活动场地",
+   "type": "datatype",
+   "domain": [
+    "ResidentialQuarter"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#boolean"
+   ]
+  },
+  {
+   "id": "ratioOf",
+   "cn": "比值口径",
+   "type": "datatype",
+   "domain": [
+    "DerivedRatio"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#string"
+   ]
+  },
+  {
+   "id": "ratioValue",
+   "cn": "比值",
+   "type": "datatype",
+   "domain": [
+    "DerivedRatio"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#decimal"
+   ]
+  },
+  {
    "id": "referencePeriod",
    "cn": "参考周期",
    "type": "datatype",
@@ -2757,6 +3908,17 @@
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#string"
+   ]
+  },
+  {
+   "id": "referenceValue",
+   "cn": "参考值",
+   "type": "datatype",
+   "domain": [
+    "EvaluationReference"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#decimal"
    ]
   },
   {
@@ -2775,10 +3937,7 @@
    "cn": "改造需求",
    "type": "datatype",
    "domain": [
-    "OldBlock",
-    "OldCommercialBlock",
-    "OldIndustrialArea",
-    "OldResidentialBlock"
+    "Union_renewalNeed_dom"
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#boolean"
@@ -2789,13 +3948,32 @@
    "cn": "改造完成状态",
    "type": "datatype",
    "domain": [
-    "Building",
-    "EmergencyShelter",
-    "GasPipeline",
-    "UrbanVillage"
+    "Union_renovationStatus_dom"
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#string"
+   ]
+  },
+  {
+   "id": "residentPopulation",
+   "cn": "常住人口",
+   "type": "datatype",
+   "domain": [
+    "SpatialUnit"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
+   ]
+  },
+  {
+   "id": "reusesBandsOf",
+   "cn": "档次复用于",
+   "type": "object",
+   "domain": [
+    "EvaluationReference"
+   ],
+   "range": [
+    "EvaluationReference"
    ]
   },
   {
@@ -2807,6 +3985,28 @@
    ],
    "range": [
     "Problem"
+   ]
+  },
+  {
+   "id": "rqCount",
+   "cn": "小区数量",
+   "type": "datatype",
+   "domain": [
+    "Community"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
+   ]
+  },
+  {
+   "id": "rqType",
+   "cn": "小区类型",
+   "type": "datatype",
+   "domain": [
+    "ResidentialQuarter"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#string"
    ]
   },
   {
@@ -2832,6 +4032,17 @@
    ]
   },
   {
+   "id": "smartParcelLocker",
+   "cn": "智能信包箱",
+   "type": "datatype",
+   "domain": [
+    "ResidentialQuarter"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#boolean"
+   ]
+  },
+  {
    "id": "smartRetrofitNeed",
    "cn": "智慧化改造需求",
    "type": "datatype",
@@ -2840,6 +4051,28 @@
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#boolean"
+   ]
+  },
+  {
+   "id": "smartSecurity",
+   "cn": "智能安防",
+   "type": "datatype",
+   "domain": [
+    "ResidentialQuarter"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#boolean"
+   ]
+  },
+  {
+   "id": "sourceScope",
+   "cn": "来源口径",
+   "type": "datatype",
+   "domain": [
+    "EvaluationReference"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#string"
    ]
   },
   {
@@ -2870,6 +4103,17 @@
    "type": "datatype",
    "domain": [
     "Indicator"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#decimal"
+   ]
+  },
+  {
+   "id": "totalFloorArea",
+   "cn": "总建筑面积",
+   "type": "datatype",
+   "domain": [
+    "ResidentialQuarter"
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#decimal"
@@ -2913,12 +4157,21 @@
    "cn": "计量单位",
    "type": "datatype",
    "domain": [
-    "AssessmentResult",
-    "DataObject",
-    "Indicator"
+    "Union_unit_dom"
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#string"
+   ]
+  },
+  {
+   "id": "unitCount",
+   "cn": "单元数量",
+   "type": "datatype",
+   "domain": [
+    "Building"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
    ]
   },
   {
@@ -2933,6 +4186,17 @@
    ]
   },
   {
+   "id": "usesReference",
+   "cn": "使用参考值",
+   "type": "object",
+   "domain": [
+    "EvaluationRule"
+   ],
+   "range": [
+    "EvaluationReference"
+   ]
+  },
+  {
    "id": "vacancyStatus",
    "cn": "空置状态",
    "type": "datatype",
@@ -2941,6 +4205,28 @@
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#string"
+   ]
+  },
+  {
+   "id": "validPeriod",
+   "cn": "适用时期",
+   "type": "datatype",
+   "domain": [
+    "EvaluationReference"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#string"
+   ]
+  },
+  {
+   "id": "wasteSortingStationCount",
+   "cn": "垃圾分类点数量",
+   "type": "datatype",
+   "domain": [
+    "ResidentialQuarter"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#integer"
    ]
   },
   {
@@ -2959,8 +4245,7 @@
    "cn": "统计年份",
    "type": "datatype",
    "domain": [
-    "AssessmentResult",
-    "ExaminationActivity"
+    "Union_year_dom"
    ],
    "range": [
     "http://www.w3.org/2001/XMLSchema#gYear"
@@ -2968,6 +4253,286 @@
   }
  ],
  "individuals": [
+  {
+   "id": "CI_C_1",
+   "cn": "业态聚集（核心功能区占比与单一业态占比）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_C_2",
+   "cn": "步行环境（慢行系统与步道宽度）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_C_3",
+   "cn": "交通出行（站点与停靠点距离）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_C_4",
+   "cn": "公共空间（休憩空间密度）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_C_5",
+   "cn": "商业特色（历史记忆与民族文化景观）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_C_6",
+   "cn": "运营服务（无线网络覆盖）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_F_1",
+   "cn": "上位规划（用地合规）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_F_10",
+   "cn": "运营管理（专业运营管理团队）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_F_2",
+   "cn": "房屋设施利用（房屋与市政设施老化）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_F_3",
+   "cn": "空间利用（工业仓储建筑空置率）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_F_4",
+   "cn": "低效情况（工业仓储用地容积率）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_F_5",
+   "cn": "空间特色（厂区环境特色）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_F_6",
+   "cn": "经济产出（工业仓储用地单位产出）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_F_7",
+   "cn": "产业业态合规（禁止类淘汰类或导向不符）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_F_8",
+   "cn": "产业业态结构（经营性业态占比）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_F_9",
+   "cn": "运营管理（物业管理组织体系）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H1_1",
+   "cn": "混凝土结构构件裂缝（承重墙体/楼板/结构梁）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H1_2",
+   "cn": "违规拆除结构承重构件",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H1_3",
+   "cn": "砖混结构主体砖体缺棱掉角、砂浆饱满度差",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H1_4",
+   "cn": "违规拆除外窗窗下墙体加建阳台",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H2_1",
+   "cn": "燃气立管/引入管/水平管锈蚀泄漏",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H2_2",
+   "cn": "户内燃气橡胶软管硬化老化",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H2_3",
+   "cn": "私改私接燃气管道",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H3_1",
+   "cn": "楼梯踏步缺损松动",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H3_2",
+   "cn": "通风井道、排风烟道堵塞",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H3_3",
+   "cn": "消防门缺失损坏或无法关闭",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H3_4",
+   "cn": "高层住宅消火栓无日常维护",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H3_5",
+   "cn": "灭火器缺失或未设置",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H3_6",
+   "cn": "消防安全出口指示灯损坏",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H3_7",
+   "cn": "占用消防楼梯或楼道",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H3_8",
+   "cn": "公共楼道停放自行车电动车",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H4_1",
+   "cn": "外墙装饰与保温材料开裂脱落",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H4_2",
+   "cn": "外墙悬挂设施不规范",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H4_3",
+   "cn": "门窗玻璃破损脱落",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H4_4",
+   "cn": "屋面排水不畅或漏水",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H4_5",
+   "cn": "外墙内侧或地下室渗水漏水",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H5_1",
+   "cn": "给水管线跑冒滴漏",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H5_2",
+   "cn": "采暖季室温不达标",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H5_3",
+   "cn": "电力电信管线老化破损",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H6_1",
+   "cn": "建成时未安装电梯的多层住宅",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H6_2",
+   "cn": "单元出入口与通道未适老化改造",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H6_3",
+   "cn": "楼梯间未沿墙加装扶手",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H6_4",
+   "cn": "特殊困难老年人家庭未适老化改造",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H7_1",
+   "cn": "具备节能改造价值但尚未改造",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H8_1",
+   "cn": "不具备光纤入户条件",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H8_2",
+   "cn": "公共空间未安装楼宇门禁",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H8_3",
+   "cn": "高层楼梯间或走道未覆盖",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_H8_4",
+   "cn": "未安装家庭健康紧急呼叫系统",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_L_1",
+   "cn": "闲置空间资源（低效闲置地块面积）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_L_2",
+   "cn": "闲置空间资源（低效闲置老旧建筑数量与产权）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_L_3",
+   "cn": "服务设施（A 类用地与建筑面积/千人）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_L_4",
+   "cn": "服务设施（人均公共绿地与公共活动空间）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_L_5",
+   "cn": "基础设施配置（设施配置与独立用地）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_L_6",
+   "cn": "人口活力（迁入迁出比例）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_L_7",
+   "cn": "人口活力（新市民与青年人占比）",
+   "cls": "CheckItem"
+  },
+  {
+   "id": "CI_L_8",
+   "cn": "便民商业（便民商业服务设施健全）",
+   "cls": "CheckItem"
+  },
   {
    "id": "CollectionMethod_专业检测",
    "cn": "专业检测",
@@ -3017,6 +4582,36 @@
    "id": "CommunityDimension",
    "cn": "社区维度",
    "cls": "Dimension"
+  },
+  {
+   "id": "EvaluationMethod_占比化",
+   "cn": "占比化",
+   "cls": "EvaluationMethod"
+  },
+  {
+   "id": "EvaluationMethod_均值化",
+   "cn": "均值化",
+   "cls": "EvaluationMethod"
+  },
+  {
+   "id": "EvaluationMethod_直接比较",
+   "cn": "直接比较",
+   "cls": "EvaluationMethod"
+  },
+  {
+   "id": "EvaluationMethod_跨域组合",
+   "cn": "跨域组合",
+   "cls": "EvaluationMethod"
+  },
+  {
+   "id": "EvaluationOutput_二元预警",
+   "cn": "二元预警",
+   "cls": "EvaluationOutput"
+  },
+  {
+   "id": "EvaluationOutput_四级等级",
+   "cn": "四级等级",
+   "cls": "EvaluationOutput"
   },
   {
    "id": "FormulaType_avg",
@@ -3347,6 +4942,31 @@
    "id": "ResidentialQuarterDimension",
    "cn": "小区维度",
    "cls": "Dimension"
+  },
+  {
+   "id": "SpatialScale_BuildingScale",
+   "cn": "建筑尺度",
+   "cls": "SpatialScale"
+  },
+  {
+   "id": "SpatialScale_CommunityScale",
+   "cn": "社区尺度",
+   "cls": "SpatialScale"
+  },
+  {
+   "id": "SpatialScale_DistrictScale",
+   "cn": "城区尺度",
+   "cls": "SpatialScale"
+  },
+  {
+   "id": "SpatialScale_NeighborhoodScale",
+   "cn": "街道尺度",
+   "cls": "SpatialScale"
+  },
+  {
+   "id": "SpatialScale_QuarterScale",
+   "cn": "小区尺度",
+   "cls": "SpatialScale"
   },
   {
    "id": "TreatmentType_尽力解决",

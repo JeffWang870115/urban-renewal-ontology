@@ -1,0 +1,691 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ur: <https://ontology.cset-digital.cn/urban-renewal#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ur:RA_Transform a ur:RenewalApproach ;
+    rdfs:label "重建"@zh .
+
+ur:AR_NB_A_I24 ur:revealsProblem ur:P_A_I24_pilot .
+
+ur:AR_NB_B_I24 ur:revealsProblem ur:P_B_I24_pilot .
+
+ur:AR_NB_B_I25 ur:revealsProblem ur:P_B_I25_pilot .
+
+ur:AR_NB_C_I24 ur:revealsProblem ur:P_C_I24_pilot .
+
+ur:AR_NB_C_I26 ur:revealsProblem ur:P_C_I26_pilot .
+
+ur:AR_NB_D_I24 ur:revealsProblem ur:P_D_I24_pilot .
+
+ur:AR_NB_D_I25 ur:revealsProblem ur:P_D_I25_pilot .
+
+ur:AR_NB_E_I24 ur:revealsProblem ur:P_E_I24_pilot .
+
+ur:OCB_A_1 a ur:OldCommercialBlock ;
+    rdfs:label "街区A老旧商业街区1"@zh ;
+    ur:belongsTo ur:NB_A ;
+    ur:failsCheckItem ur:CI_C_2 .
+
+ur:OCB_D_1 a ur:OldCommercialBlock ;
+    rdfs:label "街区D老旧商业街区1"@zh ;
+    ur:belongsTo ur:NB_D ;
+    ur:failsCheckItem ur:CI_C_2 .
+
+ur:P_A_I24_pilot a ur:Problem ;
+    ur:derivedFrom ur:AR_NB_A_I24 ;
+    ur:locatedIn ur:NB_A ;
+    ur:problemDescription "街区A存在2个需更新改造的老旧商业街区"@zh ;
+    ur:proposes ur:RS_A_I24_CI_C_1,
+        ur:RS_A_I24_CI_C_2,
+        ur:RS_A_I24_CI_C_4,
+        ur:RS_A_I24_CI_C_5,
+        ur:RS_A_I24_CI_C_6 ;
+    ur:severity 4.4e-01 .
+
+ur:P_B_I24_pilot a ur:Problem ;
+    ur:derivedFrom ur:AR_NB_B_I24 ;
+    ur:locatedIn ur:NB_B ;
+    ur:problemDescription "街区B存在1个需更新改造的老旧商业街区"@zh ;
+    ur:proposes ur:RS_B_I24_CI_C_1,
+        ur:RS_B_I24_CI_C_2,
+        ur:RS_B_I24_CI_C_4,
+        ur:RS_B_I24_CI_C_6 ;
+    ur:severity 3.2e-01 .
+
+ur:P_B_I25_pilot a ur:Problem ;
+    ur:derivedFrom ur:AR_NB_B_I25 ;
+    ur:locatedIn ur:NB_B ;
+    ur:problemDescription "街区B存在1个需更新改造的老旧厂区"@zh ;
+    ur:proposes ur:RS_B_I25_CI_F_10,
+        ur:RS_B_I25_CI_F_2,
+        ur:RS_B_I25_CI_F_3,
+        ur:RS_B_I25_CI_F_4,
+        ur:RS_B_I25_CI_F_6,
+        ur:RS_B_I25_CI_F_7,
+        ur:RS_B_I25_CI_F_9 ;
+    ur:severity 3.2e-01 .
+
+ur:P_C_I24_pilot a ur:Problem ;
+    ur:derivedFrom ur:AR_NB_C_I24 ;
+    ur:locatedIn ur:NB_C ;
+    ur:problemDescription "街区C存在3个需更新改造的老旧商业街区"@zh ;
+    ur:proposes ur:RS_C_I24_CI_C_1,
+        ur:RS_C_I24_CI_C_2,
+        ur:RS_C_I24_CI_C_3,
+        ur:RS_C_I24_CI_C_4,
+        ur:RS_C_I24_CI_C_5,
+        ur:RS_C_I24_CI_C_6 ;
+    ur:severity 5.6e-01 .
+
+ur:P_C_I26_pilot a ur:Problem ;
+    ur:derivedFrom ur:AR_NB_C_I26 ;
+    ur:locatedIn ur:NB_C ;
+    ur:problemDescription "街区C存在1个需更新改造的老旧生活街区"@zh ;
+    ur:proposes ur:RS_C_I26_CI_L_2,
+        ur:RS_C_I26_CI_L_3,
+        ur:RS_C_I26_CI_L_4,
+        ur:RS_C_I26_CI_L_6,
+        ur:RS_C_I26_CI_L_7,
+        ur:RS_C_I26_CI_L_8 ;
+    ur:severity 3.2e-01 .
+
+ur:P_D_I24_pilot a ur:Problem ;
+    ur:derivedFrom ur:AR_NB_D_I24 ;
+    ur:locatedIn ur:NB_D ;
+    ur:problemDescription "街区D存在2个需更新改造的老旧商业街区"@zh ;
+    ur:proposes ur:RS_D_I24_CI_C_1,
+        ur:RS_D_I24_CI_C_2,
+        ur:RS_D_I24_CI_C_3 ;
+    ur:severity 4.4e-01 .
+
+ur:P_D_I25_pilot a ur:Problem ;
+    ur:derivedFrom ur:AR_NB_D_I25 ;
+    ur:locatedIn ur:NB_D ;
+    ur:problemDescription "街区D存在1个需更新改造的老旧厂区"@zh ;
+    ur:proposes ur:RS_D_I25_CI_F_1,
+        ur:RS_D_I25_CI_F_10,
+        ur:RS_D_I25_CI_F_2,
+        ur:RS_D_I25_CI_F_3,
+        ur:RS_D_I25_CI_F_4,
+        ur:RS_D_I25_CI_F_6,
+        ur:RS_D_I25_CI_F_7,
+        ur:RS_D_I25_CI_F_8,
+        ur:RS_D_I25_CI_F_9 ;
+    ur:severity 3.2e-01 .
+
+ur:P_E_I24_pilot a ur:Problem ;
+    ur:derivedFrom ur:AR_NB_E_I24 ;
+    ur:locatedIn ur:NB_E ;
+    ur:problemDescription "街区E存在1个需更新改造的老旧商业街区"@zh ;
+    ur:proposes ur:RS_E_I24_CI_C_1,
+        ur:RS_E_I24_CI_C_2,
+        ur:RS_E_I24_CI_C_3,
+        ur:RS_E_I24_CI_C_4,
+        ur:RS_E_I24_CI_C_5,
+        ur:RS_E_I24_CI_C_6 ;
+    ur:severity 3.2e-01 .
+
+ur:RP_A_I24_CI_C_1 a ur:RenewalProject ;
+    rdfs:label "街区A老旧商业街区业态集聚优化项目"@zh ;
+    ur:actsOn ur:OCB_A_2 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_A_I24_CI_C_2 a ur:RenewalProject ;
+    rdfs:label "街区A老旧商业街区步行环境与慢行系统整治项目"@zh ;
+    ur:actsOn ur:OCB_A_1,
+        ur:OCB_A_2 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_A_I24_CI_C_4 a ur:RenewalProject ;
+    rdfs:label "街区A老旧商业街区公共空间增补项目"@zh ;
+    ur:actsOn ur:OCB_A_2 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_A_I24_CI_C_5 a ur:RenewalProject ;
+    rdfs:label "街区A老旧商业街区商业特色塑造项目"@zh ;
+    ur:actsOn ur:OCB_A_2 ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_A_I24_CI_C_6 a ur:RenewalProject ;
+    rdfs:label "街区A老旧商业街区运营服务提升项目"@zh ;
+    ur:actsOn ur:OCB_A_2 ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_B_I24_CI_C_1 a ur:RenewalProject ;
+    rdfs:label "街区B老旧商业街区业态集聚优化项目"@zh ;
+    ur:actsOn ur:OCB_B_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_B_I24_CI_C_2 a ur:RenewalProject ;
+    rdfs:label "街区B老旧商业街区步行环境与慢行系统整治项目"@zh ;
+    ur:actsOn ur:OCB_B_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_B_I24_CI_C_4 a ur:RenewalProject ;
+    rdfs:label "街区B老旧商业街区公共空间增补项目"@zh ;
+    ur:actsOn ur:OCB_B_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_B_I24_CI_C_6 a ur:RenewalProject ;
+    rdfs:label "街区B老旧商业街区运营服务提升项目"@zh ;
+    ur:actsOn ur:OCB_B_1 ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_B_I25_CI_F_10 a ur:RenewalProject ;
+    rdfs:label "街区B老旧厂区专业运营团队引入项目"@zh ;
+    ur:actsOn ur:OIA_B_1 ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_B_I25_CI_F_2 a ur:RenewalProject ;
+    rdfs:label "街区B老旧厂区房屋市政设施更新项目"@zh ;
+    ur:actsOn ur:OIA_B_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_B_I25_CI_F_3 a ur:RenewalProject ;
+    rdfs:label "街区B老旧厂区闲置空间再利用项目"@zh ;
+    ur:actsOn ur:OIA_B_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_B_I25_CI_F_4 a ur:RenewalProject ;
+    rdfs:label "街区B老旧厂区低效用地盘活项目"@zh ;
+    ur:actsOn ur:OIA_B_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_B_I25_CI_F_6 a ur:RenewalProject ;
+    rdfs:label "街区B老旧厂区经济产出提升项目"@zh ;
+    ur:actsOn ur:OIA_B_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_B_I25_CI_F_7 a ur:RenewalProject ;
+    rdfs:label "街区B老旧厂区产业合规调整项目"@zh ;
+    ur:actsOn ur:OIA_B_1 ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_B_I25_CI_F_9 a ur:RenewalProject ;
+    rdfs:label "街区B老旧厂区物业管理体系完善项目"@zh ;
+    ur:actsOn ur:OIA_B_1 ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_C_I24_CI_C_1 a ur:RenewalProject ;
+    rdfs:label "街区C老旧商业街区业态集聚优化项目"@zh ;
+    ur:actsOn ur:OCB_C_2,
+        ur:OCB_C_3 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_C_I24_CI_C_2 a ur:RenewalProject ;
+    rdfs:label "街区C老旧商业街区步行环境与慢行系统整治项目"@zh ;
+    ur:actsOn ur:OCB_C_1,
+        ur:OCB_C_2,
+        ur:OCB_C_3 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_C_I24_CI_C_3 a ur:RenewalProject ;
+    rdfs:label "街区C老旧商业街区交通出行条件改善项目"@zh ;
+    ur:actsOn ur:OCB_C_2,
+        ur:OCB_C_3 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_C_I24_CI_C_4 a ur:RenewalProject ;
+    rdfs:label "街区C老旧商业街区公共空间增补项目"@zh ;
+    ur:actsOn ur:OCB_C_1,
+        ur:OCB_C_2 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_C_I24_CI_C_5 a ur:RenewalProject ;
+    rdfs:label "街区C老旧商业街区商业特色塑造项目"@zh ;
+    ur:actsOn ur:OCB_C_2 ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_C_I24_CI_C_6 a ur:RenewalProject ;
+    rdfs:label "街区C老旧商业街区运营服务提升项目"@zh ;
+    ur:actsOn ur:OCB_C_2,
+        ur:OCB_C_3 ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_C_I26_CI_L_2 a ur:RenewalProject ;
+    rdfs:label "街区C老旧生活街区闲置建筑活化项目"@zh ;
+    ur:actsOn ur:ORB_C_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_C_I26_CI_L_3 a ur:RenewalProject ;
+    rdfs:label "街区C老旧生活街区服务设施补建项目"@zh ;
+    ur:actsOn ur:ORB_C_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_C_I26_CI_L_4 a ur:RenewalProject ;
+    rdfs:label "街区C老旧生活街区绿地与活动空间提升项目"@zh ;
+    ur:actsOn ur:ORB_C_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_C_I26_CI_L_6 a ur:RenewalProject ;
+    rdfs:label "街区C老旧生活街区人口活力提升项目"@zh ;
+    ur:actsOn ur:ORB_C_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_C_I26_CI_L_7 a ur:RenewalProject ;
+    rdfs:label "街区C老旧生活街区人口结构优化项目"@zh ;
+    ur:actsOn ur:ORB_C_1 ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_C_I26_CI_L_8 a ur:RenewalProject ;
+    rdfs:label "街区C老旧生活街区便民商业健全项目"@zh ;
+    ur:actsOn ur:ORB_C_1 ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_D_I24_CI_C_1 a ur:RenewalProject ;
+    rdfs:label "街区D老旧商业街区业态集聚优化项目"@zh ;
+    ur:actsOn ur:OCB_D_2 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_D_I24_CI_C_2 a ur:RenewalProject ;
+    rdfs:label "街区D老旧商业街区步行环境与慢行系统整治项目"@zh ;
+    ur:actsOn ur:OCB_D_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_D_I24_CI_C_3 a ur:RenewalProject ;
+    rdfs:label "街区D老旧商业街区交通出行条件改善项目"@zh ;
+    ur:actsOn ur:OCB_D_2 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_D_I25_CI_F_1 a ur:RenewalProject ;
+    rdfs:label "街区D老旧厂区上位规划符合性整改项目"@zh ;
+    ur:actsOn ur:OIA_D_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_D_I25_CI_F_10 a ur:RenewalProject ;
+    rdfs:label "街区D老旧厂区专业运营团队引入项目"@zh ;
+    ur:actsOn ur:OIA_D_1 ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_D_I25_CI_F_2 a ur:RenewalProject ;
+    rdfs:label "街区D老旧厂区房屋市政设施更新项目"@zh ;
+    ur:actsOn ur:OIA_D_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_D_I25_CI_F_3 a ur:RenewalProject ;
+    rdfs:label "街区D老旧厂区闲置空间再利用项目"@zh ;
+    ur:actsOn ur:OIA_D_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_D_I25_CI_F_4 a ur:RenewalProject ;
+    rdfs:label "街区D老旧厂区低效用地盘活项目"@zh ;
+    ur:actsOn ur:OIA_D_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_D_I25_CI_F_6 a ur:RenewalProject ;
+    rdfs:label "街区D老旧厂区经济产出提升项目"@zh ;
+    ur:actsOn ur:OIA_D_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_D_I25_CI_F_7 a ur:RenewalProject ;
+    rdfs:label "街区D老旧厂区产业合规调整项目"@zh ;
+    ur:actsOn ur:OIA_D_1 ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_D_I25_CI_F_8 a ur:RenewalProject ;
+    rdfs:label "街区D老旧厂区业态结构优化项目"@zh ;
+    ur:actsOn ur:OIA_D_1 ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_D_I25_CI_F_9 a ur:RenewalProject ;
+    rdfs:label "街区D老旧厂区物业管理体系完善项目"@zh ;
+    ur:actsOn ur:OIA_D_1 ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_E_I24_CI_C_1 a ur:RenewalProject ;
+    rdfs:label "街区E老旧商业街区业态集聚优化项目"@zh ;
+    ur:actsOn ur:OCB_E_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_E_I24_CI_C_2 a ur:RenewalProject ;
+    rdfs:label "街区E老旧商业街区步行环境与慢行系统整治项目"@zh ;
+    ur:actsOn ur:OCB_E_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_E_I24_CI_C_3 a ur:RenewalProject ;
+    rdfs:label "街区E老旧商业街区交通出行条件改善项目"@zh ;
+    ur:actsOn ur:OCB_E_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_E_I24_CI_C_4 a ur:RenewalProject ;
+    rdfs:label "街区E老旧商业街区公共空间增补项目"@zh ;
+    ur:actsOn ur:OCB_E_1 ;
+    ur:adoptsApproach ur:RA_Reconstruction .
+
+ur:RP_E_I24_CI_C_5 a ur:RenewalProject ;
+    rdfs:label "街区E老旧商业街区商业特色塑造项目"@zh ;
+    ur:actsOn ur:OCB_E_1 ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RP_E_I24_CI_C_6 a ur:RenewalProject ;
+    rdfs:label "街区E老旧商业街区运营服务提升项目"@zh ;
+    ur:actsOn ur:OCB_E_1 ;
+    ur:adoptsApproach ur:RA_Upgrade .
+
+ur:RS_A_I24_CI_C_1 a ur:RemediationSuggestion ;
+    rdfs:label "业态集聚优化"@zh ;
+    ur:leadsTo ur:RP_A_I24_CI_C_1 ;
+    ur:locationDescription "街区A"@zh .
+
+ur:RS_A_I24_CI_C_2 a ur:RemediationSuggestion ;
+    rdfs:label "步行环境与慢行系统整治"@zh ;
+    ur:leadsTo ur:RP_A_I24_CI_C_2 ;
+    ur:locationDescription "街区A"@zh .
+
+ur:RS_A_I24_CI_C_4 a ur:RemediationSuggestion ;
+    rdfs:label "公共空间增补"@zh ;
+    ur:leadsTo ur:RP_A_I24_CI_C_4 ;
+    ur:locationDescription "街区A"@zh .
+
+ur:RS_A_I24_CI_C_5 a ur:RemediationSuggestion ;
+    rdfs:label "商业特色塑造"@zh ;
+    ur:leadsTo ur:RP_A_I24_CI_C_5 ;
+    ur:locationDescription "街区A"@zh .
+
+ur:RS_A_I24_CI_C_6 a ur:RemediationSuggestion ;
+    rdfs:label "运营服务提升"@zh ;
+    ur:leadsTo ur:RP_A_I24_CI_C_6 ;
+    ur:locationDescription "街区A"@zh .
+
+ur:RS_B_I24_CI_C_1 a ur:RemediationSuggestion ;
+    rdfs:label "业态集聚优化"@zh ;
+    ur:leadsTo ur:RP_B_I24_CI_C_1 ;
+    ur:locationDescription "街区B"@zh .
+
+ur:RS_B_I24_CI_C_2 a ur:RemediationSuggestion ;
+    rdfs:label "步行环境与慢行系统整治"@zh ;
+    ur:leadsTo ur:RP_B_I24_CI_C_2 ;
+    ur:locationDescription "街区B"@zh .
+
+ur:RS_B_I24_CI_C_4 a ur:RemediationSuggestion ;
+    rdfs:label "公共空间增补"@zh ;
+    ur:leadsTo ur:RP_B_I24_CI_C_4 ;
+    ur:locationDescription "街区B"@zh .
+
+ur:RS_B_I24_CI_C_6 a ur:RemediationSuggestion ;
+    rdfs:label "运营服务提升"@zh ;
+    ur:leadsTo ur:RP_B_I24_CI_C_6 ;
+    ur:locationDescription "街区B"@zh .
+
+ur:RS_B_I25_CI_F_10 a ur:RemediationSuggestion ;
+    rdfs:label "专业运营团队引入"@zh ;
+    ur:leadsTo ur:RP_B_I25_CI_F_10 ;
+    ur:locationDescription "街区B"@zh .
+
+ur:RS_B_I25_CI_F_2 a ur:RemediationSuggestion ;
+    rdfs:label "房屋市政设施更新"@zh ;
+    ur:leadsTo ur:RP_B_I25_CI_F_2 ;
+    ur:locationDescription "街区B"@zh .
+
+ur:RS_B_I25_CI_F_3 a ur:RemediationSuggestion ;
+    rdfs:label "闲置空间再利用"@zh ;
+    ur:leadsTo ur:RP_B_I25_CI_F_3 ;
+    ur:locationDescription "街区B"@zh .
+
+ur:RS_B_I25_CI_F_4 a ur:RemediationSuggestion ;
+    rdfs:label "低效用地盘活"@zh ;
+    ur:leadsTo ur:RP_B_I25_CI_F_4 ;
+    ur:locationDescription "街区B"@zh .
+
+ur:RS_B_I25_CI_F_6 a ur:RemediationSuggestion ;
+    rdfs:label "经济产出提升"@zh ;
+    ur:leadsTo ur:RP_B_I25_CI_F_6 ;
+    ur:locationDescription "街区B"@zh .
+
+ur:RS_B_I25_CI_F_7 a ur:RemediationSuggestion ;
+    rdfs:label "产业合规调整"@zh ;
+    ur:leadsTo ur:RP_B_I25_CI_F_7 ;
+    ur:locationDescription "街区B"@zh .
+
+ur:RS_B_I25_CI_F_9 a ur:RemediationSuggestion ;
+    rdfs:label "物业管理体系完善"@zh ;
+    ur:leadsTo ur:RP_B_I25_CI_F_9 ;
+    ur:locationDescription "街区B"@zh .
+
+ur:RS_C_I24_CI_C_1 a ur:RemediationSuggestion ;
+    rdfs:label "业态集聚优化"@zh ;
+    ur:leadsTo ur:RP_C_I24_CI_C_1 ;
+    ur:locationDescription "街区C"@zh .
+
+ur:RS_C_I24_CI_C_2 a ur:RemediationSuggestion ;
+    rdfs:label "步行环境与慢行系统整治"@zh ;
+    ur:leadsTo ur:RP_C_I24_CI_C_2 ;
+    ur:locationDescription "街区C"@zh .
+
+ur:RS_C_I24_CI_C_3 a ur:RemediationSuggestion ;
+    rdfs:label "交通出行条件改善"@zh ;
+    ur:leadsTo ur:RP_C_I24_CI_C_3 ;
+    ur:locationDescription "街区C"@zh .
+
+ur:RS_C_I24_CI_C_4 a ur:RemediationSuggestion ;
+    rdfs:label "公共空间增补"@zh ;
+    ur:leadsTo ur:RP_C_I24_CI_C_4 ;
+    ur:locationDescription "街区C"@zh .
+
+ur:RS_C_I24_CI_C_5 a ur:RemediationSuggestion ;
+    rdfs:label "商业特色塑造"@zh ;
+    ur:leadsTo ur:RP_C_I24_CI_C_5 ;
+    ur:locationDescription "街区C"@zh .
+
+ur:RS_C_I24_CI_C_6 a ur:RemediationSuggestion ;
+    rdfs:label "运营服务提升"@zh ;
+    ur:leadsTo ur:RP_C_I24_CI_C_6 ;
+    ur:locationDescription "街区C"@zh .
+
+ur:RS_C_I26_CI_L_2 a ur:RemediationSuggestion ;
+    rdfs:label "闲置建筑活化"@zh ;
+    ur:leadsTo ur:RP_C_I26_CI_L_2 ;
+    ur:locationDescription "街区C"@zh .
+
+ur:RS_C_I26_CI_L_3 a ur:RemediationSuggestion ;
+    rdfs:label "服务设施补建"@zh ;
+    ur:leadsTo ur:RP_C_I26_CI_L_3 ;
+    ur:locationDescription "街区C"@zh .
+
+ur:RS_C_I26_CI_L_4 a ur:RemediationSuggestion ;
+    rdfs:label "绿地与活动空间提升"@zh ;
+    ur:leadsTo ur:RP_C_I26_CI_L_4 ;
+    ur:locationDescription "街区C"@zh .
+
+ur:RS_C_I26_CI_L_6 a ur:RemediationSuggestion ;
+    rdfs:label "人口活力提升"@zh ;
+    ur:leadsTo ur:RP_C_I26_CI_L_6 ;
+    ur:locationDescription "街区C"@zh .
+
+ur:RS_C_I26_CI_L_7 a ur:RemediationSuggestion ;
+    rdfs:label "人口结构优化"@zh ;
+    ur:leadsTo ur:RP_C_I26_CI_L_7 ;
+    ur:locationDescription "街区C"@zh .
+
+ur:RS_C_I26_CI_L_8 a ur:RemediationSuggestion ;
+    rdfs:label "便民商业健全"@zh ;
+    ur:leadsTo ur:RP_C_I26_CI_L_8 ;
+    ur:locationDescription "街区C"@zh .
+
+ur:RS_D_I24_CI_C_1 a ur:RemediationSuggestion ;
+    rdfs:label "业态集聚优化"@zh ;
+    ur:leadsTo ur:RP_D_I24_CI_C_1 ;
+    ur:locationDescription "街区D"@zh .
+
+ur:RS_D_I24_CI_C_2 a ur:RemediationSuggestion ;
+    rdfs:label "步行环境与慢行系统整治"@zh ;
+    ur:leadsTo ur:RP_D_I24_CI_C_2 ;
+    ur:locationDescription "街区D"@zh .
+
+ur:RS_D_I24_CI_C_3 a ur:RemediationSuggestion ;
+    rdfs:label "交通出行条件改善"@zh ;
+    ur:leadsTo ur:RP_D_I24_CI_C_3 ;
+    ur:locationDescription "街区D"@zh .
+
+ur:RS_D_I25_CI_F_1 a ur:RemediationSuggestion ;
+    rdfs:label "上位规划符合性整改"@zh ;
+    ur:leadsTo ur:RP_D_I25_CI_F_1 ;
+    ur:locationDescription "街区D"@zh .
+
+ur:RS_D_I25_CI_F_10 a ur:RemediationSuggestion ;
+    rdfs:label "专业运营团队引入"@zh ;
+    ur:leadsTo ur:RP_D_I25_CI_F_10 ;
+    ur:locationDescription "街区D"@zh .
+
+ur:RS_D_I25_CI_F_2 a ur:RemediationSuggestion ;
+    rdfs:label "房屋市政设施更新"@zh ;
+    ur:leadsTo ur:RP_D_I25_CI_F_2 ;
+    ur:locationDescription "街区D"@zh .
+
+ur:RS_D_I25_CI_F_3 a ur:RemediationSuggestion ;
+    rdfs:label "闲置空间再利用"@zh ;
+    ur:leadsTo ur:RP_D_I25_CI_F_3 ;
+    ur:locationDescription "街区D"@zh .
+
+ur:RS_D_I25_CI_F_4 a ur:RemediationSuggestion ;
+    rdfs:label "低效用地盘活"@zh ;
+    ur:leadsTo ur:RP_D_I25_CI_F_4 ;
+    ur:locationDescription "街区D"@zh .
+
+ur:RS_D_I25_CI_F_6 a ur:RemediationSuggestion ;
+    rdfs:label "经济产出提升"@zh ;
+    ur:leadsTo ur:RP_D_I25_CI_F_6 ;
+    ur:locationDescription "街区D"@zh .
+
+ur:RS_D_I25_CI_F_7 a ur:RemediationSuggestion ;
+    rdfs:label "产业合规调整"@zh ;
+    ur:leadsTo ur:RP_D_I25_CI_F_7 ;
+    ur:locationDescription "街区D"@zh .
+
+ur:RS_D_I25_CI_F_8 a ur:RemediationSuggestion ;
+    rdfs:label "业态结构优化"@zh ;
+    ur:leadsTo ur:RP_D_I25_CI_F_8 ;
+    ur:locationDescription "街区D"@zh .
+
+ur:RS_D_I25_CI_F_9 a ur:RemediationSuggestion ;
+    rdfs:label "物业管理体系完善"@zh ;
+    ur:leadsTo ur:RP_D_I25_CI_F_9 ;
+    ur:locationDescription "街区D"@zh .
+
+ur:RS_E_I24_CI_C_1 a ur:RemediationSuggestion ;
+    rdfs:label "业态集聚优化"@zh ;
+    ur:leadsTo ur:RP_E_I24_CI_C_1 ;
+    ur:locationDescription "街区E"@zh .
+
+ur:RS_E_I24_CI_C_2 a ur:RemediationSuggestion ;
+    rdfs:label "步行环境与慢行系统整治"@zh ;
+    ur:leadsTo ur:RP_E_I24_CI_C_2 ;
+    ur:locationDescription "街区E"@zh .
+
+ur:RS_E_I24_CI_C_3 a ur:RemediationSuggestion ;
+    rdfs:label "交通出行条件改善"@zh ;
+    ur:leadsTo ur:RP_E_I24_CI_C_3 ;
+    ur:locationDescription "街区E"@zh .
+
+ur:RS_E_I24_CI_C_4 a ur:RemediationSuggestion ;
+    rdfs:label "公共空间增补"@zh ;
+    ur:leadsTo ur:RP_E_I24_CI_C_4 ;
+    ur:locationDescription "街区E"@zh .
+
+ur:RS_E_I24_CI_C_5 a ur:RemediationSuggestion ;
+    rdfs:label "商业特色塑造"@zh ;
+    ur:leadsTo ur:RP_E_I24_CI_C_5 ;
+    ur:locationDescription "街区E"@zh .
+
+ur:RS_E_I24_CI_C_6 a ur:RemediationSuggestion ;
+    rdfs:label "运营服务提升"@zh ;
+    ur:leadsTo ur:RP_E_I24_CI_C_6 ;
+    ur:locationDescription "街区E"@zh .
+
+ur:OCB_C_1 a ur:OldCommercialBlock ;
+    rdfs:label "街区C老旧商业街区1"@zh ;
+    ur:belongsTo ur:NB_C ;
+    ur:failsCheckItem ur:CI_C_2,
+        ur:CI_C_4 .
+
+ur:OCB_D_2 a ur:OldCommercialBlock ;
+    rdfs:label "街区D老旧商业街区2"@zh ;
+    ur:belongsTo ur:NB_D ;
+    ur:failsCheckItem ur:CI_C_1,
+        ur:CI_C_3 .
+
+ur:OCB_B_1 a ur:OldCommercialBlock ;
+    rdfs:label "街区B老旧商业街区1"@zh ;
+    ur:belongsTo ur:NB_B ;
+    ur:failsCheckItem ur:CI_C_1,
+        ur:CI_C_2,
+        ur:CI_C_4,
+        ur:CI_C_6 .
+
+ur:OCB_C_3 a ur:OldCommercialBlock ;
+    rdfs:label "街区C老旧商业街区3"@zh ;
+    ur:belongsTo ur:NB_C ;
+    ur:failsCheckItem ur:CI_C_1,
+        ur:CI_C_2,
+        ur:CI_C_3,
+        ur:CI_C_6 .
+
+ur:OCB_A_2 a ur:OldCommercialBlock ;
+    rdfs:label "街区A老旧商业街区2"@zh ;
+    ur:belongsTo ur:NB_A ;
+    ur:failsCheckItem ur:CI_C_1,
+        ur:CI_C_2,
+        ur:CI_C_4,
+        ur:CI_C_5,
+        ur:CI_C_6 .
+
+ur:OCB_C_2 a ur:OldCommercialBlock ;
+    rdfs:label "街区C老旧商业街区2"@zh ;
+    ur:belongsTo ur:NB_C ;
+    ur:failsCheckItem ur:CI_C_1,
+        ur:CI_C_2,
+        ur:CI_C_3,
+        ur:CI_C_4,
+        ur:CI_C_5,
+        ur:CI_C_6 .
+
+ur:OCB_E_1 a ur:OldCommercialBlock ;
+    rdfs:label "街区E老旧商业街区1"@zh ;
+    ur:belongsTo ur:NB_E ;
+    ur:failsCheckItem ur:CI_C_1,
+        ur:CI_C_2,
+        ur:CI_C_3,
+        ur:CI_C_4,
+        ur:CI_C_5,
+        ur:CI_C_6 .
+
+ur:ORB_C_1 a ur:OldResidentialBlock ;
+    rdfs:label "街区C老旧生活街区1"@zh ;
+    ur:belongsTo ur:NB_C ;
+    ur:failsCheckItem ur:CI_L_2,
+        ur:CI_L_3,
+        ur:CI_L_4,
+        ur:CI_L_6,
+        ur:CI_L_7,
+        ur:CI_L_8 .
+
+ur:OIA_B_1 a ur:OldIndustrialArea ;
+    rdfs:label "街区B老旧厂区1"@zh ;
+    ur:belongsTo ur:NB_B ;
+    ur:failsCheckItem ur:CI_F_10,
+        ur:CI_F_2,
+        ur:CI_F_3,
+        ur:CI_F_4,
+        ur:CI_F_6,
+        ur:CI_F_7,
+        ur:CI_F_9 .
+
+ur:OIA_D_1 a ur:OldIndustrialArea ;
+    rdfs:label "街区D老旧厂区1"@zh ;
+    ur:belongsTo ur:NB_D ;
+    ur:failsCheckItem ur:CI_F_1,
+        ur:CI_F_10,
+        ur:CI_F_2,
+        ur:CI_F_3,
+        ur:CI_F_4,
+        ur:CI_F_6,
+        ur:CI_F_7,
+        ur:CI_F_8,
+        ur:CI_F_9 .
+
+ur:RA_Upgrade a ur:RenewalApproach ;
+    rdfs:label "提升"@zh .
+
+ur:RA_Reconstruction a ur:RenewalApproach ;
+    rdfs:label "改造"@zh .
+

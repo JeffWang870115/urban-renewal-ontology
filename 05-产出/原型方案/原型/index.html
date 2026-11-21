@@ -268,6 +268,42 @@ html[data-theme="modern"] .canvas{
 .irow .sq{font-family:"SFMono-Regular",Consolas,monospace;color:var(--d-metric);font-weight:700;
   font-size:11px;min-width:22px}
 .irow .nm{flex:1;color:var(--text2);line-height:1.45}
+/* ===== G3 智能诊断视图 ===== */
+.dg{padding:18px 20px 26px;line-height:1.5}
+.dg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.dg-head h3{font-size:15px;font-weight:600;color:var(--d-core)}
+.dg-head p{font-size:11px;color:var(--text3)}
+.dg-badge{font-size:10px;padding:3px 9px;border-radius:20px;background:var(--accent-soft);color:var(--accent)}
+.dg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:10px;margin-bottom:18px}
+.dg-card{border:1px solid var(--border);border-radius:12px;padding:11px 12px;background:var(--panel2);
+  cursor:pointer;transition:.15s;border-left:3px solid var(--border2)}
+.dg-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.dg-card.bad{border-left-color:#b91c1c;background:#fef4f4}
+.dg-card.mid{border-left-color:var(--warn);background:#fffbeb}
+.dg-card.good{border-left-color:var(--ok);background:#f4fbf6}
+.dg-card .t{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.dg-card .t b{font-size:12px;font-weight:600;color:var(--text)}
+.dg-card .t em{font-style:normal;font-size:9.5px;color:var(--text3);font-family:"SFMono-Regular",Consolas,monospace}
+.dg-card .v{font-size:10.5px;color:var(--text2);margin-top:5px}
+.dg-card .g{font-size:11px;font-weight:700;margin-top:4px}
+.dg-card.bad .g{color:#b91c1c}.dg-card.mid .g{color:var(--warn)}.dg-card.good .g{color:var(--ok)}
+.dg-card .pct{font-size:10px;color:var(--text2);margin-top:5px;padding-top:5px;border-top:1px dashed var(--border)}
+.dg-card .pct b{color:var(--accent);font-weight:600}
+.dg-card .pct .bar{display:inline-block;width:54px;height:5px;background:var(--border);border-radius:3px;vertical-align:middle;margin-left:4px;overflow:hidden}
+.dg-card .pct .bar i{display:block;height:100%;background:var(--accent)}
+.dg-sec{margin-top:16px}
+.dg-sec h4{font-size:13px;font-weight:600;color:var(--d-core);margin-bottom:8px;
+  border-left:3px solid var(--d-core);padding-left:8px}
+.dg-chain{border:1px solid var(--border);border-radius:12px;background:var(--panel2);
+  padding:11px 13px;margin-bottom:9px;font-size:11.5px}
+.dg-chain .stem{color:var(--text3);font-family:"SFMono-Regular",Consolas,monospace;font-size:10px}
+.dg-chain .steps{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:7px}
+.dg-chain .step{border:1px solid var(--border2);border-radius:7px;padding:4px 8px;background:var(--panel);color:var(--text2)}
+.dg-chain .step.p{border-color:#f0b4b4;color:#b91c1c}
+.dg-chain .step.r{border-color:#b7d8a8;color:#3b6d11}
+.dg-chain .ar{color:var(--text3);font-size:12px}
+.dg-note{font-size:10.5px;color:var(--text3);margin-top:14px;padding:9px 11px;
+  background:var(--panel3);border-radius:8px;line-height:1.7}
 </style>
 </head>
 <body>
@@ -281,6 +317,7 @@ html[data-theme="modern"] .canvas{
     <button class="vbtn on" data-v="graph">知识图谱</button>
     <button class="vbtn" data-v="matrix">指标双轴</button>
     <button class="vbtn" data-v="backbone">主干闭环</button>
+    <button class="vbtn" data-v="diagnosis">智能诊断</button>
   </div>
 </header>
 
@@ -307,6 +344,7 @@ html[data-theme="modern"] .canvas{
       </div>
       <div class="view" id="v-matrix"><div class="light"><div class="mx" id="mx"></div></div></div>
       <div class="view" id="v-backbone"><div class="light"><div class="bb" id="bb"></div></div></div>
+      <div class="view" id="v-diagnosis"><div class="light dg" id="dg"></div></div>
     </div>
   </section>
 
@@ -323,6 +361,7 @@ html[data-theme="modern"] .canvas{
 </footer>
 
 <script src="data/ontology.js"></script>
+<script src="data/diagnosis.js"></script>
 <script>
 const D = window.__ONTOLOGY__;
 window.onerror=function(m,s,l,c){ const el=document.getElementById('crumb');
@@ -367,10 +406,11 @@ document.querySelectorAll('.vbtn').forEach(b=>{
   b.onclick=()=>{
     document.querySelectorAll('.vbtn').forEach(x=>x.classList.remove('on'));
     b.classList.add('on'); state.view=b.dataset.v;
-    ['graph','matrix','backbone'].forEach(v=>
+    ['graph','matrix','backbone','diagnosis'].forEach(v=>
       document.getElementById('v-'+v).classList.toggle('on',v===state.view));
     if(state.view==='matrix') renderMatrix();
     if(state.view==='backbone') renderBackbone();
+    if(state.view==='diagnosis') renderDiagnosis();
   };
 });
 
@@ -1048,6 +1088,85 @@ initGraph(()=>{
   if(f && CL[f]) focusOn(f);
   else renderOverviewDetail();
 });
+/* ===== G3 智能诊断视图（2026-11-20）=====
+   浏览器内执行"测值 ↔ 参考值四档"比较，数据来自 window.__DIAG__（由真实规则实例导出）。
+   正向：值越高越好（落在"很好"档即优）；逆向：值越低越好（超过上界即"不足"）。 */
+function judgeGrade(val, rule){
+  if(!rule || !rule.bands || !rule.bands.length) return null;
+  const bands = rule.bands.slice().sort((a,b)=> (a.lo===-1? -1e18 : (a.lo===null? -1e18 : a.lo)) - (b.lo===-1? -1e18 : (b.lo===null? -1e18 : b.lo)));
+  for(const b of bands){
+    const lo = (b.lo===null || b.lo===undefined) ? -Infinity : b.lo;
+    const hi = (b.hi===null || b.hi===undefined) ?  Infinity : b.hi;
+    if(val>=lo && val<hi) return b.label;
+  }
+  return bands[bands.length-1].label;   // 超出上界落最低档
+}
+function gradeClass(label){
+  if(label==='很好') return 'good';
+  if(label==='较好' || label==='一般') return 'mid';
+  return 'bad';
+}
+function renderDiagnosis(){
+  const root=document.getElementById('dg');
+  const DG=window.__DIAG__;
+  if(!DG){ root.innerHTML='<div class="empty">诊断数据未加载：请确认 data/diagnosis.js 存在<br>（先运行 06-实例数据/端到端实证/_export_diagnosis_data.py）</div>'; return; }
+  const vals=DG.values||{}, rules=DG.rules||{}, chains=DG.chains||{}, ratios=DG.ratios||{};
+  const ids=Object.keys(vals).sort((a,b)=>Number(a)-Number(b));
+  let cards='', nBad=0;
+  ids.forEach(id=>{
+    const v=vals[id], rule=rules[id];
+    // ⚠️ 量纲对齐：占比化指标的档位是百分比，必须用派生占比判断，不能拿原始栋数直接比。
+    // 无占比口径者（社区级12/15/16/17/18）只展示实测值，不强行判级。
+    const hasRatio = Object.prototype.hasOwnProperty.call(ratios,id);
+    const g = hasRatio ? judgeGrade(ratios[id],rule) : null;
+    const cls = hasRatio ? gradeClass(g) : '';
+    if(cls==='bad') nBad++;
+    const meta=D.indicators ? D.indicators.find(x=>String(x.seq)===id) : null;
+    const name=meta? meta.name : ('指标 '+id);
+    const chained=!!chains[id];
+    const mlabel=rule ? (rule.method||'').replace('EvaluationMethod_','') : '无规则';
+    const vtext=hasRatio ? `实测 ${v} → ${ratios[id]}%（本社区${DG.denominator||'—'}栋）· ${mlabel}`
+                         : `实测 ${v} ${meta&&meta.unit?meta.unit:''} · 占比口径待补`;
+    // 分位读法（D3）：有同级分位数据的指标，第四行显示"同级分位"为主读法
+    let pctHtml='';
+    const P=DG.percentile;
+    if(P && String(P.indicator)===String(id)){
+      const rankTxt=`${P.rank}/${P.total}`;
+      const barW=Math.max(3,Math.round(P.percentile||0));
+      pctHtml=`<div class="pct">同级分位 <b>第${rankTxt}</b>（前${P.percentile}%较优）<span class="bar"><i style="width:${barW}%"></i></span></div>`;
+    }
+    cards+=`<div class="dg-card ${cls}" data-ind="${id}" title="点击查看该指标详情">
+      <div class="t"><b>${name}</b><em>#${id}</em></div>
+      <div class="v">${vtext}</div>
+      <div class="g">${hasRatio?(g||'无档位'):'未判级'}${chained?' · 已派生问题链':''}</div>
+      ${pctHtml}</div>`;
+  });
+  let chainHtml='';
+  Object.keys(chains).sort((a,b)=>Number(a)-Number(b)).forEach(id=>{
+    const c=chains[id];
+    chainHtml+=`<div class="dg-chain">
+      <div class="stem">Indicator_${id} → Problem → RemediationSuggestion → RenewalProject → RenewalObject</div>
+      <div class="steps">
+        <span class="step">指标#${id}</span><span class="ar">→</span>
+        <span class="step p">${c.problem}</span><span class="ar">→</span>
+        <span class="step">${c.suggestion}</span><span class="ar">→</span>
+        <span class="step r">${c.project}</span><span class="ar">→</span>
+        <span class="step">${c.object}</span>
+      </div></div>`;
+  });
+  root.innerHTML=`<div class="dg-head">
+      <h3>智能诊断 · 社区 ${DG.community||''}</h3>
+      <span class="dg-badge">${ids.length} 项测值 · ${Object.keys(ratios).length} 项可判级 · ${nBad} 项不足 · ${Object.keys(chains).length} 条闭环链</span>
+      <p>输入测值 → 按真实评价规则判等级 → 派生问题 → 整治建议 → 更新项目</p>
+    </div>
+    <div class="dg-grid">${cards}</div>
+    <div class="dg-sec"><h4>已派生的闭环链</h4>${chainHtml||'<div class="empty">当前无派生链</div>'}</div>
+    <div class="dg-note">说明：档位来自本体中 36 条评价规则实例（18 项公开标准 + 18 项样本市自评表【地方实操·不得当标准依据】）；
+      测值为脱敏后社区级与小区级聚合值；判定在浏览器本地执行，逻辑与 SPARQL 实证一致。点击指标卡可在右侧看本体详情。</div>`;
+  root.querySelectorAll('.dg-card').forEach(el=>{
+    el.onclick=()=>{ const id=el.dataset.ind; showIndicator(id); };
+  });
+}
 </script>
 </body>
 </html>

@@ -1,0 +1,433 @@
+# =============================================================================
+# 样例-v0-虚构.yaml
+# ⚠️ 本文件为【虚构数据】：实体名、数值均为构造，与现实无关。
+#    用途：W-C02 `_gen_abox.py` 的开发输入 + 回归测试基线。
+#    规格：遵循 `06-实例数据/数据契约-v1.md`（v1 / 2026-11-08）。
+# =============================================================================
+meta:
+  name: "样例-v0-虚构"
+  nature: "虚构（非真实数据）"
+  version: "v1"
+  date: "2026-11-08"
+  contract: "数据契约-v1.md"
+  counts:
+    urbanDistrict: 1
+    neighborhood: 1
+    community: 3
+    residentialQuarter: 4
+    building: 6
+
+# --- 空间单元（五级，locatedIn 由下级指向上级） ---
+urbanDistricts:
+  - id: "UD01"
+    name: "城区A"
+
+neighborhoods:
+  - id: "NB-A"
+    name: "街道A"
+    locatedIn: "UD01"
+    areaKm2: 8.4
+    communityCount: 3
+    residentPopulation: 5200
+    householdCount: 2100
+    enterpriseCount: 120
+    employmentCount: 980
+
+communities:
+  - id: "CM-S01"
+    name: "社区S01"
+    locatedIn: "NB-A"
+    areaKm2: 0.32
+    rqCount: 2
+    residentPopulation: 1800
+    householdCount: 720
+    minorityPopulation: 60
+    carOwnership: 210
+    evCount: 12
+    primarySchoolDemand: 90
+    primarySchoolSupply: 80
+    parkingDemand: 240
+    parkingSupply: 190
+    indoorActivityRoomCompliant: false
+    indoorActivityRoomCount: 1
+    indoorActivityRoomArea: 120
+    healthStationCompliant: true
+    healthStationCount: 1
+    healthStationArea: 150
+    evChargerGap: 6
+
+  - id: "CM-S02"
+    name: "社区S02"
+    locatedIn: "NB-A"
+    areaKm2: 0.28
+    rqCount: 1
+    residentPopulation: 1200
+    householdCount: 480
+    minorityPopulation: 30
+    carOwnership: 140
+    evCount: 5
+    primarySchoolDemand: 60
+    primarySchoolSupply: 70
+    parkingDemand: 160
+    parkingSupply: 120
+    indoorActivityRoomCompliant: true
+    indoorActivityRoomCount: 2
+    indoorActivityRoomArea: 210
+    healthStationCompliant: false
+    healthStationCount: 0
+    healthStationArea: 0
+    evChargerGap: 3
+
+  - id: "CM-S03"
+    name: "社区S03"
+    locatedIn: "NB-A"
+    areaKm2: 0.41
+    rqCount: 1
+    residentPopulation: 900
+    householdCount: 360
+    minorityPopulation: 15
+    carOwnership: 95
+    evCount: 3
+    primarySchoolDemand: 40
+    primarySchoolSupply: 40
+    parkingDemand: 110
+    parkingSupply: 100
+    indoorActivityRoomCompliant: true
+    indoorActivityRoomCount: 1
+    indoorActivityRoomArea: 90
+    healthStationCompliant: true
+    healthStationCount: 1
+    healthStationArea: 80
+    evChargerGap: 1
+
+residentialQuarters:
+  - id: "RQ-R001"
+    name: "小区R001"
+    locatedIn: "CM-S01"
+    rqType: "商品房"
+    constructionYear: 1998
+    renovationStatus: "已完成"
+    buildingCount: 2
+    totalFloorArea: 8600.0
+    housingUnitCount: 120
+    residentPopulation: 320
+    elderlyPopulation: 72
+    wasteSortingStatus: true
+    propertyManagementStatus: true
+    smartParcelLocker: true
+    smartSecurity: true
+    embeddedCommunity: false
+    parkingDemand: 130
+    parkingSupply: 100
+    parkingGap: 30
+    evChargerDemand: 8
+    evChargerSupply: 6
+    evChargerGap: 2
+
+  - id: "RQ-R002"
+    name: "小区R002"
+    locatedIn: "CM-S01"
+    rqType: "房改房"
+    constructionYear: 2005
+    renovationStatus: "未实施"
+    buildingCount: 1
+    totalFloorArea: 3200.0
+    housingUnitCount: 40
+    residentPopulation: 96
+    elderlyPopulation: 18
+    wasteSortingStatus: true
+    propertyManagementStatus: false
+    smartParcelLocker: false
+    smartSecurity: false
+    embeddedCommunity: true
+    parkingDemand: 45
+    parkingSupply: 38
+    parkingGap: 7
+    evChargerDemand: 3
+    evChargerSupply: 1
+    evChargerGap: 2
+
+  - id: "RQ-R003"
+    name: "小区R003"
+    locatedIn: "CM-S02"
+    rqType: "商品房"
+    constructionYear: 1992
+    renovationStatus: "未实施"
+    buildingCount: 2
+    totalFloorArea: 6100.0
+    housingUnitCount: 80
+    residentPopulation: 210
+    elderlyPopulation: 66
+    wasteSortingStatus: false
+    propertyManagementStatus: false
+    smartParcelLocker: false
+    smartSecurity: false
+    embeddedCommunity: false
+    parkingDemand: 85
+    parkingSupply: 52
+    parkingGap: 33
+    evChargerDemand: 4
+    evChargerSupply: 0
+    evChargerGap: 4
+
+  - id: "RQ-R004"
+    name: "小区R004"
+    locatedIn: "CM-S03"
+    rqType: "商品房"
+    constructionYear: 2010
+    renovationStatus: "不涉及"
+    buildingCount: 1
+    totalFloorArea: 2800.0
+    housingUnitCount: 40
+    residentPopulation: 90
+    elderlyPopulation: 9
+    wasteSortingStatus: true
+    propertyManagementStatus: true
+    smartParcelLocker: true
+    smartSecurity: true
+    embeddedCommunity: false
+    parkingDemand: 42
+    parkingSupply: 40
+    parkingGap: 2
+    evChargerDemand: 2
+    evChargerSupply: 2
+    evChargerGap: 0
+
+buildings:
+  - id: "BD-B0001"
+    name: "楼栋B0001"
+    locatedIn: "RQ-R001"
+    unitCount: 3
+    constructionYear: 1998
+    floorCount: 6
+    residentPopulation: 67
+    elderlyPopulation: 25
+    buildingNature: "住宅"
+    structureSafetyStatus: "安全"
+    gasSafetyStatus: "安全"
+    corridorSafetyStatus: "有隐患"
+    envelopeSafetyStatus: "安全"
+    pipelineStatus: null          # 未采集
+    agingAdaptationNeed: true
+    energyRetrofitNeed: null      # 未采集
+    digitalRetrofitNeed: true
+    nonSuiteStatus: false
+
+  - id: "BD-B0002"
+    name: "楼栋B0002"
+    locatedIn: "RQ-R001"
+    unitCount: 2
+    constructionYear: 1998
+    floorCount: 6
+    residentPopulation: 58
+    elderlyPopulation: 20
+    buildingNature: "住宅"
+    structureSafetyStatus: "安全"
+    gasSafetyStatus: "安全"
+    corridorSafetyStatus: "有隐患"
+    envelopeSafetyStatus: "安全"
+    pipelineStatus: "破损"
+    agingAdaptationNeed: true
+    energyRetrofitNeed: true
+    digitalRetrofitNeed: true
+    nonSuiteStatus: false
+
+  - id: "BD-B0003"
+    name: "楼栋B0003"
+    locatedIn: "RQ-R002"
+    unitCount: 1
+    constructionYear: 2005
+    floorCount: 4
+    residentPopulation: 42
+    elderlyPopulation: 6
+    buildingNature: "住宅"
+    structureSafetyStatus: "安全"
+    gasSafetyStatus: "安全"
+    corridorSafetyStatus: "安全"
+    envelopeSafetyStatus: "安全"
+    pipelineStatus: "正常"
+    agingAdaptationNeed: false
+    energyRetrofitNeed: false
+    digitalRetrofitNeed: false
+    nonSuiteStatus: false
+
+  - id: "BD-B0004"
+    name: "楼栋B0004"
+    locatedIn: "RQ-R003"
+    unitCount: 4
+    constructionYear: 1992
+    floorCount: 5
+    residentPopulation: 88
+    elderlyPopulation: 34
+    buildingNature: "住宅"
+    structureSafetyStatus: "有隐患"
+    gasSafetyStatus: "有隐患"
+    corridorSafetyStatus: "有隐患"
+    envelopeSafetyStatus: "有隐患"
+    pipelineStatus: "破损"
+    agingAdaptationNeed: true
+    energyRetrofitNeed: true
+    digitalRetrofitNeed: true
+    nonSuiteStatus: true
+
+  - id: "BD-B0005"
+    name: "楼栋B0005"
+    locatedIn: "RQ-R003"
+    unitCount: 3
+    constructionYear: 1991
+    floorCount: 5
+    residentPopulation: 76
+    elderlyPopulation: 30
+    buildingNature: "住宅"
+    structureSafetyStatus: "安全"
+    gasSafetyStatus: "安全"
+    corridorSafetyStatus: "有隐患"
+    envelopeSafetyStatus: "安全"
+    pipelineStatus: "破损"
+    agingAdaptationNeed: true
+    energyRetrofitNeed: true
+    digitalRetrofitNeed: true
+    nonSuiteStatus: true
+
+  - id: "BD-B0006"
+    name: "楼栋B0006"
+    locatedIn: "RQ-R004"
+    unitCount: 2
+    constructionYear: 2010
+    floorCount: 11
+    residentPopulation: 90
+    elderlyPopulation: 9
+    buildingNature: "住宅"
+    structureSafetyStatus: "安全"
+    gasSafetyStatus: "安全"
+    corridorSafetyStatus: "安全"
+    envelopeSafetyStatus: "安全"
+    pipelineStatus: "正常"
+    agingAdaptationNeed: false
+    energyRetrofitNeed: false
+    digitalRetrofitNeed: true
+    nonSuiteStatus: false
+
+# --- 指标测值：每 (指标, 空间单元) 一条 ---
+assessmentResults:
+  - id: "AR-2025-RQ-R001-01"
+    indicatorSeq: 1
+    sourceCode: "1"
+    unit: "RQ-R001"
+    indicatorValue: 0
+    grade: null
+    year: 2025
+  - id: "AR-2025-RQ-R001-03"
+    indicatorSeq: 3
+    sourceCode: "3"
+    unit: "RQ-R001"
+    indicatorValue: 2
+    grade: null
+    year: 2025
+  - id: "AR-2025-RQ-R003-01"
+    indicatorSeq: 1
+    sourceCode: "1"
+    unit: "RQ-R003"
+    indicatorValue: 1
+    grade: null
+    year: 2025
+  - id: "AR-2025-RQ-R003-04"
+    indicatorSeq: 4
+    sourceCode: "4"
+    unit: "RQ-R003"
+    indicatorValue: 1
+    grade: null
+    year: 2025
+  - id: "AR-2025-CM-S01-09"
+    indicatorSeq: 9
+    sourceCode: "10"
+    unit: "CM-S01"
+    indicatorValue: 1
+    grade: null
+    year: 2025
+  - id: "AR-2025-NB-A-19"
+    indicatorSeq: 19
+    sourceCode: "22"
+    unit: "NB-A"
+    indicatorValue: 82.5
+    grade: null
+    year: 2025
+  - id: "AR-2025-UD01-30"
+    indicatorSeq: 30
+    sourceCode: "35"
+    unit: "UD01"
+    indicatorValue: 2.1
+    grade: null
+    year: 2025
+
+# --- 问题短板 ---
+problems:
+  - id: "PB-RQ-R003-01"
+    problemDescription: "结构安全判定为有隐患，需进一步鉴定"
+    severity: 0.7
+    locatedIn: "RQ-R003"
+    derivedFrom: "AR-2025-RQ-R003-01"
+    remediationStatus: "未整治"
+  - id: "PB-RQ-R001-01"
+    problemDescription: "楼道普遍存在堆物与消防设施缺失"
+    severity: 0.4
+    locatedIn: "RQ-R001"
+    derivedFrom: "AR-2025-RQ-R001-03"
+    remediationStatus: "未整治"
+  - id: "PB-CM-S01-01"
+    problemDescription: "养老服务设施配建不达标"
+    severity: 0.3
+    locatedIn: "CM-S01"
+    derivedFrom: "AR-2025-CM-S01-09"
+    remediationStatus: "未整治"
+
+# --- 整治建议 ---
+suggestions:
+  - id: "RS-0001"
+    suggestionText: "纳入老旧小区改造，先行结构鉴定并加固"
+    treatmentType: ["限时解决"]
+    locationDescription: "小区R003 全域"
+    actsOn: ["RQ-R003"]
+    assignedTo: ["AC-01"]
+    proposedBy: ["PB-RQ-R003-01"]
+
+  - id: "RS-0002"
+    suggestionText: "补齐楼道消防设施、清理堆物并建立巡查机制"
+    treatmentType: ["限时解决", "尽力解决"]
+    locationDescription: "小区R001 全域"
+    actsOn: ["RQ-R001"]
+    assignedTo: ["AC-01", "AC-02"]
+    proposedBy: ["PB-RQ-R001-01"]
+
+# --- 更新项目 ---
+projects:
+  - id: "RP-0001"
+    name: "小区R003 老旧小区改造项目"
+    leadsFrom: ["RS-0001"]
+    adoptsApproach: "Retrofit"
+    actsOn: ["RQ-R003"]
+    implementedBy: ["AC-02"]
+    fundedBy: ["FD-01"]
+    basedOn: ["PS-2025"]
+
+# --- 支撑实体 ---
+actors:
+  - id: "AC-01"
+    name: "主体A"
+    actorType: "政府/主管部门"
+  - id: "AC-02"
+    name: "主体B"
+    actorType: "实施主体"
+
+funds:
+  - id: "FD-01"
+    name: "中央财政转移支付"
+    fundType: "中央财政"
+
+policies:
+  - id: "PS-2025"
+    name: "城市体检工作手册（试行）2025 年"
+    policyVersion: "2025 版"
+  - id: "PS-2026"
+    name: "建办科〔2026〕16号 附件1"
+    policyVersion: "建办科〔2026〕16号【待核】"

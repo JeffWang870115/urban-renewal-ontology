@@ -1,0 +1,71 @@
+@prefix ns1: <https://ontology.cset-digital.cn/urban-renewal#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ns1:SC_ER_I1_community a ns1:EvaluationRule ;
+    rdfs:label "指标1结构隐患·社区尺度评价规则"@zh ;
+    ns1:evaluates ns1:Indicator_1 ;
+    ns1:evaluationMethod ns1:EvaluationMethod_占比化 ;
+    ns1:evaluationOutput ns1:EvaluationOutput_四级等级 ;
+    ns1:usesReference ns1:SC_ERef_I1_community .
+
+ns1:SC_ER_I1_district a ns1:EvaluationRule ;
+    rdfs:label "指标1结构隐患·城区尺度评价规则"@zh ;
+    ns1:evaluates ns1:Indicator_1 ;
+    ns1:evaluationMethod ns1:EvaluationMethod_占比化 ;
+    ns1:evaluationOutput ns1:EvaluationOutput_四级等级 ;
+    ns1:usesReference ns1:SC_ERef_I1_district .
+
+ns1:SC_ER_I1_quarter a ns1:EvaluationRule ;
+    rdfs:label "指标1结构隐患·小区尺度评价规则"@zh ;
+    ns1:evaluates ns1:Indicator_1 ;
+    ns1:evaluationMethod ns1:EvaluationMethod_占比化 ;
+    ns1:evaluationOutput ns1:EvaluationOutput_四级等级 ;
+    ns1:usesReference ns1:SC_ERef_I1_quarter .
+
+ns1:SC_ER_I1_street a ns1:EvaluationRule ;
+    rdfs:label "指标1结构隐患·街道尺度评价规则"@zh ;
+    ns1:evaluates ns1:Indicator_1 ;
+    ns1:evaluationMethod ns1:EvaluationMethod_占比化 ;
+    ns1:evaluationOutput ns1:EvaluationOutput_四级等级 ;
+    ns1:usesReference ns1:SC_ERef_I1_street .
+
+ns1:SC_ERef_I1_community a ns1:EvaluationReference ;
+    rdfs:label "指标1结构隐患·社区尺度四档参考（档次共用ERef_P1）"@zh ;
+    rdfs:comment "社区尺度：分母百级、分子百级（精确值见本地脱敏对照表，不入库）；占比=该单元隐患数÷同层级住宅总栋数"@zh ;
+    ns1:appliesToScale ns1:SpatialScale_CommunityScale ;
+    ns1:direction "逆向"@zh ;
+    ns1:forIndicator ns1:Indicator_1 ;
+    ns1:reusesBandsOf ns1:ERef_P1 ;
+    ns1:sourceScope "档次共用·地方自评表口径【待核】"@zh ;
+    ns1:validPeriod "2025"@zh .
+
+ns1:SC_ERef_I1_district a ns1:EvaluationReference ;
+    rdfs:label "指标1结构隐患·城区尺度四档参考（档次共用ERef_P1）"@zh ;
+    rdfs:comment "城区尺度：分母千级、分子百级（精确值见本地脱敏对照表，不入库）；占比=该单元隐患数÷同层级住宅总栋数"@zh ;
+    ns1:appliesToScale ns1:SpatialScale_DistrictScale ;
+    ns1:direction "逆向"@zh ;
+    ns1:forIndicator ns1:Indicator_1 ;
+    ns1:reusesBandsOf ns1:ERef_P1 ;
+    ns1:sourceScope "档次共用·地方自评表口径【待核】"@zh ;
+    ns1:validPeriod "2025"@zh .
+
+ns1:SC_ERef_I1_quarter a ns1:EvaluationReference ;
+    rdfs:label "指标1结构隐患·小区尺度四档参考（档次共用ERef_P1）"@zh ;
+    rdfs:comment "小区尺度：分母十级、分子百级（精确值见本地脱敏对照表，不入库）；占比=该单元隐患数÷同层级住宅总栋数"@zh ;
+    ns1:appliesToScale ns1:SpatialScale_QuarterScale ;
+    ns1:direction "逆向"@zh ;
+    ns1:forIndicator ns1:Indicator_1 ;
+    ns1:reusesBandsOf ns1:ERef_P1 ;
+    ns1:sourceScope "档次共用·地方自评表口径【待核】"@zh ;
+    ns1:validPeriod "2025"@zh .
+
+ns1:SC_ERef_I1_street a ns1:EvaluationReference ;
+    rdfs:label "指标1结构隐患·街道尺度四档参考（档次共用ERef_P1）"@zh ;
+    rdfs:comment "街道尺度：分母百级、分子百级（精确值见本地脱敏对照表，不入库）；占比=该单元隐患数÷同层级住宅总栋数"@zh ;
+    ns1:appliesToScale ns1:SpatialScale_NeighborhoodScale ;
+    ns1:direction "逆向"@zh ;
+    ns1:forIndicator ns1:Indicator_1 ;
+    ns1:reusesBandsOf ns1:ERef_P1 ;
+    ns1:sourceScope "档次共用·地方自评表口径【待核】"@zh ;
+    ns1:validPeriod "2025"@zh .
+
