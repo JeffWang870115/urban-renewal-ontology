@@ -98,62 +98,69 @@ footer .right{margin-left:auto;font-family:"SFMono-Regular",Consolas,monospace}
 /* 图谱（深色画布 · 混合版） */
 html[data-theme="modern"] .canvas{
   --edge:#4d6c8e; --text3:rgba(255,255,255,.55);
-  --d-core:#5AA3E8;   --d-core-s:rgba(70,150,230,.30);
-  --d-metric:#A79DF5; --d-metric-s:rgba(127,119,221,.30);
-  --d-axis:#55D3A8;   --d-axis-s:rgba(29,158,117,.30);
-  --d-space:#F58F66;  --d-space-s:rgba(216,90,48,.32);
-  --d-renew:#A9D963;  --d-renew-s:rgba(99,153,34,.30);
-  --d-policy:#F5BC55; --d-policy-s:rgba(239,159,39,.30);
-  --d-neutral:#B3B1A7;--d-neutral-s:rgba(95,94,90,.32);
+  --d-core:#5AA3E8;   --d-core-s:rgba(70,150,230,.46);
+  --d-metric:#A79DF5; --d-metric-s:rgba(127,119,221,.46);
+  --d-axis:#55D3A8;   --d-axis-s:rgba(29,158,117,.46);
+  --d-space:#F58F66;  --d-space-s:rgba(216,90,48,.48);
+  --d-renew:#A9D963;  --d-renew-s:rgba(99,153,34,.46);
+  --d-policy:#F5BC55; --d-policy-s:rgba(239,159,39,.46);
+  --d-neutral:#B3B1A7;--d-neutral-s:rgba(95,94,90,.46);
 }
 .canvas{flex:1;min-height:0;position:relative;
-  background:radial-gradient(circle at 1px 1px,rgba(255,255,255,.075) 1px,transparent 0) 0 0/24px 24px,#101820}
+  background:radial-gradient(ellipse 82% 72% at 50% 38%,#17263a 0%,#101a2a 55%,#0b121e 100%)}
 #graph{width:100%;height:100%;display:block;cursor:grab;--zk:1;--ss:1}
 #graph:active{cursor:grabbing}
 #world{transform-origin:0 0;will-change:transform;
   transition:transform .26s cubic-bezier(.22,.61,.36,1)}
 #world.nofx{transition:none}
-.edge{stroke:var(--edge);stroke-width:1.3;fill:none;vector-effect:non-scaling-stroke;
+.edge{stroke:var(--edge);stroke-width:1.1;fill:none;vector-effect:non-scaling-stroke;
   transition:stroke .25s,opacity .25s,stroke-width .25s}
-.edge.sub{opacity:.62}
-.edge.core{stroke:var(--d-core);stroke-width:2.2;opacity:.95}
+.edge.sub{opacity:.5}
+.edge.core{stroke:var(--d-core);stroke-width:1.9;opacity:.95;
+  filter:drop-shadow(0 0 3px rgba(90,163,232,.35))}
 .edge.dash{stroke-dasharray:5 5;opacity:.5}
+/* 对象属性边：青灰细虚线，区别于主干实线与继承灰边 */
+.edge.prop{stroke:#6c8fa3;stroke-width:1;stroke-dasharray:3 4;opacity:.55}
 .edge.inst{stroke-width:.85;opacity:.4}
 .edge.faded{opacity:.05}
 .edge.hot{stroke:#fff;stroke-width:2.5;opacity:.98}
-.elabel{font-size:8.5px;fill:var(--text3);pointer-events:none;opacity:.85;
-  font-family:"SFMono-Regular",Consolas,monospace;text-anchor:middle}
+.elabel{font-size:calc(9.5px / var(--zk) / var(--ss));fill:#9fb2c4;pointer-events:none;opacity:.9;
+  font-family:"SFMono-Regular",Consolas,monospace;text-anchor:middle;
+  paint-order:stroke;stroke:rgba(9,15,24,.90);
+  stroke-width:calc(2.6px / var(--zk) / var(--ss));stroke-linejoin:round}
+.elabel[dy]{dominant-baseline:middle}
+.elabel.core{fill:#cfe3f5;opacity:.95}
+.elabel.prop{fill:#7fa0b3;opacity:.75;font-size:calc(8px / var(--zk) / var(--ss))}
+/* 拖拽联动态：被拖节点与一跳邻居高亮 */
+.gnode.dragging circle{stroke:#fff;stroke-width:3.6;
+  filter:drop-shadow(0 0 12px rgba(255,255,255,.62))}
+.gnode.pulled circle{stroke-width:2.8;filter:drop-shadow(0 0 7px rgba(255,255,255,.30))}
 .gnode{cursor:pointer}
 .gnode circle{stroke-width:1.8;vector-effect:non-scaling-stroke;
   transition:fill .28s,stroke .22s,stroke-width .22s,opacity .3s}
 .gnode text{font-family:var(--font);text-anchor:middle;dominant-baseline:middle;
   pointer-events:none;font-weight:600}
 /* 标签独立成层，永远画在所有节点之上（否则会被别的节点圆盖住） */
-.nlabel{font-family:var(--font);text-anchor:middle;dominant-baseline:middle;
-  pointer-events:none;font-weight:600;transition:opacity .22s;
-  font-size:calc(13.5px / var(--zk) / var(--ss));
-  paint-order:stroke;stroke:rgba(8,12,18,.84);
-  stroke-width:calc(2.8px / var(--zk) / var(--ss));stroke-linejoin:round}
-.nlabel.top{font-size:calc(15.5px / var(--zk) / var(--ss));font-weight:700}
-.nlabel.inst{font-size:calc(12px / var(--zk) / var(--ss));font-weight:400}
+/* 圆内标签：白字、无描边、按圆半径自适应字号 */
+.nlabel{font-family:var(--font);text-anchor:middle;dominant-baseline:central;
+  pointer-events:none;font-weight:600;transition:opacity .22s;fill:#fff;
+  font-size:calc(var(--lfs,12) * 1px)}   /* 纯随圆缩放，杜绝小圆文字溢出 */
+.nlabel.top{font-weight:700}
+.nlabel.inst{font-weight:500}
 .gnode .en{font-size:8px;font-weight:400;font-family:"SFMono-Regular",Consolas,monospace;opacity:.8}
+/* 全部节点统一实心圆：域色实心填充 + 白色居中文字 */
+.gnode circle{stroke-width:1.4}
+.gnode text{fill:#fff}
 .gnode.g-core circle{fill:var(--d-core);stroke:var(--d-core)}
-.gnode.g-core text{fill:#fff}
-.gnode.g-core .en{fill:rgba(255,255,255,.86);opacity:1}
-.gnode.g-metric circle{fill:var(--d-metric-s);stroke:var(--d-metric)}
-.gnode.g-metric text{fill:var(--d-metric)}
-.gnode.g-axis circle{fill:var(--d-axis-s);stroke:var(--d-axis)}
-.gnode.g-axis text{fill:var(--d-axis)}
-.gnode.g-space circle{fill:var(--d-space-s);stroke:var(--d-space)}
-.gnode.g-space text{fill:var(--d-space)}
-.gnode.g-renew circle{fill:var(--d-renew-s);stroke:var(--d-renew)}
-.gnode.g-renew text{fill:var(--d-renew)}
-.gnode.g-policy circle{fill:var(--d-policy-s);stroke:var(--d-policy)}
-.gnode.g-policy text{fill:var(--d-policy)}
-.gnode.g-neutral circle{fill:var(--d-neutral-s);stroke:var(--d-neutral)}
-.gnode.g-neutral text{fill:var(--d-neutral)}
-.gnode.undecl circle{fill:none;stroke:rgba(255,255,255,.45);stroke-dasharray:3 3}
-.gnode.undecl text{fill:rgba(255,255,255,.6);font-weight:400}
+.gnode.g-metric circle{fill:var(--d-metric);stroke:var(--d-metric)}
+.gnode.g-axis circle{fill:var(--d-axis);stroke:var(--d-axis)}
+.gnode.g-space circle{fill:var(--d-space);stroke:var(--d-space)}
+.gnode.g-renew circle{fill:var(--d-renew);stroke:var(--d-renew)}
+.gnode.g-policy circle{fill:var(--d-policy);stroke:var(--d-policy)}
+.gnode.g-neutral circle{fill:var(--d-neutral);stroke:var(--d-neutral)}
+/* 待补声明类：仍实心，仅虚线描边标记语义 */
+.gnode.undecl circle{stroke-dasharray:3 3;opacity:.85}
+.gnode.undecl text{opacity:.9}
 .gnode.inst circle{stroke-width:.9;opacity:.85}
 .gnode:hover circle{stroke-width:2.6}
 .gnode.dimmed,.gnode.miss{opacity:.10}
@@ -181,6 +188,19 @@ html[data-theme="modern"] .canvas{
   background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:8px;
   padding:5px 11px;font-family:"SFMono-Regular",Consolas,monospace}
 .crumb b{color:#fff;font-weight:600}
+/* 视角条已移除：四视角合并为单一视图（2026-11-22 大王示下） */
+.ps small{font-family:"SFMono-Regular",Consolas,monospace;opacity:.6;margin-left:4px;font-size:9px}
+/* 可交互图例：点域过滤 */
+.legend .lg{cursor:pointer;border-radius:5px;padding:2px 4px;transition:opacity .2s,background .2s}
+.legend .lg:hover{background:rgba(255,255,255,.10)}
+.legend .lg.off{opacity:.32;text-decoration:line-through}
+.legend .lg b{color:inherit;font-weight:600}
+/* Neo4j 精修：节点投影 + 字号阶梯 + 主链焦点 */
+#graph .gnode circle{filter:drop-shadow(0 2px 7px rgba(0,0,0,.62)) drop-shadow(0 0 6px rgba(255,255,255,.07))}
+#graph .nlabel{font-weight:600}
+#graph .nlabel.top{font-weight:700}
+#graph .nlabel.inst{font-weight:500}
+#graph .gnode.peer circle{stroke-width:2.6}
 .tool{position:absolute;right:14px;top:12px;display:flex;gap:6px}
 .tb{height:26px;padding:0 10px;border-radius:7px;cursor:pointer;font-size:11.5px;
   background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);color:rgba(255,255,255,.72);
@@ -585,7 +605,7 @@ function renderOverviewDetail(){
 
 /* ===== 全量图谱：总览 / 点击聚焦缩放 / overall 回位 ===== */
 const svg=document.getElementById('graph'), NS='http://www.w3.org/2000/svg';
-const VW=1400, VH=1000, CX=VW/2, CY=VH/2, ANCH_R=210, K_MIN=.30, K_MAX=5;
+const VW=1400, VH=1000, CX=VW/2, CY=VH/2, ANCH_R=430, K_MIN=.30, K_MAX=5;
 const ANCH={};
 DOM_ORDER.forEach((d,i)=>{
   const a=-Math.PI/2+i*2*Math.PI/DOM_ORDER.length;
@@ -593,8 +613,40 @@ DOM_ORDER.forEach((d,i)=>{
 });
 let NODES=[], EDGES=[], IX={}, world=null, SEL=null, SHOW_ABOX=false, BUILT=false;
 const view={k:1,tx:0,ty:0};
+/* 实时力学模拟（D3 式拖拽联动） */
+let DRAGGING=null, simRAF=null, simAlpha=0;
+const PULLED=new Set();
+/* ===== 单一视图：按需展开 / 图例过滤（四视角已合并，2026-11-22） ===== */
+const EXPANDED=new Set();             // 已点开展开子类的顶层类 id
+let FILTER_DOM=null;                  // 图例点选的域（null=全部）
+const SUPPORT_IDS=new Set(D.classes.filter(c=>c.role==='support'||c.role==='technical').map(c=>c.id));
+// 支撑类视角的"对端业务类"：与支撑类有对象属性相连的业务类，随支撑一起显示，
+// 否则属性边因业务端不可见而画不出，看不到"支撑类如何挂进主干"
+const SUPPORT_PEERS=new Set();
+D.properties.filter(p=>p.type==='object').forEach(p=>{
+  const a=(p.domain||[])[0], b=(p.range||[])[0];
+  if(SUPPORT_IDS.has(a)&&b&&!SUPPORT_IDS.has(b)) SUPPORT_PEERS.add(b);
+  if(SUPPORT_IDS.has(b)&&a&&!SUPPORT_IDS.has(a)) SUPPORT_PEERS.add(a);
+});
+function isVisible(n){
+  // 单一视图：图例域过滤仍生效（支撑类归 neutral 域，点其他域时一并过滤）
+  if(FILTER_DOM && n.dom!==FILTER_DOM) return false;
+  // 按需展开：顶层类常显；支撑类/技术构件与其业务对端常显；子类仅当祖先顶层类已展开
+  if(n.kind==='class' && n.top) return true;
+  if(SUPPORT_IDS.has(n.id) || SUPPORT_PEERS.has(n.id)) return true;
+  // 个体：ABox 打开时，所属顶层类已展开 → 显示；挂在支撑类下的个体（无顶层祖先）也直接显示
+  if(SHOW_ABOX && n.kind==='inst')
+    return EXPANDED.has(n.ancestorTop) || SUPPORT_IDS.has(n.ancestorTop);
+  if(n.kind==='class') return EXPANDED.has(n.ancestorTop);
+  return true;
+}
 
 function depthOf(id){ let d=0,c=CL[id]; while(c&&c.parent){d++;c=CL[c.parent];} return d; }
+function ancestorTopOf(id){
+  let c=CL[id],guard=0;
+  while(c&&guard++<14){ if(c.role==='top') return c.id; c=c.parent?CL[c.parent]:null; }
+  return id;
+}
 function nbOf(id){
   const s=new Set([id]);
   EDGES.forEach(e=>{ if(e.a===id) s.add(e.b); if(e.b===id) s.add(e.a); });
@@ -607,60 +659,125 @@ function buildAll(){
   NODES=[]; EDGES=[]; IX={};
   const add=o=>{ if(IX[o.id]) return; o.vx=0; o.vy=0; NODES.push(o); IX[o.id]=o; };
   D.classes.forEach(c=>{
-    const r = c.role==='top' ? 26 : (c.children.length ? 16 : 12);
+    const r = c.role==='top' ? 38 : (c.children.length ? 20 : 16);   // 增大以容纳圆内文字
     add({id:c.id, kind:'class', cn:c.cn, dom:c.domain||domOf(c.id), r,
-         top:c.role==='top', depth:depthOf(c.id),
+         top:c.role==='top', parent:c.parent||null, depth:depthOf(c.id), ancestorTop:ancestorTopOf(c.id),
          decl:c.declared!==false, role:c.role});
   });
-  D.classes.forEach(c=>{ if(c.parent&&IX[c.parent]) EDGES.push({a:c.parent, b:c.id, k:'sub'}); });
+  D.classes.forEach(c=>{ if(c.parent&&IX[c.parent]) EDGES.push({a:c.parent, b:c.id, k:'sub', label:'subClassOf'}); });
   D.backbone.forEach(b=>{ if(IX[b.from]&&IX[b.to])
-    EDGES.push({a:b.from, b:b.to, k:(b.pred==='triggers'?'dash':'core')}); });
+    EDGES.push({a:b.from, b:b.to, k:(b.pred==='triggers'?'dash':'core'), label:b.cn||b.pred}); });
+  // 对象属性边：domain 类 → range 类（47 条）。多定义域/值域在 ttl 里已包成 Union_* 类，
+  // 数据层为单端点，故每条属性直接成一边；两端不必同时可见（可见性由 renderAll 按视口判定）
+  const drawn=new Set(EDGES.filter(e=>e.k==='core'||e.k==='dash').map(e=>e.a+'>'+e.b));
+  D.properties.filter(p=>p.type==='object').forEach(p=>{
+    const a=(p.domain||[])[0], b=(p.range||[])[0];
+    if(a&&b&&a!==b&&IX[a]&&IX[b]&&!drawn.has(a+'>'+b)){
+      EDGES.push({a, b, k:'prop', label:p.cn||p.id, pred:p.id});
+      drawn.add(a+'>'+b);   // 同端点属性也去重，避免 label 叠字
+    }
+  });
   if(SHOW_ABOX){
     D.individuals.forEach(i=>{
-      add({id:i.id, kind:'inst', cn:i.cn, dom:DMAP[i.cls]||'neutral', r:9, inst:true, depth:3});
+      add({id:i.id, kind:'inst', cn:i.cn, dom:DMAP[i.cls]||'neutral', r:9, inst:true, depth:3,
+           ancestorTop:ancestorTopOf(i.cls)});
       EDGES.push({a:i.cls, b:i.id, k:'inst'});
     });
   }
-  // 初始撒点：黄金角螺旋，围绕所属语义域锚点
-  const cnt={};
-  NODES.forEach(n=>{
+  // 初始撒点：域内顶层类沿扇区独立锚点均匀分布（Neo4j 式铺开，避免同域堆叠）
+  // 主干 6 类例外：沿一条横向链弧铺开，让 5 条 backbone 关系线清晰可见
+  const BB_ORDER=['ExaminationActivity','AssessmentResult','Problem','RemediationSuggestion','RenewalProject','IndicatorJudgement'];
+  const perDom={}, perParent={};
+  // 第一轮：顶层类
+  NODES.filter(n=>n.top).forEach(n=>{
     const a=ANCH[n.dom]||{x:CX,y:CY};
-    const j=cnt[n.dom]=(cnt[n.dom]||0)+1;
-    const ang=j*2.399963, rad=18+13*Math.sqrt(j);
-    n.x=a.x+Math.cos(ang)*rad; n.y=a.y+Math.sin(ang)*rad;
+    if(n.dom==='core'&&BB_ORDER.indexOf(n.id)>=0){
+      const i=BB_ORDER.indexOf(n.id);
+      n.home={x:CX+(i-2.5)*172, y:CY-250+Math.abs(i-2.5)*16};  // 横向弧链，关系线清晰
+    }else{
+      const i=perDom[n.dom]=(perDom[n.dom]||0); perDom[n.dom]++;
+      const ang=-Math.PI/2+i*2*Math.PI/7;
+      const rad=165+ (i%2)*28;
+      n.home={x:a.x+Math.cos(ang)*rad, y:a.y+Math.sin(ang)*rad};
+    }
+    n.x=n.home.x; n.y=n.home.y;
+  });
+  // 第二轮：子类围绕父节点分布（一跳展开时成卫星状，不再挤到域锚点）
+  // 支撑类/技术构件与其业务对端：布局在画布下方专用带（分层陈列，与上方业务类分区）
+  let supIdx=0;
+  const SUP_N=48, SUP_COLS=12;
+  NODES.filter(n=>!n.top).forEach(n=>{
+    const par=n.parent&&IX[n.parent];
+    if(SUPPORT_IDS.has(n.id)||SUPPORT_PEERS.has(n.id)){
+      supIdx++;
+      const row=Math.floor((supIdx-1)/SUP_COLS), col=(supIdx-1)%SUP_COLS;
+      n.home={x:CX+(col-(SUP_COLS-1)/2)*88,
+              y:VH-150+row*76};
+    }else{
+      const a=par&&par.home ? par.home : (ANCH[n.dom]||{x:CX,y:CY});
+      const j=perParent[n.parent||n.dom]=(perParent[n.parent||n.dom]||0)+1;
+      const ang=j*2.399963, rad=44+12*Math.sqrt(j);
+      n.home={x:a.x+Math.cos(ang)*rad, y:a.y+Math.sin(ang)*rad};
+    }
+    n.x=n.home.x; n.y=n.home.y;
   });
 }
 
 /* ---------- 力导向松弛（域锚点引力 → 同域成簇） ---------- */
-function relax(iters){
-  const CUT=240*240;
-  for(let it=0; it<iters; it++){
-    for(let i=0;i<NODES.length;i++){
-      const a=NODES[i]; if(a.fix) continue;
-      for(let j=i+1;j<NODES.length;j++){
-        const b=NODES[j]; if(b.fix) continue;
-        let dx=b.x-a.x, dy=b.y-a.y, d2=dx*dx+dy*dy;
-        if(d2>CUT) continue;
-        if(d2<1){ dx=(Math.random()-.5); dy=(Math.random()-.5); d2=1; }
-        const d=Math.sqrt(d2), f=Math.min(1500/d2,2.2)/d;
-        a.vx-=dx*f; a.vy-=dy*f; b.vx+=dx*f; b.vy+=dy*f;
-      }
+/* 单步力学。pull=true（拖拽中）：相连边锁定拖拽瞬间的长度、边力增强、
+   锚点力减弱——邻居被弹簧拽着走，松手后恢复目标长度自然回弹 */
+function step(pull){
+  const CUT=240*240, ACT=NODES.filter(isVisible);
+  // 斥力
+  for(let i=0;i<ACT.length;i++){
+    const a=ACT[i]; if(a.fix) continue;
+    for(let j=i+1;j<ACT.length;j++){
+      const b=ACT[j]; if(b.fix) continue;
+      let dx=b.x-a.x, dy=b.y-a.y, d2=dx*dx+dy*dy;
+      if(d2>CUT) continue;
+      if(d2<1){ dx=(Math.random()-.5); dy=(Math.random()-.5); d2=1; }
+      const d=Math.sqrt(d2), f=Math.min(1500/d2,2.2)/d;
+      a.vx-=dx*f; a.vy-=dy*f; b.vx+=dx*f; b.vy+=dy*f;
     }
-    for(let k=0;k<EDGES.length;k++){
-      const e=EDGES[k], A=IX[e.a], B=IX[e.b]; if(!A||!B) continue;
-      const L = e.k==='inst'?26 : e.k==='core'?120 : e.k==='dash'?140 : ((A.top||B.top)?62:42);
-      let dx=B.x-A.x, dy=B.y-A.y, d=Math.hypot(dx,dy)||1;
-      const f=(d-L)*0.07, ux=dx/d, uy=dy/d;
-      A.vx+=ux*f; A.vy+=uy*f; B.vx-=ux*f; B.vy-=uy*f;
-    }
-    for(let k=0;k<NODES.length;k++){
-      const n=NODES[k], a=ANCH[n.dom]||{x:CX,y:CY};
-      n.vx+=(a.x-n.x)*0.011; n.vy+=(a.y-n.y)*0.011;
-      n.vx+=(CX-n.x)*0.0010;  n.vy+=(CY-n.y)*0.0010;
-      if(n.fix){ n.vx=0; n.vy=0; continue; }
-      n.vx*=0.74; n.vy*=0.74;
-      n.x+=n.vx; n.y+=n.vy;
-    }
+  }
+  // 边力（弹簧）
+  const eK=pull?0.13:0.035;
+  for(let k=0;k<EDGES.length;k++){
+    const e=EDGES[k], A=IX[e.a], B=IX[e.b];
+    if(!A||!B||!isVisible(A)||!isVisible(B)) continue;
+    let L = e.k==='inst'?26 : e.k==='core'?210 : e.k==='dash'?220 : e.k==='prop'?150 : ((A.top&&B.top)?175:(A.top||B.top)?110:52);
+    if(pull&&DRAGGING&&e.grabL&&(e.a===DRAGGING.id||e.b===DRAGGING.id)) L=e.grabL;
+    let dx=B.x-A.x, dy=B.y-A.y, d=Math.hypot(dx,dy)||1;
+    const f=(d-L)*eK, ux=dx/d, uy=dy/d;
+    A.vx+=ux*f; A.vy+=uy*f; B.vx-=ux*f; B.vy-=uy*f;
+  }
+  // 锚点力 + 速度积分
+  const hK=pull?0.006:0.035, damp=pull?0.80:0.74;
+  for(let k=0;k<ACT.length;k++){
+    const n=ACT[k], a=n.home||ANCH[n.dom]||{x:CX,y:CY};
+    n.vx+=(a.x-n.x)*hK; n.vy+=(a.y-n.y)*hK;
+    n.vx+=(CX-n.x)*0.0006;  n.vy+=(CY-n.y)*0.0006;
+    if(n.fix){ n.vx=0; n.vy=0; continue; }
+    n.vx*=damp; n.vy*=damp;
+    n.x+=n.vx; n.y+=n.vy;
+  }
+}
+function relax(iters){ for(let i=0;i<iters;i++) step(false); }
+
+/* 持续模拟：拖拽时保持激活（alpha 不衰减），松手后指数衰减直至静止 */
+function kick(alpha){
+  simAlpha=Math.max(simAlpha, alpha||1);
+  if(!simRAF) simRAF=requestAnimationFrame(simTick);
+}
+function simTick(){
+  const pulling=!!DRAGGING;
+  simAlpha*=pulling?0.997:0.945;
+  if(pulling||simAlpha>0.035){
+    step(pulling);
+    drawEdges();
+    simRAF=requestAnimationFrame(simTick);
+  } else {
+    simRAF=null; simAlpha=0; drawEdges();
   }
 }
 function layoutAsync(done){
@@ -672,17 +789,43 @@ function layoutAsync(done){
 
 /* ---------- 渲染 ---------- */
 function renderAll(){
+  // 重建前停掉残留的模拟循环，避免旧帧操作已销毁的节点
+  if(simRAF){ cancelAnimationFrame(simRAF); simRAF=null; }
+  simAlpha=0; DRAGGING=null; PULLED.clear();
   svg.innerHTML='';
+  // 箭头标记（renderAll 会清空 svg，故每次重建）
+  const defs=document.createElementNS(NS,'defs');
+  [['ga','#7d93a8',.62],['ga-core','#5aa3e8',.95]].forEach(([id,col,op])=>{
+    const m=document.createElementNS(NS,'marker');
+    m.setAttribute('id',id); m.setAttribute('viewBox','0 0 10 10');
+    m.setAttribute('refX','9'); m.setAttribute('refY','5');
+    m.setAttribute('markerWidth','4.5'); m.setAttribute('markerHeight','4.5');
+    m.setAttribute('orient','auto-start-reverse');
+    const p=document.createElementNS(NS,'path');
+    p.setAttribute('d','M0 0 L10 5 L0 10 z');
+    p.setAttribute('fill',col); p.setAttribute('opacity',op);
+    m.appendChild(p); defs.appendChild(m);
+  });
+  svg.appendChild(defs);
   world=document.createElementNS(NS,'g'); svg.appendChild(world);
   const layerE=document.createElementNS(NS,'g');   // 边
   const layerN=document.createElementNS(NS,'g');   // 节点
   const layerL=document.createElementNS(NS,'g');   // 标签（永远在最上）
   world.appendChild(layerE); world.appendChild(layerN); world.appendChild(layerL);
   EDGES.forEach(e=>{
+    const A=IX[e.a],B=IX[e.b];
+    if(!A||!B||!isVisible(A)||!isVisible(B)){ e.el=null; e.el2=null; return; }
     const p=document.createElementNS(NS,'path');
-    p.setAttribute('class','edge '+e.k); e.el=p; layerE.appendChild(p);
+    p.setAttribute('class','edge '+e.k);
+    if(e.k!=='inst') p.setAttribute('marker-end','url(#'+(e.k==='core'?'ga-core':'ga')+')');
+    e.el=p; layerE.appendChild(p);
+    if(e.k!=='inst'&&e.label){
+      const t=document.createElementNS(NS,'text');
+      t.setAttribute('class','elabel'+(e.k==='core'?' core':'')+(e.k==='prop'?' prop':''));
+      t.textContent=e.label; e.el2=t; layerE.appendChild(t);
+    } else e.el2=null;
   });
-  NODES.forEach(n=>{
+  NODES.filter(isVisible).forEach(n=>{
     const g=document.createElementNS(NS,'g');
     g.setAttribute('class','gnode g-'+n.dom+(n.top?' top':'')+(n.inst?' inst':'')
       +(!n.decl?' undecl':'')+(n.role==='technical'?' tech':''));
@@ -692,10 +835,18 @@ function renderAll(){
     layerN.appendChild(g); n.el=g;
     const t=document.createElementNS(NS,'text');
     t.setAttribute('class','nlabel'+(n.top?' top':'')+(n.inst?' inst':''));
-    t.style.fill = (n.dom==='core') ? '#fff' : `var(--d-${n.dom})`;
-    t.textContent = n.cn.length>9 ? n.cn.slice(0,9)+'…' : n.cn;
+    // 文字统一白色（不设内联 fill，交由 .nlabel CSS 控制）
+    t.textContent = n.cn.length>5 ? n.cn.slice(0,4)+'…' : n.cn;   // 圆内文字：短名截断
+    // 字号按字数与圆直径自适应：字宽 ≤ 圆内直径 1.5r，绝不溢出
+    const L=t.textContent.length;
+    const fs=Math.max(6, Math.min(n.top?16:13, (n.r*1.55)/L));
+    t.style.setProperty('--lfs', fs.toFixed(1));
     layerL.appendChild(t); n.t1=t;
-    g.addEventListener('click', ev=>{ ev.stopPropagation(); pickNode(n); });
+    g.addEventListener('click', ev=>{
+      ev.stopPropagation();
+      if(n._dragMoved){ n._dragMoved=false; return; }   // 拖拽过则不触发点选/展开
+      pickNode(n);
+    });
     dragNode(n);
   });
   drawEdges(); updateScaleVar(); applyView();
@@ -706,9 +857,18 @@ function drawEdges(){
     if(n.t1) n.t1.setAttribute('transform',`translate(${n.x.toFixed(1)} ${n.y.toFixed(1)})`);
   });
   EDGES.forEach(e=>{
-    const A=IX[e.a], B=IX[e.b]; if(!A||!B) return;
+    const A=IX[e.a], B=IX[e.b]; if(!A||!B||!e.el) return;
     const mx=(A.x+B.x)/2, my=(A.y+B.y)/2;
-    e.el.setAttribute('d',`M${A.x} ${A.y} Q ${mx} ${my} ${B.x} ${B.y}`);
+    // 箭头落在目标节点边缘（终点回退 r+3），避免被圆盖住
+    let dx=B.x-A.x, dy=B.y-A.y, d=Math.hypot(dx,dy)||1;
+    const ex=B.x-dx/d*(B.r+4), ey=B.y-dy/d*(B.r+4);
+    e.el.setAttribute('d',`M${A.x} ${A.y} Q ${mx} ${my} ${ex} ${ey}`);
+    if(e.el2){
+      let ang=Math.atan2(dy,dx)*180/Math.PI;
+      if(ang>90||ang<-90) ang+=180;          // 文字不倒置
+      e.el2.setAttribute('transform',`translate(${mx.toFixed(1)} ${my.toFixed(1)}) rotate(${ang.toFixed(1)})`);
+      e.el2.setAttribute('dy',(-5/view.k).toFixed(1));
+    }
   });
 }
 function applyView(){
@@ -736,22 +896,29 @@ function textW(s, fsV){
 }
 function updateLabels(){
   const k=view.k, set=SEL ? nbOf(SEL) : null, pad=4/SS;
+  // 边标签分级显示：主干关系常显，subClassOf 只在明显放大时显（避免满屏小字）
+  EDGES.forEach(e=>{
+    if(!e.el2) return;
+    const on = e.k==='core' ? k>=0.75 : e.k==='dash' ? k>=1.0 : e.k==='prop' ? k>=2.0 : k>=3.2;
+    e.el2.style.display = on ? '' : 'none';
+  });
   const cand=[];
   NODES.forEach(n=>{
     if(!n.el) return;
     let show;
     if(n.inst)      show = k>=1.7;
     else if(n.top)  show = true;
-    else            show = k>=1.35;
+    else            show = k>=1.55;
     if(set)         show = set.has(n.id);
     if(SEARCH)      show = (n.cn+n.id).toLowerCase().includes(SEARCH);
     if(!show){ n.t1.style.display='none'; return; }
-    // 标签与圆点的间距也按屏幕恒定（否则放大后标签会飘走）
-    n.t1.setAttribute('y', -(n.r + 6/(k*SS)));
-    const fsV=baseFs(n)/SS;                      // 屏幕字号 → viewBox 单位
+    // 文字居中于圆内：y=0，包围盒按圆内区域计算
+    n.t1.setAttribute('y', 0);
+    n.t1.setAttribute('dy', parseFloat(n.t1.style.getPropertyValue('--lfs'))*0.02);  // 基线微补偿
+    const fsV=(parseFloat(n.t1.style.getPropertyValue('--lfs'))||12);
     const sx=view.tx+n.x*k, sy=view.ty+n.y*k;    // 节点在 viewBox 中的位置
     const w=textW(n.t1.textContent, fsV);
-    const by=sy-(n.r*k + 6/SS);                  // 文字 y（dominant-baseline:middle ⇒ 以中心定位）
+    const by=sy;                                 // dominant-baseline:central ⇒ 圆中心
     const prio=(n.top?2:0)+(SEARCH?1:0)+((SEL&&n.id===SEL)?8:0)+((set&&set.has(n.id))?4:0);
     cand.push({n,prio, x0:sx-w/2-pad, x1:sx+w/2+pad, y0:by-fsV*0.62, y1:by+fsV*0.62});
   });
@@ -771,6 +938,7 @@ function applyFocus(){
     n.el.classList.toggle('faded', !!set && !set.has(n.id));
   });
   EDGES.forEach(e=>{
+    if(!e.el) return;                       // 隐藏边无 DOM 节点（视角/展开/过滤所致）
     const on = !set || e.a===SEL || e.b===SEL;
     e.el.classList.toggle('faded', !on);
     e.el.classList.toggle('hot', !!SEL && (e.a===SEL || e.b===SEL));
@@ -780,7 +948,7 @@ function applyFocus(){
     `聚焦 <b>${IX[SEL].cn}</b> <span style="opacity:.5">·</span> 邻居 ${nbOf(SEL).size-1} 个`+
     ` <span style="opacity:.55">（点 overall 返回总览）</span>`;
   else crumb.innerHTML =
-    `总览 <b>${NODES.length}</b> 个节点 <span style="opacity:.55">· 点任一实体聚焦缩放，滚轮缩放 / 拖拽平移</span>`;
+    `总览 <b>${NODES.filter(isVisible).length}</b> 个可见节点 <span style="opacity:.55">· 点顶层类展开子类 · 点节点聚焦 · 滚轮缩放 / 拖拽平移</span>`;
   updateLabels();
 }
 function zoomBy(f){
@@ -802,7 +970,7 @@ function animateView(t){
 function spotlight(id){
   SEL=id;
   const n=IX[id]; if(!n){ applyFocus(); return; }
-  const k=Math.max(2.0, Math.min(K_MAX, view.k<1.6?2.2:view.k));
+  const k=Math.max(1.55, Math.min(K_MAX, view.k<1.6?1.75:view.k));
   animateView({k, tx:CX-n.x*k, ty:CY-n.y*k});
   applyFocus();
   ripple(n);
@@ -844,7 +1012,17 @@ function applyFit(instant){
   } else animateView(t);
 }
 function overall(instant){ SEL=null; applyFit(instant); applyFocus(); }
+/* Neo4j 按需展开：点顶层类切换其子类可见性，重建布局但保持视角 */
+function rebuildKeepView(){
+  buildAll(); layoutAsync(); applyFocus();
+  renderLegend();
+}
+function toggleExpand(id){
+  if(EXPANDED.has(id)) EXPANDED.delete(id); else EXPANDED.add(id);
+  rebuildKeepView();
+}
 function pickNode(n){
+  if(n.top){ toggleExpand(n.id); focusOn(n.id); return; }
   if(n.inst){
     SEL=n.id; applyFocus();
     const m=/^Indicator_(\d+)$/.exec(n.id);
@@ -891,22 +1069,50 @@ svg.addEventListener('pointerup', endPan);
 svg.addEventListener('pointercancel', endPan);
 
 function dragNode(n){
-  let on=false, ox=0, oy=0;
+  let on=false, ox=0, oy=0, sx=0, sy=0, moved=0;
   n.el.addEventListener('pointerdown', ev=>{
     if(ev.button!==0) return;
-    on=true; n.fix=true;
+    on=true; n.fix=true; DRAGGING=n; moved=0; n._dragMoved=false;
+    sx=ev.clientX; sy=ev.clientY;
     const p=toWorld(ev.clientX, ev.clientY); ox=p.x-n.x; oy=p.y-n.y;
-    n.el.setPointerCapture(ev.pointerId);
+    try{ n.el.setPointerCapture(ev.pointerId); }catch(_){}
     ev.stopPropagation();
+    // 锁定相连弹簧的"拖拽瞬间长度"——邻居因此跟着平移，而不是静止或被推开
+    EDGES.forEach(e=>{
+      if((e.a===n.id||e.b===n.id)&&IX[e.a]&&IX[e.b]){
+        const A=IX[e.a], B=IX[e.b];
+        e.grabL=Math.hypot(B.x-A.x, B.y-A.y);
+      }
+    });
+    PULLED.clear();
+    EDGES.forEach(e=>{
+      if(e.a===n.id) PULLED.add(e.b);
+      if(e.b===n.id) PULLED.add(e.a);
+    });
+    PULLED.forEach(id=>{ if(IX[id]&&IX[id].el) IX[id].el.classList.add('pulled'); });
+    n.el.classList.add('dragging');
+    if(world) world.classList.add('nofx');
+    kick(1);
   });
   n.el.addEventListener('pointermove', ev=>{
     if(!on) return;
+    moved=Math.max(moved, Math.hypot(ev.clientX-sx, ev.clientY-sy));
     const p=toWorld(ev.clientX, ev.clientY);
     n.x=p.x-ox; n.y=p.y-oy; n.vx=n.vy=0;
-    drawEdges(); applyView();
+    drawEdges();                   // 被拖节点立即跟手，不等动画帧
+    kick(1);                       // 邻居由持续模拟联动
   });
-  const end=()=>{ if(!on) return; on=false; n.fix=false;
-    relax(40); drawEdges(); applyView(); };
+  const end=()=>{
+    if(!on) return;
+    n._dragMoved = moved>4;        // 超过4px 视为拖拽，抑制后续 click
+    on=false; n.fix=false; DRAGGING=null;
+    n.el.classList.remove('dragging');
+    PULLED.forEach(id=>{ if(IX[id]&&IX[id].el) IX[id].el.classList.remove('pulled'); });
+    PULLED.clear();
+    EDGES.forEach(e=>{ e.grabL=null; });
+    if(world) world.classList.remove('nofx');
+    kick(.9);                      // 弹簧恢复目标长度，缓慢回弹至稳定
+  };
   n.el.addEventListener('pointerup', end);
   n.el.addEventListener('pointercancel', end);
 }
@@ -917,7 +1123,7 @@ function applySearch(v){
   SEARCH=(v||'').toLowerCase();
   if(!SEARCH){
     NODES.forEach(n=>{ if(n.el) n.el.classList.remove('hit','miss'); });
-    EDGES.forEach(e=>e.el.classList.remove('faded'));
+    EDGES.forEach(e=>{ if(e.el) e.el.classList.remove('faded'); });
     applyFocus(); return;
   }
   NODES.forEach(n=>{
@@ -927,7 +1133,7 @@ function applySearch(v){
     n.el.classList.toggle('miss', !m);
     n.el.classList.remove('faded');
   });
-  EDGES.forEach(e=>e.el.classList.remove('faded'));
+  EDGES.forEach(e=>{ if(e.el) e.el.classList.remove('faded'); });
   updateLabels();
 }
 
@@ -935,17 +1141,28 @@ function applySearch(v){
 function initGraph(done){
   BUILT=true;
   buildAll();
-  layoutAsync(()=>{ overall(true); done&&done(); });
+  layoutAsync(()=>{ overall(true); renderLegend(); done&&done(); });
 }
 function rebuildGraph(){
   const keep=SEL;
   buildAll();
-  layoutAsync(()=>{ if(keep&&IX[keep]) spotlight(keep); else overall(true); });
+  layoutAsync(()=>{ if(keep&&IX[keep]) spotlight(keep); else overall(true);
+    renderLegend(); });
 }
-/* 图例 */
-document.getElementById('legend').innerHTML =
-  `<div class="lg-t">节点域</div>` + DOM_ORDER.filter(d=>d!=='neutral').map(d=>
-  `<span class="lg"><i class="sw" style="background:var(--d-${d})"></i>${DCN[d]}</span>`).join('');
+/* 可交互图例（Neo4j Legend panel）：点域过滤，再点取消 */
+function renderLegend(){
+  const nByDom={};
+  NODES.filter(isVisible).forEach(n=>{ nByDom[n.dom]=(nByDom[n.dom]||0)+1; });
+  document.getElementById('legend').innerHTML =
+    `<div class="lg-t">节点域 · 点选过滤</div>` + DOM_ORDER.filter(d=>d!=='neutral').map(d=>
+    `<span class="lg ${FILTER_DOM&&FILTER_DOM!==d?'off':''}" data-dom="${d}" title="点击过滤 ${DCN[d]}">`
+    +`<i class="sw" style="background:var(--d-${d})"></i><b>${DCN[d]}</b> ${nByDom[d]||0}</span>`).join('');
+  document.querySelectorAll('#legend .lg').forEach(el=>{
+    el.onclick=()=>{ const d=el.dataset.dom; FILTER_DOM=(FILTER_DOM===d?null:d);
+      rebuildKeepView(); overall(true); };
+  });
+}
+/* 视角条已移除：四视角合并为单一视图 */
 
 /* ===== 指标双轴矩阵 ===== */
 function renderMatrix(){
@@ -1029,6 +1246,7 @@ function renderBackbone(){
 
 /* ===== 检索 ===== */
 const q=document.getElementById('q');
+let searchNeedsRebuild=false;   // 搜索命中隐藏节点时，延迟一次性重建
 q.oninput=()=>{
   const v=q.value.trim().toLowerCase();
   let hit=0;
@@ -1038,13 +1256,34 @@ q.oninput=()=>{
     const k=el.nextElementSibling; if(k&&k.classList) k.style.display = m?'':'none';
     if(m&&v) hit++;
   });
+  // ABox 个体命中：个体不在 itemEl（左树仅列前6个），单独检索全量 159 个
+  const indHits = v ? D.individuals.filter(i=>(i.cn+i.id).toLowerCase().includes(v)) : [];
+  // 命中隐藏类/个体 → 自动切到可见状态（守边界：仍按主干组织，不铺全量）
+  searchNeedsRebuild=false;
+  if(v){
+    const hiddenCls=Object.keys(itemEl).filter(id=>{
+      const m=(CL[id].cn+CL[id].id+(CL[id].en||'')).toLowerCase().includes(v);
+      return m && !(IX[id]&&IX[id].el);   // 节点在 IX 中但被可见性过滤（el=null）也算隐藏
+    });
+    if(indHits.length){
+      if(!SHOW_ABOX){ SHOW_ABOX=true; document.getElementById('btnABox').textContent='隐藏 ABox 个体'; }
+      FILTER_DOM=null;
+      indHits.forEach(i=>{ const t=ancestorTopOf(i.cls); if(CL[t]&&CL[t].role==='top') EXPANDED.add(t); });
+      searchNeedsRebuild=true;
+    }
+    if(hiddenCls.length){
+      hiddenCls.forEach(id=>{ const t=ancestorTopOf(id); if(CL[t]&&CL[t].role==='top') EXPANDED.add(t); });
+      searchNeedsRebuild=true;
+    }
+  }
   document.getElementById('treeCount').textContent = v
-    ? `命中 ${hit} 项` : `${TOP.length} 顶层 · ${SUPPORT.length} 支撑 · ${UNDECL.length} 待补`;
+    ? `命中 ${hit} 类 · ${indHits.length} 个体` : `${TOP.length} 顶层 · ${SUPPORT.length} 支撑 · ${UNDECL.length} 待补`;
   // 指标命中提示
   if(v){
     const indHit=D.indicators.filter(i=>(i.name+i.code).toLowerCase().includes(v));
-    if(indHit.length) document.getElementById('fStat').innerHTML=
-      `检索「${q.value}」：类 ${hit} 个 · 指标 ${indHit.length} 项（点右侧详情可直达）`;
+    if(indHit.length || indHits.length) document.getElementById('fStat').innerHTML=
+      `检索「${q.value}」：类 ${hit} 个 · 个体 ${indHits.length} 个 · 指标 ${indHit.length} 项（点右侧详情可直达）`;
+    if(searchNeedsRebuild){ rebuildGraph(); searchNeedsRebuild=false; }
   } else updateFooter();
   applySearch(v);
 };
@@ -1066,8 +1305,14 @@ function updateFooter(){
 
 /* ===== 按钮 ===== */
 document.getElementById('btnOverall').onclick=()=>overall();
+function expandIndividualOwners(){
+  // 个体挂在支撑类/子类下，按其祖先顶层类归组；打开 ABox 时自动展开这些顶层类，
+  // 否则 isVisible 会因 EXPANDED 不含祖先而把个体全过滤掉（按钮形同虚设）
+  D.individuals.forEach(i=>{ const t=ancestorTopOf(i.cls); if(CL[t]&&CL[t].role==='top') EXPANDED.add(t); });
+}
 document.getElementById('btnABox').onclick=ev=>{
   SHOW_ABOX=!SHOW_ABOX;
+  if(SHOW_ABOX){ FILTER_DOM=null; expandIndividualOwners(); }
   ev.currentTarget.textContent = SHOW_ABOX ? '隐藏 ABox 个体' : '显示 ABox 个体';
   rebuildGraph();
 };
@@ -1081,6 +1326,7 @@ const initView=qs.get('view');
 if(initView){ const b=document.querySelector(`.vbtn[data-v="${initView}"]`); if(b) b.click(); }
 if(qs.get('abox')==='1'){
   SHOW_ABOX=true;
+  expandIndividualOwners();
   document.getElementById('btnABox').textContent='隐藏 ABox 个体';
 }
 initGraph(()=>{
