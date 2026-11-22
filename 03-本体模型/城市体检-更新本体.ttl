@@ -603,6 +603,11 @@ ur:aggregatedFrom a owl:ObjectProperty ;
     rdfs:domain ur:AssessmentResult ;
     rdfs:range ur:IndicatorJudgement .
 
+ur:aggregationRule a owl:DatatypeProperty ;
+    rdfs:label "聚合规则"@zh ;
+    rdfs:domain ur:Indicator ;
+    rdfs:range xsd:string .
+
 ur:agingAdaptationNeed a owl:DatatypeProperty ;
     rdfs:label "适老化改造需求"@zh ;
     rdfs:domain ur:Building ;

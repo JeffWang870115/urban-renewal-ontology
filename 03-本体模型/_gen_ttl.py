@@ -234,6 +234,7 @@ DATA = {
     "greenBuildingLevel": ("绿色建筑属性", ["Building"], "string"), "landUseType": ("用地类型", ["Land"], "string"),
     "buildingNature": ("建筑性质", ["Building"], "string"), "floorCount": ("层数", ["Building"], "integer"),
     "orientation": ("指标导向", ["Indicator"], "string"),   # 导出新增【待核】：录入模板 §一 → Indicator 导向属性
+    "aggregationRule": ("聚合规则", ["Indicator"], "string"),  # W-B03 2026-11-22：比率型不可跨层加总的显式表达
     # ---- 2026-11-08 实例数据接入属性（属性与关系.md §2.2，保留 29 项） ----
     "areaKm2": ("面积（平方千米）", ["SpatialUnit"], "decimal"),
     "residentPopulation": ("常住人口", ["SpatialUnit"], "integer"),
@@ -637,6 +638,11 @@ def prop(shape, path, **kw):
 ind = mk_shape(target="Indicator")
 lst = mlist([UR[o] for o in ALLOWED_CF])
 prop(ind, "computedFrom", minCount=Literal(1), **{"in": lst, "message": Literal("指标须有 ≥1 个数据对象，且取值须在角色类值域内", lang="zh")})
+# W-B03 2026-11-22：聚合规则——若标，须在三个受控值中择一且唯一；
+# 不设 minCount（兼容现有55指标未标注）；缺省语义"仅本尺度有效"由文档约定，不写死进数据。
+lst_ar = mlist([Literal(v, lang="zh") for v in ("仅本尺度有效", "可同尺度求和", "可跨尺度汇总")])
+prop(ind, "aggregationRule", maxCount=Literal(1),
+     **{"in": lst_ar, "message": Literal("聚合规则若标，须在 仅本尺度有效/可同尺度求和/可跨尺度汇总 中择一（W-B03；比率型不可跨层加总）", lang="zh")})
 prop(ind, "inCategory", maxCount=Literal(1), message=Literal("指标一级分类 0..1（54、55 无分类）", lang="zh"))
 prop(ind, "basedOn", minCount=Literal(1), message=Literal("指标须有依据（basedOn）", lang="zh"))
 

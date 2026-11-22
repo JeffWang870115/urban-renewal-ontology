@@ -11,7 +11,7 @@
    "topClasses": 17,
    "supportClasses": 40,
    "objectProps": 47,
-   "datatypeProps": 102,
+   "datatypeProps": 103,
    "individuals": 159,
    "indicators": 55
   },
@@ -939,6 +939,7 @@
    "role": "top",
    "top": true,
    "props": [
+    "aggregationRule",
     "computedFrom",
     "evaluatedBy",
     "formula",
@@ -2645,6 +2646,17 @@
    ],
    "range": [
     "IndicatorJudgement"
+   ]
+  },
+  {
+   "id": "aggregationRule",
+   "cn": "聚合规则",
+   "type": "datatype",
+   "domain": [
+    "Indicator"
+   ],
+   "range": [
+    "http://www.w3.org/2001/XMLSchema#string"
    ]
   },
   {

@@ -25,6 +25,10 @@
             sh:message "指标须有 ≥1 个数据对象，且取值须在角色类值域内"@zh ;
             sh:minCount 1 ;
             sh:path ur:computedFrom ],
+        [ sh:in ( "仅本尺度有效"@zh "可同尺度求和"@zh "可跨尺度汇总"@zh ) ;
+            sh:maxCount 1 ;
+            sh:message "聚合规则若标，须在 仅本尺度有效/可同尺度求和/可跨尺度汇总 中择一（W-B03；比率型不可跨层加总）"@zh ;
+            sh:path ur:aggregationRule ],
         [ sh:maxCount 1 ;
             sh:message "指标一级分类 0..1（54、55 无分类）"@zh ;
             sh:path ur:inCategory ],
@@ -35,6 +39,21 @@
             sh:message "computedFrom 指向 ≥2 个数据对象的指标必须带 formula"@zh ;
             sh:select "SELECT $this WHERE { $this <https://ontology.cset-digital.cn/urban-renewal#computedFrom> ?o1, ?o2 . FILTER(?o1 != ?o2) FILTER NOT EXISTS { $this <https://ontology.cset-digital.cn/urban-renewal#formula> ?f } }" ] ;
     sh:targetClass ur:Indicator .
+
+[] a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "极值/周期评估结果须指明针对哪个指标（ofIndicator 1..1）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:ofIndicator ],
+        [ sh:class ur:SpatialUnit ;
+            sh:maxCount 1 ;
+            sh:message "极值/周期评估结果须落到具体空间单元（assesses 1..1）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:assesses ],
+        [ sh:message "极值/周期评估结果须有指标值（数值型，极值取自观测）"@zh ;
+            sh:minCount 1 ;
+            sh:path ur:indicatorValue ] ;
+    sh:targetClass ur:ExtremeValueAssessmentResult .
 
 [] a sh:NodeShape ;
     sh:property [ sh:maxCount 1 ;
@@ -151,19 +170,4 @@
             sh:message "评估结果值须等于其单元范围内「判断≠达标」的条数"@zh ;
             sh:select "SELECT $this ?v ?expected WHERE { $this <https://ontology.cset-digital.cn/urban-renewal#ofIndicator> ?ind ; <https://ontology.cset-digital.cn/urban-renewal#assesses> ?ud ; <https://ontology.cset-digital.cn/urban-renewal#indicatorValue> ?v . ?anyj a <https://ontology.cset-digital.cn/urban-renewal#IndicatorJudgement> ; <https://ontology.cset-digital.cn/urban-renewal#ofIndicator> ?ind . { SELECT $this (COUNT(DISTINCT ?ij) AS ?expected) WHERE { $this <https://ontology.cset-digital.cn/urban-renewal#ofIndicator> ?ind2 ; <https://ontology.cset-digital.cn/urban-renewal#assesses> ?ud2 . OPTIONAL { ?ij <https://ontology.cset-digital.cn/urban-renewal#ofIndicator> ?ind2 ; <https://ontology.cset-digital.cn/urban-renewal#judgementValue> ?jv ; <https://ontology.cset-digital.cn/urban-renewal#assesses> ?cm . FILTER(STR(?jv) != \"达标\") ?cm <https://ontology.cset-digital.cn/urban-renewal#locatedIn>+ ?ud2 } } GROUP BY $this } FILTER(STR(?v) != STR(?expected)) }" ] ;
     sh:targetClass ur:AssessmentResult .
-
-[] a sh:NodeShape ;
-    sh:property [ sh:message "极值/周期评估结果须有指标值（数值型，极值取自观测）"@zh ;
-            sh:minCount 1 ;
-            sh:path ur:indicatorValue ],
-        [ sh:maxCount 1 ;
-            sh:message "极值/周期评估结果须指明针对哪个指标（ofIndicator 1..1）"@zh ;
-            sh:minCount 1 ;
-            sh:path ur:ofIndicator ],
-        [ sh:class ur:SpatialUnit ;
-            sh:maxCount 1 ;
-            sh:message "极值/周期评估结果须落到具体空间单元（assesses 1..1）"@zh ;
-            sh:minCount 1 ;
-            sh:path ur:assesses ] ;
-    sh:targetClass ur:ExtremeValueAssessmentResult .
 
